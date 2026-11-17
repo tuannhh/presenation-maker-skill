@@ -1,0 +1,47 @@
+/* Editorial — giấy kem, chữ có chân Playfair/Lora, đường kẻ mảnh, đỏ đậm (kiểu tạp chí).
+   Hợp: báo cáo chuyên sâu, nghiên cứu, kể chuyện, văn hoá, lịch sử, thư lãnh đạo, tổng kết năm. */
+:root{
+  --bg:#F4EFE4; --ink:#1A1714; --text:#3A332C; --muted:#7A6F63; --line:rgba(26,23,20,.16);
+  --blue:#1F3A5F; --red:#B3261E; --amber:#B86E00; --green:#2F6B4F; --violet:#6B4C8A; --cyan:#3D5A6C;
+  --sky:rgba(31,58,95,.09); --rose:rgba(179,38,30,.09); --sun:rgba(184,110,0,.11); --mint:rgba(47,107,79,.10); --lilac:rgba(107,76,138,.10);
+  --surface:#FBF8F1; --surface2:#ECE5D6; --cardline:rgba(26,23,20,.14); --edge:transparent;
+  --cardbg:#FBF8F1; --shadow:0 1px 0 rgba(26,23,20,.06); --shadow-lg:0 30px 60px -36px rgba(40,25,10,.45);
+  --onc:#FBF8F1; --accent2:#C9A27E; --hi:#C9A27E; --g1:#B3261E; --g2:#B3261E; --srcc:#8C8073;
+  --radius:4px; --rsm:3px; --blur:0px; --tt:none; --grain:.55;
+}
+#stage{background:radial-gradient(120% 100% at 30% 10%,#FAF6EC 0%,#F2ECDF 60%,#E8E0CF 100%)}
+.t{font-weight:700;font-size:70px;letter-spacing:-.015em;line-height:1.05}
+.t .hl,.hl{font-style:italic}
+.t-bar{width:100%;max-width:1700px;height:7px;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);background:none;border-radius:0;margin-bottom:30px}
+.s{font-style:italic;font-size:29px;color:var(--muted)}
+.lbl,.eyebrow,.chip,.kpi-l,.vtl-date{font-family:var(--in);font-style:italic;letter-spacing:.06em;text-transform:none;font-weight:600}
+.card{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border:0;border-top:3px solid var(--ink);border-radius:0;background:transparent;padding:26px 8px 8px}
+.ib{border-radius:50%;background:transparent;border:2px solid var(--c)}
+.ib.solid{background:var(--c);border:0;box-shadow:none}
+.chip{border-radius:0;border:1px solid currentColor;background:transparent}
+.banner{border-radius:0;background:var(--ink);color:var(--surface);box-shadow:none;font-family:var(--gs);font-style:italic}
+.banner::after{display:none}
+.banner.soft{background:transparent;border:0;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink)}
+.big,.kpi-v,.hero-num,.ag-n,.tl-date{font-style:italic}
+.cover .ttl{font-weight:800;text-transform:none;letter-spacing:-.02em;font-size:118px}
+.cover .ttl .g{background:none;-webkit-text-fill-color:var(--red);color:var(--red);font-style:italic;animation:none}
+.cover .ck{font-family:var(--in);font-style:italic;letter-spacing:.16em;color:var(--muted)}
+.rings{display:none}
+.orb{border-radius:50%;box-shadow:none;border:1.5px solid var(--line);background:var(--surface)}
+.sect .stitle{text-transform:none;font-style:italic;font-weight:800}
+.sect .wm{font-style:italic;-webkit-text-stroke:2px color-mix(in srgb,var(--c) 22%,transparent)}
+.sect .num-badge{border-radius:50%;box-shadow:none}
+.purpose .pp{box-shadow:none;border:0;border-top:2px solid var(--ink);border-radius:0;background:transparent}
+.kpi,.person,.plan,.ag-item,.pstep,.ba-pane{box-shadow:none;border-radius:0;border:0;border-top:3px solid var(--ink);background:transparent}
+.kpi::before{display:none}
+.plan.feat{background:var(--ink);border-color:var(--ink)}
+.pstep:not(:last-child)::after{border-color:var(--ink)}
+.mx-c{border-radius:0}
+.quote .qt-text{font-style:italic;font-weight:500}
+.statement .st-big{font-style:italic;letter-spacing:-.02em}
+.im .imt{border-radius:2px!important;box-shadow:0 0 0 1px var(--line),0 24px 40px -26px rgba(40,25,10,.5)}
+.ph{border-radius:2px}
+.dropcap::first-letter{float:left;font:800 150px/.82 var(--gs);color:var(--red);margin:10px 18px 0 0}
+#foot .pt b{height:2px}
+
+.slide .plan.feat .plan-badge{background:var(--c);color:#fff!important}

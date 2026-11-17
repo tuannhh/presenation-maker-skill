@@ -1,0 +1,17 @@
+{
+  "_doc": "Kho font dùng chung. Mỗi mục: family (tên CSS), files: [[tệp, weight]] (weight '300 800' cho font biến thiên), axes (giới hạn trục khi cắt). Tất cả đã kiểm tra đủ dấu tiếng Việt. Google Sans là font bản quyền Google; các font còn lại là OFL.",
+  "google-sans": {"family": "Google Sans", "files": [["GoogleSans-Regular.otf", 400], ["GoogleSans-Medium.otf", 500], ["GoogleSans-Bold.ttf", 700], ["GoogleSans-Black.ttf", 900]]},
+  "inter": {"family": "Inter", "files": [["Inter-VariableFont_opsz,wght.ttf", "300 800"]], "axes": {"wght": [300, 800], "opsz": [14, 32]}},
+  "be-vietnam-pro": {"family": "Be Vietnam Pro", "files": [["BeVietnamPro-Regular.ttf", 400], ["BeVietnamPro-Medium.ttf", 500], ["BeVietnamPro-Bold.ttf", 700], ["BeVietnamPro-ExtraBold.ttf", 800], ["BeVietnamPro-Black.ttf", 900]]},
+  "montserrat": {"family": "Montserrat", "files": [["Montserrat-wght.ttf", "300 900"]], "axes": {"wght": [300, 900]}},
+  "playfair": {"family": "Playfair Display", "files": [["PlayfairDisplay-wght.ttf", "400 900"]], "axes": {"wght": [400, 900]}, "italic": [["PlayfairDisplay-Italic-wght.ttf", "400 900"]]},
+  "lora": {"family": "Lora", "files": [["Lora-wght.ttf", "400 700"]], "axes": {"wght": [400, 700]}},
+  "cormorant": {"family": "Cormorant Garamond", "files": [["CormorantGaramond-wght.ttf", "300 700"]], "axes": {"wght": [300, 700]}},
+  "nunito": {"family": "Nunito", "files": [["Nunito-wght.ttf", "300 900"]], "axes": {"wght": [300, 900]}},
+  "baloo": {"family": "Baloo 2", "files": [["Baloo2-wght.ttf", "400 800"]], "axes": {"wght": [400, 800]}},
+  "space-grotesk": {"family": "Space Grotesk", "files": [["SpaceGrotesk-wght.ttf", "300 700"]], "axes": {"wght": [300, 700]}},
+  "oswald": {"family": "Oswald", "files": [["Oswald-wght.ttf", "300 700"]], "axes": {"wght": [300, 700]}},
+  "lexend": {"family": "Lexend", "files": [["Lexend-wght.ttf", "300 900"]], "axes": {"wght": [300, 900]}},
+  "jetbrains-mono": {"family": "JetBrains Mono", "files": [["JetBrainsMono-wght.ttf", "300 800"]], "axes": {"wght": [300, 800]}},
+  "dancing-script": {"family": "Dancing Script", "files": [["DancingScript-wght.ttf", "400 700"]], "axes": {"wght": [400, 700]}}
+}

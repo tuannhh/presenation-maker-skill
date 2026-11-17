@@ -12,6 +12,14 @@ const stage = document.getElementById('stage');
 const slides = [...document.querySelectorAll('.slide')];
 const TOTAL_NUMBERED = {{TOTAL_NUMBERED}};
 const PARTS = {{PARTS_JSON}};
+/* Nhịp chuyển động theo theme (build chèn từ themes.json + deck.json "motion") */
+const MOTION = Object.assign({speed:1, blur:true, enter:'slide', big:'circle'}, {{MOTION_JSON}});
+const SP = +MOTION.speed || 1;
+/* data-stagger: cho các con xuất hiện lần lượt.  <div data-stagger="120" data-sa="up" data-d0="400">…</div> */
+slides.forEach(s => s.querySelectorAll('[data-stagger]').forEach(box => {
+  const step = +box.dataset.stagger || 110, d0 = +(box.dataset.d0 || 300), kind = box.dataset.sa || 'up';
+  [...box.children].forEach((c, i) => { if (!c.dataset.a) c.dataset.a = kind; if (c.dataset.d === undefined) c.dataset.d = d0 + i * step; });
+}));
 
 /* ---------- Đánh số các khối chữ sửa được + áp dụng nội dung đã sửa ---------- */
 const EDITABLE = [];
@@ -53,9 +61,17 @@ const KF = {
   bar:  [{opacity:0, transform:'scaleY(0)'}, {opacity:1, transform:'scaleY(1)'}],
   grow: [{opacity:1, transform:'scaleX(0)'}, {opacity:1, transform:'scaleX(1)'}],
   mask: [{opacity:1, clipPath:'inset(0 100% 0 0 round 26px)'}, {opacity:1, clipPath:'inset(0 0% 0 0 round 26px)'}],
+  rise: [{opacity:0, transform:'translateY(90px) scale(.92)'}, {opacity:1, transform:'none'}],
+  slam: [{opacity:0, transform:'scale(1.7) rotate(-4deg)'}, {opacity:1, transform:'scale(1) rotate(0)'}],
+  tilt: [{opacity:0, transform:'translateY(40px) rotate(-6deg)'}, {opacity:1, transform:'none'}],
+  blur: [{opacity:0, filter:'blur(24px)'}, {opacity:1, filter:'blur(0px)'}],
+  wipe: [{opacity:1, clipPath:'inset(0 0 100% 0)'}, {opacity:1, clipPath:'inset(0 0 0% 0)'}],
+  spin: [{opacity:0, transform:'rotate(-180deg) scale(.3)'}, {opacity:1, transform:'none'}],
 };
-const EZ = {pop:BOUNCE, bar:SPRING, grow:SMOOTH, mask:SMOOTH, fade:'ease-out', flip:BOUNCE};
-const DUR = {up:1100, down:900, left:1100, right:1100, fade:900, pop:1000, zoom:1500, flip:1000, bar:1300, grow:1100, mask:1000};
+/* Theme phẳng (blur:false): bỏ hiệu ứng mờ cho mọi kiểu trừ 'blur' */
+if (!MOTION.blur) Object.entries(KF).forEach(([k, fr]) => { if (k !== 'blur') fr.forEach(f => { if (f.filter) delete f.filter; }); });
+const EZ = {pop:BOUNCE, bar:SPRING, grow:SMOOTH, mask:SMOOTH, fade:'ease-out', flip:BOUNCE, slam:BOUNCE, spin:BOUNCE, wipe:SMOOTH, blur:'ease-out', ring:SMOOTH};
+const DUR = {up:1100, down:900, left:1100, right:1100, fade:900, pop:1000, zoom:1500, flip:1000, bar:1300, grow:1100, mask:1000, rise:1100, slam:800, tilt:1000, blur:1200, wipe:1000, spin:1100, ring:1800};
 
 /* ---------- Fit 1920x1080 ---------- */
 function fit(){ const s = Math.min(innerWidth/1920, innerHeight/1080); stage.style.transform = `translate(-50%,-50%) scale(${s})`; }
@@ -73,8 +89,13 @@ function runIn(slide){
   let auto = 0;
   els.forEach(el => {
     const kind = el.dataset.a;
-    const d = el.dataset.d !== undefined ? +el.dataset.d : 120 + (auto++) * 90;
-    const t = +(el.dataset.t || DUR[kind] || 1000);
+    const d = (el.dataset.d !== undefined ? +el.dataset.d : 120 + (auto++) * 90) * SP;
+    const t = +(el.dataset.t || DUR[kind] || 1000) * SP;
+    if (kind === 'ring') {   /* vòng tiến độ: <circle class="val" pathLength="100" data-a="ring"> trong .ring style="--v:72" */
+      const v = parseFloat(getComputedStyle(el.closest('.ring') || el).getPropertyValue('--v')) || 0;
+      el._a = el.animate([{opacity:1, strokeDasharray:`0 100`}, {opacity:1, strokeDasharray:`${v} 100`}], {duration:t, delay:d, easing:SMOOTH, fill:'both'});
+      return;
+    }
     if (kind === 'draw') {
       if (el.getAttribute('stroke-dasharray')) { el._a = el.animate([{opacity:0, clipPath:'inset(0 100% 0 0)'},{opacity:1, clipPath:'inset(0 0 0 0)'}], {duration:t, delay:d, easing:SMOOTH, fill:'both'}); return; }
       const len = el.getTotalLength ? el.getTotalLength() : 1000;
@@ -87,7 +108,7 @@ function runIn(slide){
   // counters
   slide.querySelectorAll('[data-count]').forEach(el => {
     const host = el.closest('[data-a]'); const d = host ? (+host.dataset.d || 300) : 300;
-    countUp(el, +el.dataset.count, d + 150, 1800);
+    countUp(el, +el.dataset.count, (d + 150) * SP, 1800 * SP, +(el.dataset.dec || 0));
   });
   // typewriter
   slide.querySelectorAll('[data-type]').forEach((el, i) => {
@@ -108,9 +129,9 @@ function runIn(slide){
   });
   // traffic lights
   slide.querySelectorAll('[data-light]').forEach(el => { el._t = setTimeout(()=>el.classList.add('on'), +el.dataset.light); });
-  // live money ticker (14 tỷ/ngày)
+  // bộ đếm chạy theo thời gian thực: data-live="<số lượng mỗi ngày>" (mặc định 14e9 = 14 tỷ/ngày)
   slide.querySelectorAll('[data-live]').forEach(el => {
-    const perMs = 14e9 / 86400000; const t0 = performance.now();
+    const perMs = (parseFloat(el.dataset.live) || 14e9) / 86400000; const t0 = performance.now();
     // Giữ cố định độ rộng con số (đủ cho 99.999.999 ≈ 10 phút trên trang) để chữ xám bên cạnh đứng yên
     el.style.display = 'inline-block'; el.style.fontVariantNumeric = 'tabular-nums'; el.style.minWidth = '';
     el.textContent = '88.888.888'; el.style.minWidth = el.offsetWidth + 'px';
@@ -132,8 +153,8 @@ function layoutStairs(slide){
   path.setAttribute('d', d);
   head.setAttribute('transform', `translate(${end[0]} ${end[1]})`);
 }
-function countUp(el, to, delay, dur){
-  const fmt = n => Math.round(n).toLocaleString('vi-VN');
+function countUp(el, to, delay, dur, dec = 0){
+  const fmt = n => n.toLocaleString('vi-VN', {minimumFractionDigits: dec, maximumFractionDigits: dec});
   el.textContent = fmt(0);
   el._t = setTimeout(() => {
     const t0 = performance.now();
@@ -177,14 +198,28 @@ function go(n, dir){
   const a = slides[cur], b = slides[n];
   if (a) {
     a.style.zIndex = 1;
-    const out = a.animate([{opacity:1, transform:'none', filter:'blur(0px)'}, {opacity:0, transform:`translateX(${-dir*70}px) scale(.97)`, filter:'blur(8px)'}], {duration:480, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
+    const outKF = MOTION.enter === 'cut' ? [{opacity:1}, {opacity:0}] : MOTION.blur ? [{opacity:1, transform:'none', filter:'blur(0px)'}, {opacity:0, transform:`translateX(${-dir*70}px) scale(.97)`, filter:'blur(8px)'}] : [{opacity:1, transform:'none'}, {opacity:0, transform: MOTION.enter === 'slide' ? `translateX(${-dir*70}px)` : 'scale(.98)'}];
+    const out = a.animate(outKF, {duration:(MOTION.enter === 'cut' ? 1 : 480) * SP, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
     out.onfinish = () => { if (slides[cur] !== a) { a.classList.remove('on'); reset(a); } out.cancel(); a.style.zIndex = ''; };
   }
   b.classList.add('on'); b.style.zIndex = 2;
-  const big = b.classList.contains('sect') || b.classList.contains('cover');
+  const big = b.classList.contains('sect') || b.classList.contains('cover') || b.classList.contains('statement') || b.classList.contains('thanks');
   if (a) {
-    if (big) b.animate([{clipPath:'circle(0% at 50% 55%)'}, {clipPath:'circle(75% at 50% 55%)'}], {duration:1200, easing:'cubic-bezier(.75,0,.2,1)'});
-    else b.animate([{opacity:0, transform:`translateX(${dir*90}px)`}, {opacity:1, transform:'none'}], {duration:900, easing:SPRING});
+    const BIG = {
+      circle: [[{clipPath:'circle(0% at 50% 55%)'}, {clipPath:'circle(75% at 50% 55%)'}], 1200, 'cubic-bezier(.75,0,.2,1)'],
+      wipe:   [[{clipPath: dir > 0 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)'}, {clipPath:'inset(0 0 0 0)'}], 900, 'cubic-bezier(.75,0,.2,1)'],
+      fade:   [[{opacity:0}, {opacity:1}], 1100, 'ease-in-out'],
+      zoom:   [[{opacity:0, transform:'scale(1.12)'}, {opacity:1, transform:'none'}], 1100, SPRING],
+    };
+    const ENTER = {
+      slide: [[{opacity:0, transform:`translateX(${dir*90}px)`}, {opacity:1, transform:'none'}], 900, SPRING],
+      fade:  [[{opacity:0}, {opacity:1}], 700, 'ease-out'],
+      zoom:  [[{opacity:0, transform:'scale(.94)'}, {opacity:1, transform:'none'}], 800, SPRING],
+      rise:  [[{opacity:0, transform:'translateY(60px)'}, {opacity:1, transform:'none'}], 850, SPRING],
+      cut:   [[{opacity:1}, {opacity:1}], 1, 'linear'],
+    };
+    const [kf, du, ez] = big ? (BIG[MOTION.big] || BIG.circle) : (ENTER[MOTION.enter] || ENTER.slide);
+    b.animate(kf, {duration: du * SP, easing: ez});
   }
   reset(b); runIn(b);
   cur = n; chrome(n);
@@ -311,7 +346,7 @@ addEventListener('dragover', e => e.preventDefault()); addEventListener('drop', 
 
 /* ---------- Overview (G) ---------- */
 const ov = document.getElementById('ov');
-const PC = ['#4D8BFF','#4D8BFF','#FF4D5E','#18D48F','#8F7DFF'];
+const PC = PARTS.map(p => p ? p.c : '#4D8BFF'); PC[0] = PC[1] || '#4D8BFF';
 ov.innerHTML = '<h2>Mục lục trình chiếu</h2><div class="gridv">' + slides.map((s,i) => `<div class="it" data-i="${i}" style="--c:${PC[+s.dataset.p||1]}"><span class="no">${i+1 <= TOTAL_NUMBERED ? i+1 : 'Kết'}</span><div class="k">${s.dataset.k||''}</div><div class="tt">${s.dataset.title||''}</div></div>`).join('') + '</div>';
 ov.addEventListener('click', e => { const it = e.target.closest('.it'); if (it) { ov.classList.remove('on'); go(+it.dataset.i); } else ov.classList.remove('on'); });
 function toggleOv(){ ov.classList.toggle('on'); ov.querySelectorAll('.it').forEach((el,i)=>el.classList.toggle('cur', i===cur)); }

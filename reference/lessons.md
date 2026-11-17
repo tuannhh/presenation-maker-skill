@@ -2,7 +2,20 @@
 
 Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm đúng ngay từ đầu.
 
-## Thẩm mỹ, thương hiệu
+- Mục **Chữ**, **Video và bút chiếu**, **Bộ đếm**, **Chế độ sửa**, **Xuất PDF** và **Quy tắc chung** áp dụng cho MỌI theme.
+- Mục **Thẩm mỹ MISA** chỉ là quy tắc của theme `misa-glass` (bài nội bộ MISA). Theme khác có font, màu, nền riêng (`themes.md`); đừng ép các quy tắc đó lên theme khác, trừ khi người dùng muốn.
+
+## Quy tắc chung cho mọi theme (rút ra khi làm 9 theme)
+
+- **Hỏi phong cách trước, đừng mặc định.** Chưa rõ thì cho xem `preview_themes.py` và để người dùng chọn.
+- **Theme tối**: logo màu phải có nền sáng (`logo_plate`), không thì chìm. Ảnh minh hoạ nền trắng trên theme tối vẫn đặt trong thẻ trắng bo góc, trông như "ảnh in".
+- **Chữ trên nền màu đặc** (gói nổi bật, banner, nút số) dễ trùng màu với nền ở theme lạ. Luôn xem contact sheet của trang bảng giá, banner, badge.
+- **Font phải đủ dấu tiếng Việt.** Mọi font trong `fonts/` đã kiểm tra; font mới thì xem dòng "thiếu N ký tự" khi build.
+- **Hiệu ứng vừa phải theo khán giả**: lãnh đạo/báo cáo → `calm`; sự kiện trẻ, pitch → `lively`; in/chiếu máy yếu → `none`.
+- **Không đặt CSS `opacity` lên phần tử có `data-a`** (fade của WAAPI ghi đè, phần tử thành đậm đặc).
+- **Kiểm tra bằng contact sheet sau mỗi lần build**, không chỉ xem vài trang đầu.
+
+## Thẩm mỹ MISA (theme misa-glass)
 
 - **Font:**
   - Tiêu đề dùng Google Sans, VIẾT HOA, đậm (700–900).
@@ -30,7 +43,7 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
 ## Ảnh
 
 - **Ảnh AI:** đặt nguyên ảnh nền trắng trên thẻ trắng bo 4 góc. KHÔNG tách nền tự động (đã lỗi, người dùng không chấp nhận).
-- **Prompt chuẩn** (Gemini `gemini-3-pro-image`, tỉ lệ 4:3 hoặc 1:1):
+- **Prompt chuẩn cho misa-glass** (Gemini `gemini-3-pro-image`, tỉ lệ 4:3 hoặc 1:1). Theme khác: lấy đuôi prompt ở `themes.md` › Phong cách ảnh.
 
   > `<chủ thể cụ thể, ẩn dụ của nội dung trang>`. Soft 3D clay illustration, glossy rounded shapes, bright cheerful pastel palette dominated by sky blue, white and light mint with small coral-red accents, single centered subject with generous empty margin, isolated on a pure flat white background (#FFFFFF), soft contact shadow, premium product-render quality, absolutely no text, no letters, no numbers, no logos, no watermark
 

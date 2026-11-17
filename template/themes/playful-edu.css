@@ -1,0 +1,36 @@
+/* Playful Edu — kem ấm, bo tròn to, bóng "nút bấm" 3D, màu kẹo, hoa giấy trôi.
+   Hợp: đào tạo, giáo dục, bài giảng, trẻ em, onboarding, team building, sự kiện nội bộ vui. */
+:root{
+  --bg:#FFF8EC; --ink:#1E2A4A; --text:#43506E; --muted:#7B86A2; --line:rgba(30,42,74,.12);
+  --blue:#3B82F6; --red:#F43F5E; --amber:#F59E0B; --green:#22C55E; --violet:#A855F7; --cyan:#06B6D4;
+  --sky:#E3EEFF; --rose:#FFE4EA; --sun:#FFF1D1; --mint:#DCF8E6; --lilac:#F2E6FF;
+  --surface:#FFFFFF; --surface2:#F6F1E7; --cardline:rgba(30,42,74,.08); --edge:transparent;
+  --cardbg:#FFFFFF; --shadow:0 10px 0 color-mix(in srgb,var(--c) 16%,transparent),0 18px 40px -20px rgba(30,42,74,.25);
+  --shadow-lg:0 14px 0 color-mix(in srgb,var(--c) 18%,transparent),0 30px 60px -26px rgba(30,42,74,.3);
+  --onc:#FFFFFF; --accent2:#FFC24B; --hi:#9CC3FF; --g1:#F97316; --g2:#EC4899; --srcc:#9AA3B8;
+  --radius:36px; --rsm:22px; --blur:0px; --tt:none;
+}
+#stage{background:radial-gradient(110% 90% at 20% 0%,#FFFDF7 0%,#FFF6E6 55%,#FFEFD8 100%)}
+#bg .blob{opacity:.45}
+.t{font-weight:800;font-size:68px;letter-spacing:-.01em;line-height:1.08}
+.t .hl{color:var(--c);background:linear-gradient(transparent 62%,color-mix(in srgb,var(--c) 22%,transparent) 62%);padding:0 .08em}
+.t-bar{width:96px;height:12px;border-radius:12px;background:repeating-linear-gradient(90deg,var(--c) 0 20px,transparent 20px 30px)}
+.card{backdrop-filter:none;-webkit-backdrop-filter:none;border:3px solid color-mix(in srgb,var(--c) 18%,#fff)}
+.ib{border-radius:50%}
+.ib.solid{background:var(--c);box-shadow:0 6px 0 color-mix(in srgb,var(--c) 60%,#000)}
+.chip{border-radius:40px;font-weight:800;letter-spacing:.06em}
+.banner{border-radius:40px;background:var(--c);box-shadow:0 10px 0 color-mix(in srgb,var(--c) 60%,#000)}
+.banner::after{display:none}
+.lbl,.eyebrow{letter-spacing:.08em}
+.cover .ttl{text-transform:none;font-weight:800;letter-spacing:-.01em;font-size:112px;line-height:1.02}
+.cover .ttl .g{animation:gradmove 5s ease-in-out infinite alternate}
+.rings span{border-width:3px;border-style:dashed}
+.orb{border-radius:50%;border:3px solid #fff;box-shadow:0 8px 0 color-mix(in srgb,var(--c) 25%,transparent)}
+.sect .stitle{text-transform:none}
+.sect .num-badge{border-radius:50%;box-shadow:0 8px 0 color-mix(in srgb,var(--c) 55%,#000)}
+.sect .wm{-webkit-text-stroke:4px color-mix(in srgb,var(--c) 18%,transparent)}
+.pstep .pn,.chk .bx{box-shadow:0 5px 0 color-mix(in srgb,var(--c) 60%,#000)}
+.kpi::before{display:none}
+.kpi{border:3px solid color-mix(in srgb,var(--c) 22%,#fff)}
+.im .imt{border-radius:36px!important}
+#foot .pt b{height:8px;border-radius:8px}

@@ -1,60 +1,64 @@
 ---
 name: misa-html-deck
-description: Dựng bài trình chiếu thành MỘT file HTML tự chứa kiểu MISA (font, ảnh, logo, video nhúng base64; chạy offline trên máy khác), có hiệu ứng chuyển động "wow", điều khiển bằng bút chiếu (video: next lần 1 hiện khung, next lần 2 phát toàn màn hình có tiếng), chế độ sửa tại chỗ (phím E: sửa chữ, định dạng, chèn/xoay/chỉnh ảnh, gắn video; Ctrl+S lưu file mới), xuất PDF có link mở video, bỏ trang trên file người dùng đã sửa. Dùng khi người dùng muốn thiết kế lại PPTX/nội dung thành slide HTML, "làm deck HTML", "slide trình chiếu 1 file", "bài thuyết trình như bài lừa đảo", sửa/xuất PDF/bỏ trang một deck đã dựng bằng skill này.
+description: Dựng bài trình chiếu thành MỘT file HTML tự chứa (font, ảnh, logo, video nhúng; chạy offline trên máy khác) với hiệu ứng chuyển động, NHIỀU phong cách (9 theme: MISA glass, tối công nghệ, tối giản, tạp chí, vui nhộn giáo dục, pitch neo-brutalism, sang trọng vàng-đen, thiên nhiên, gradient rực) và NHIỀU thể loại (đào tạo, bài giảng, pitch gọi vốn, bán hàng, báo cáo quý/năm, ra mắt sản phẩm, gala/vinh danh/tất niên, workshop, đề xuất dự án, onboarding nhân sự, case study, tech talk, tuyên truyền/cảnh báo). Có bút chiếu (video: next 1 hiện khung, next 2 phát toàn màn hình), chế độ sửa tại chỗ (phím E, Ctrl+S lưu), xuất PDF, bỏ trang trên file đã sửa. Dùng khi người dùng muốn "làm slide/deck/bài thuyết trình/bài trình chiếu HTML", thiết kế lại PPTX hoặc nội dung thành slide, đổi phong cách deck, hoặc sửa/xuất PDF/bỏ trang một deck đã dựng bằng skill này.
 ---
 
-# MISA HTML Deck
+# MISA HTML Deck (đa phong cách)
 
-Bộ khung đã chạy thật (bài "Xu hướng lừa đảo và cách phòng tránh", 11/2026), đã qua nhiều vòng góp ý của sếp. **Dùng lại khung, đừng viết lại từ đầu.**
+Khung đã chạy thật qua nhiều vòng góp ý. **Dùng lại khung, đừng viết lại từ đầu.** Một bộ `slides.html` build được ra mọi theme; đổi phong cách chỉ cần đổi `"theme"` trong `deck.json`.
 
 ```
-template/      khung dự án: build.py, deck.json, src/{slides.html, style.css, app.js, img.js, notes.json}, assets/{fonts, logo-misa.png, img/, video/}
-reference/     slides-example.html (38 trang mẫu = thư viện bố cục), patterns.md (cú pháp trang), lessons.md (bài học từ góp ý — ĐỌC TRƯỚC KHI THIẾT KẾ)
-scripts/       setup.sh · new_deck.sh · dump_pptx.py · gen_images.py · compress_video.sh · check_layout.mjs · export_pdf.sh · remove_slides.mjs
+template/   build.py · deck.json · icons.json (159 icon) · themes/{themes.json, <theme>.css}
+            src/{slides.html, style.css, components.css, app.js, img.js, notes.json} · assets/{logo-misa.png, img/, video/}
+fonts/      font dùng chung + fonts.json (đều có đủ dấu tiếng Việt)
+reference/  themes.md · genres.md · components.md · patterns.md · lessons.md · showcase.html (18 trang v2) · slides-example.html (38 trang gốc)
+scripts/    setup.sh · new_deck.sh · preview_themes.py · contact_sheet.mjs · check_layout.mjs · dump_pptx.py · gen_images.py
+            compress_video.sh · capture_slides.mjs · export_pdf.sh · remove_slides.mjs
 ```
-`SK=~/.claude/skills/misa-html-deck`, Python: `$SK/.venv/bin/python` (chưa có thì chạy `$SK/scripts/setup.sh`). Node ≥ 22 + Google Chrome cho các script `.mjs`.
+
+**Môi trường** (`SK=~/.claude/skills/misa-html-deck`):
+- Python của skill (gọi là `$PY` bên dưới): macOS/Linux `$SK/.venv/bin/python`, Windows `$SK/.venv/Scripts/python.exe`. Chưa có thì chạy `bash $SK/scripts/setup.sh` (đặt `VENV_DIR=D:/...` để venv nằm ổ khác rồi nối vào `.venv`).
+- Node ≥ 22 + Chrome/Edge cho các script `.mjs` (tự tìm theo hệ điều hành; đặt biến `CHROME` nếu ở chỗ khác).
+- Trên Windows chạy script `.sh` bằng Git Bash: `bash $SK/scripts/<tên>.sh …`.
 
 ## Quy trình làm bài mới
 
-1. **Chốt yêu cầu** (hỏi gọn nếu thiếu): file nguồn, giữ nguyên nội dung hay được biên tập, tông màu (mặc định: sáng, glass xanh-trắng), các phần lớn (tên + màu), video nào gắn vào trang nào, có cần nguồn trích dẫn trên trang video không.
-2. **Tạo dự án**: `$SK/scripts/new_deck.sh <thư-mục>` rồi sửa `deck.json` (title, output, parts, videos).
-3. **Đọc nội dung**: PPTX → `$SK/.venv/bin/python $SK/scripts/dump_pptx.py file.pptx > dump.txt` (chữ, vị trí, ghi chú). Giữ nguyên câu chữ gốc nếu người dùng yêu cầu; ghi chú thuyết trình → `src/notes.json` (mảng, mỗi trang 1 chuỗi; build tự bù cho trang kết).
-4. **Dựng trang** trong `src/slides.html`: mỗi trang 1 `<section class="slide">`. Chọn bố cục từ `reference/slides-example.html` (bìa, mục lục, trang phần, thẻ số liệu, lưới thẻ, quy trình bước, biểu đồ cột, so sánh, video, trang kết có khiên). Cú pháp ở `reference/patterns.md`. Đa dạng bố cục, mỗi trang một điểm nhấn.
-5. **Ảnh minh hoạ** (nếu cần): viết `jobs.json` → `MISA_GEMINI_SA=<file service account .json> $SK/.venv/bin/python $SK/scripts/gen_images.py jobs.json assets/img` (Gemini qua Vertex, model `gemini-3-pro-image`; đường dẫn file khoá hỏi người dùng hoặc xem bộ nhớ dự án). Prompt chuẩn ở `lessons.md`. Dùng `<div class="im" data-im="ten_anh">`: ảnh nền trắng đặt trong thẻ trắng bo góc, **không tách nền**.
-6. **Video**: nén `$SK/scripts/compress_video.sh vào.mov assets/video/v1.mp4 [crf]` (CRF 25 mặc định; video dài/nặng dùng 27; luôn H.264 + AAC, ≤1080p). Khai báo `"videos": {"5": "v1.mp4"}` (số trang 1-based) và đặt khung `.vwrap > .vframe` ở trang đó.
-7. **Build**: `$SK/.venv/bin/python build.py` → `dist/<output>`. Font tự cắt theo ký tự dùng; build báo thiếu ảnh/icon.
-8. **Kiểm tra** (bắt buộc trước khi giao):
-   - `node $SK/scripts/check_layout.mjs dist/<file>.html`: tiêu đề mồ côi 1 từ, chữ tràn thẻ, icon đè chữ.
-   - Xem bằng mắt từng trang (preview server hoặc `capture_slides.mjs` rồi ghép ảnh xem nhanh).
-   - Thử luồng bút chiếu trên trang video (PageDown: lần 1 phát toàn màn hình, lần 2 sang trang; PageUp đóng video).
-   - Video lớn: thử cả Safari nếu người dùng chiếu bằng Mac.
-9. **Giao**: đường dẫn file, dung lượng, cách dùng (→/Space/bút chiếu, F toàn màn hình, N ghi chú, G mục lục, E sửa, Ctrl+S lưu), lưu ý mở file sớm vài giây khi có video nặng.
+1. **Chốt yêu cầu** (hỏi gọn nếu thiếu): nội dung/file nguồn, **thể loại & khán giả**, giữ nguyên chữ hay được biên tập, phong cách mong muốn, các phần lớn, video gắn trang nào, logo (MISA, logo khác, hay không logo).
+2. **Chọn thể loại** → `reference/genres.md`: cấu trúc trang, bố cục nên dùng, giọng văn, theme gợi ý.
+3. **Chọn theme** → `reference/themes.md`. Người dùng chưa rõ thì cho xem cả 9:
+   `"$PY" $SK/scripts/preview_themes.py <thư-mục-ra>` → mở `<thư-mục-ra>/index.html` (lưới xem trước, bấm để xem bản đầy đủ). Thêm `--slides src/slides.html` để xem trước bằng chính nội dung của họ, `--themes a,b` để giới hạn, `--logo none` để bỏ logo.
+4. **Tạo dự án**: `bash $SK/scripts/new_deck.sh <thư-mục> <theme>` rồi sửa `deck.json` (title, output, parts, videos, logo, palette…; xem `reference/components.md` › deck.json).
+5. **Đọc nội dung**: PPTX → `"$PY" $SK/scripts/dump_pptx.py file.pptx > dump.txt`. Ghi chú thuyết trình → `src/notes.json` (mảng, mỗi trang 1 chuỗi).
+6. **Dựng trang** trong `src/slides.html` (mỗi trang 1 `<section class="slide">`):
+   - Bố cục v2 (agenda, statement, KPI, ring, hbars, cột, đường, timeline, process, quote, split ảnh, team, bảng giá, trước/sau, SWOT, roadmap, code, cảm ơn…): `reference/components.md` + mẫu sống `reference/showcase.html`.
+   - Bố cục gốc (thẻ lưới, video, bộ đếm, slot, khiên…): `reference/patterns.md` + `reference/slides-example.html`.
+   - Đa dạng bố cục, mỗi trang một ý chính. Dùng màu theo phần `c-p1..c-p6` (lấy từ palette của theme) để màu tự đổi khi đổi theme.
+7. **Ảnh** (nếu cần): `jobs.json` → `MISA_GEMINI_SA=<file service account> "$PY" $SK/scripts/gen_images.py jobs.json assets/img`. **Phong cách prompt theo theme** ở `themes.md`. Ảnh minh hoạ dùng `data-im`, ảnh chụp/tràn trang dùng `data-ph`.
+8. **Video**: `bash $SK/scripts/compress_video.sh vào.mov assets/video/v1.mp4 [crf]`, khai báo `"videos": {"5": "v1.mp4"}`.
+9. **Build**: `"$PY" build.py` → `dist/<output>`. Build in ra theme/nền/font đang dùng, báo thiếu ảnh/icon/ký tự.
+10. **Kiểm tra** (bắt buộc trước khi giao):
+    - `node $SK/scripts/contact_sheet.mjs dist/<file>.html dist/sheet.jpg 4` rồi **xem ảnh** → thấy ngay trang tràn chữ, lệch, trống, sai màu.
+    - `node $SK/scripts/check_layout.mjs dist/<file>.html`: tiêu đề mồ côi, chữ tràn thẻ, icon đè chữ.
+    - Trang video: thử luồng bút chiếu (PageDown 2 lần, PageUp đóng video).
+11. **Giao**: đường dẫn, dung lượng, theme đã dùng, cách dùng (→/Space/bút chiếu, F toàn màn hình, N ghi chú, G mục lục, E sửa, Ctrl+S lưu).
 
 ## Việc thường gặp sau khi giao
 
-- **Sửa theo góp ý**: sửa `src/*` rồi build lại. Đừng sửa thẳng file trong `dist/`.
-- **Người dùng đã tự sửa (E + Ctrl+S) rồi gửi lại file**: chỉnh sửa nằm trong `<script id="deck-edits">` (texts/styles theo chỉ số khối chữ, videos theo chỉ số trang, images theo trang). **Làm trên chính file đó**, không build lại từ src (sẽ mất chỉnh sửa của họ).
-  - Bỏ trang: `node $SK/scripts/remove_slides.mjs vào.html ra.html 32,36`. Script tự đánh lại chỉ số chỉnh sửa, ghi chú, tổng số trang, video. Lưu ra file MỚI cạnh file gốc.
-- **Xuất PDF**: `$SK/scripts/export_pdf.sh <deck.html> "<thư-mục-ra>" "<Tiêu đề>"`.
-  - Chụp từng trang ở trạng thái cuối hiệu ứng, nét gấp rưỡi Full HD. Trang có bộ đếm chạy được chờ khoảng 1 phút cho số đủ dài.
-  - Ghép PDF 16:9, tách video nhúng ra `video/video-trang-NN.mp4` và gắn link tương đối trên khung video.
-  - Nói rõ với người dùng: PDF không phát video tại chỗ; phải gửi kèm cả thư mục `video/`; muốn 1 file duy nhất thì dùng link online.
-  - Xem lại ảnh chụp trước khi giao.
+- **Đổi phong cách**: đổi `"theme"` (và nếu cần `palette`, `fonts`, `bg`, `motion`) trong `deck.json` rồi build lại. Không phải viết lại slides.
+- **Sửa theo góp ý**: sửa `src/*` rồi build lại. Đừng sửa file trong `dist/`.
+- **Người dùng đã tự sửa (E + Ctrl+S) rồi gửi lại file**: chỉnh sửa nằm trong `<script id="deck-edits">`. **Làm trên chính file đó**, không build lại từ src. Bỏ trang: `node $SK/scripts/remove_slides.mjs vào.html ra.html 32,36` (lưu ra file MỚI).
+- **Xuất PDF**: `bash $SK/scripts/export_pdf.sh <deck.html> "<thư-mục-ra>" "<Tiêu đề>"`. PDF không phát video tại chỗ: phải gửi kèm thư mục `video/`. Xem lại ảnh chụp trước khi giao.
+- **Theme riêng cho khách/thương hiệu khác**: tạo `<dự-án>/themes/<tên>.css` + `<dự-án>/themes/themes.json` (build ưu tiên thư mục dự án). Cách làm ở `themes.md` › Tạo theme mới.
 
-## Kiến trúc khung (khi cần sửa sâu)
+## Kiến trúc (khi cần sửa sâu)
 
-- **Sân khấu**: 1920×1080, co giãn vừa màn hình (`fit()`).
-- **Hiệu ứng vào trang**: chạy bằng WAAPI theo `data-a` (kiểu), `data-d` (trễ, ms), `data-t` (thời lượng). Easing spring dùng `linear()`.
-- **Khung trang**: `#foot` (thanh tiến độ các phần + số trang) do build tự tính từ `data-p` và `deck.json.parts`. Trang `.closing` không đánh số.
-- **Chế độ sửa** (`app.js`):
-  - `PRISTINE` = HTML gốc chụp lúc mở (dữ liệu video `dv-N` tách riêng để không nhân đôi bộ nhớ).
-  - Khối sửa được = `EDITABLE` (duyệt cây theo thứ tự, gắn `data-e`).
-  - Ctrl+S ghi `EDITS` vào thẻ `deck-edits`, rồi lưu bằng showSaveFilePicker (không có thì tải xuống).
-- **Thanh định dạng `#fmt`**: dùng execCommand; kiểu khối lưu ở `EDITS.styles`.
-- **Ảnh chèn** (`img.js`, build ghép vào trước `window.deck`): lưu ở `EDITS.images`, bảng chỉnh `#ipan`.
-- **Video**: `<script type="application/octet-stream" id="dv-N">` base64. Lúc chạy, `b64Blob()` giải mã theo khúc thành Blob URL (**không dùng data: URL**: Safari không nạp được chuỗi data: vài chục MB). `#vfs` là lớp phủ toàn màn hình.
-- **Theme**: khối "LIGHT · GLASS BLUE" cuối `style.css` ghi đè các token (`--ink`, `--blue`, `--cardbg`…). Đổi tông thì sửa khối này. Các khối tối phía trên là lớp nền cũ, giữ nguyên.
-- **Nền**: mạch vi điện tử SVG sinh trong `build.py` (`circuit_svg()`), chuyển động chậm, thưa.
+- **Sân khấu** 1920×1080, co giãn vừa màn hình. Hiệu ứng vào trang bằng WAAPI theo `data-a`/`data-d`/`data-t`; nhịp độ, blur, kiểu chuyển trang lấy từ `motion` của theme (`MOTION` trong `app.js`).
+- **CSS ghép theo thứ tự**: `style.css` (khung + giao diện MISA glass mặc định) → `components.css` (bố cục v2, lớp nền) → `@font-face` + biến font (`--gs` tiêu đề, `--in` nội dung, `--mono`, `--script`) → màu phần (sinh từ palette) → `themes/<theme>.css` → ghi đè `deck.json.colors` → `src/custom.css` (nếu có).
+- **Token theme** (khai trong `:root` của theme): `--ink --text --mute --line --blue --surface --surface2 --cardbg --cardline --onc --accent2 --hi --g1 --g2 --radius --rsm --blur --tt --srcc`. Theme chỉ cần đổi token + vài chi tiết riêng.
+- **Nền** (`bg`): `circuit · blobs · dots · grid · paper · mesh · waves · stars · confetti · none`, sinh trong `build.py` (`LAYERS`).
+- **Font**: `fonts/fonts.json` là sổ đăng ký; build cắt font theo đúng ký tự dùng và nhúng WOFF2. Font mono/script chỉ nhúng khi trang có dùng.
+- **Chế độ sửa, ảnh chèn, video base64 → Blob** như bản gốc (`app.js`, `img.js`). Không dùng data: URL cho video (Safari không nạp được chuỗi lớn).
+- **Không đặt CSS `opacity` lên phần tử có `data-a`**: hiệu ứng fade của WAAPI sẽ ghi đè. Muốn mờ thì dùng `fill-opacity`, màu rgba hoặc bọc thêm 1 lớp.
 
 ## Bảo mật
 

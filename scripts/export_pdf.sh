@@ -2,7 +2,7 @@
 # Xuất PDF (không hiệu ứng) + thư mục video/ để bấm mở video từ PDF.
 # export_pdf.sh <deck.html> <thư-mục-ra> "<Tiêu đề PDF>"
 set -e
-D="$(cd "$(dirname "$0")" && pwd)"; PY="$D/../.venv/bin/python"; [ -x "$PY" ] || PY=python3
+D="$(cd "$(dirname "$0")" && pwd)"; . "$D/_env.sh"
 DECK="$1"; OUT="$2"; TITLE="${3:-Bài trình bày}"
 SH="$(mktemp -d)/shots"
 node "$D/capture_slides.mjs" "$DECK" "$SH" 1.5
