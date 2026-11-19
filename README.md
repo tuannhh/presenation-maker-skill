@@ -1,6 +1,14 @@
-# html-presentation-skill-claude
+# MISA HTML Deck
 
-Skill cho **Claude Code**: dựng bài trình chiếu thành **một file HTML tự chứa** (font, ảnh, logo, video nhúng sẵn; mở offline trên máy bất kỳ), với **15 phong cách**, hơn 40 bố cục / biểu đồ / sơ đồ và playbook cho **12 thể loại** bài.
+**Tiếng Việt** · [English](#english)
+
+## Giới thiệu
+
+**MISA HTML Deck** là một skill cho trợ lý lập trình AI (Claude Code, OpenAI Codex, Google Antigravity, GitHub Copilot trong VS Code). Bạn đưa nội dung: một file PPTX cũ, dàn ý, tài liệu, hay chỉ vài dòng mô tả. Skill dựng thành bài trình chiếu hoàn chỉnh trong **một file HTML duy nhất**: font, ảnh, logo, video đều nhúng sẵn, gửi qua email hay chép USB là mở được trên máy bất kỳ, không cần mạng, không cần cài PowerPoint.
+
+Bài trình chiếu có hiệu ứng vào trang và chuyển trang sinh động kiểu Prezi, chạy bằng bút chiếu như PowerPoint, có 15 phong cách và hơn 40 bố cục (biểu đồ, sơ đồ, timeline, bảng giá, khung điện thoại…). Sau khi dựng, người trình bày tự sửa chữ, ảnh, font, vị trí khối ngay trong trình duyệt (phím **E**) mà không phải đụng vào mã. Khi cần gửi đi, xuất ra **PDF** để in hoặc **PPTX sửa được** vẫn giữ hiệu ứng khi trình chiếu.
+
+Skill được đúc kết từ các bài trình bày thật của MISA qua nhiều vòng góp ý. Mỗi lỗi từng gặp (chữ xuống dòng xấu, chữ tràn khung, màu tương phản kém…) đều được ghi thành quy tắc để không lặp lại.
 
 ## Tính năng
 
@@ -79,3 +87,52 @@ Sinh ảnh minh hoạ cần một file service account Google Cloud có quyền 
 - `template/assets/logo-misa.png` là nhãn hiệu MISA.
 
 Vì hai lý do trên, repo nên để **private**. Muốn công khai thì bỏ Google Sans (theme `misa-glass` đổi `fonts.head` sang font mở, ví dụ `be-vietnam-pro`) và bỏ logo.
+
+---
+
+## English
+
+### Introduction
+
+**MISA HTML Deck** is an agent skill for AI coding assistants (Claude Code, OpenAI Codex, Google Antigravity, GitHub Copilot in VS Code). Give it your content: an old PPTX, an outline, a document, or a few lines of description. It builds a finished presentation as **one self-contained HTML file**, with fonts, images, logo and videos embedded. Email it or copy it to a USB stick and it opens on any computer, offline, with no PowerPoint needed.
+
+Decks come with lively entrance animations and Prezi-style slide transitions, work with a presentation clicker just like PowerPoint, and offer 15 visual styles and more than 40 layouts (charts, diagrams, timelines, pricing tables, phone mockups…). Once built, presenters edit text, images, fonts and block positions right in the browser (press **E**) without touching code. When it is time to share, export to **PDF** for printing or to an **editable PPTX** that keeps the animations when presenting.
+
+The skill was distilled from real MISA presentations through many rounds of feedback. Every problem met along the way (awkward line breaks, overflowing text, low contrast…) became a rule so it does not happen again.
+
+### Features
+
+- **15 themes**, switched with one line in `deck.json`: corporate glass, dark tech, minimal, editorial magazine, playful education, neo-brutalist pitch, black and gold luxury, nature, vivid gradient, lavender, corporate navy, black and white keynote, warm sunset, chalkboard, ocean. Each has its own fonts, palette, animated background and motion pace; palette, fonts, background and logo can all be customised.
+- **40+ layouts**: donut, stacked bar, funnel, waterfall, gauge, waffle and heatmap charts; cycle, hub and spoke, Venn, org chart and layered architecture diagrams; bento grids, chat bubbles, phone and laptop frames; agenda, KPI counters, timelines, processes, quotes, team, pricing, before/after, SWOT, pyramid, code blocks. 159 icons.
+- **Playbooks for 12 genres**: training, investor pitch, sales, quarterly/annual report, product launch, gala and awards, workshop, project proposal, onboarding, case study, tech talk, awareness campaign.
+- **Motion**: entrance animations per block; two-layer transitions (Prezi-style zoom-out/pan/zoom-in, cube, card flip, fly-through, card stack, parallax, swirl), set for the whole deck or per slide.
+- **Clicker-friendly**, including video slides (first click shows the frame, second plays full screen with sound).
+- **In-browser edit mode** (**E**): edit and format text, insert, move, rotate and crop images, attach videos, drag any block, change the deck font (Inter, Montserrat, Barlow, Roboto, Google Sans, Open Sans) or a single block's font, layout mode (**M**) to move, resize or delete anything, **Ctrl+S** to save a new file.
+- **Export**: PDF without animations (with links to the videos); editable PPTX where all text stays editable in PowerPoint, entrance effects follow the HTML order, transitions are mapped to the closest PowerPoint ones, videos and speaker notes are included.
+- **Helper scripts**: read PPTX content, preview all themes, contact sheets, automatic layout checks, AI image generation (Gemini / Vertex AI), video compression, removing slides from an edited file.
+
+### Install
+
+Clone into your tool's skills folder, then run `setup.sh` from that folder (on Windows use Git Bash). Restart the tool afterwards.
+
+| Tool | All projects | One project |
+|---|---|---|
+| Claude Code | `~/.claude/skills/misa-html-deck` | `.claude/skills/misa-html-deck` |
+| OpenAI Codex | `~/.codex/skills/misa-html-deck` | `.agents/skills/misa-html-deck` |
+| Google Antigravity | `~/.gemini/config/skills/misa-html-deck` | `.agents/skills/misa-html-deck` |
+| VS Code + GitHub Copilot | `~/.copilot/skills/misa-html-deck` | `.github/skills/misa-html-deck` |
+
+```bash
+git clone https://github.com/tuannhh/html-presentation-skill-claude.git ~/.claude/skills/misa-html-deck
+bash ~/.claude/skills/misa-html-deck/scripts/setup.sh
+```
+
+**Requirements:** Python 3.10+; Node 22+ and Chrome or Edge (PDF/PPTX export, contact sheets, layout checks); ffmpeg (video compression, video posters in PPTX). The assistant must be allowed to run shell commands and write files.
+
+### Usage
+
+Ask in plain language, for example *"make a 12-slide investor pitch in a bold style"* or *"turn this PPTX into an HTML deck in magazine style"*, or call `/misa-html-deck` in Claude Code. The full workflow is in `SKILL.md` (written in Vietnamese; the assistant reads it for you).
+
+### Licensing notes
+
+`fonts/` includes **Google Sans** (proprietary to Google); all other fonts are SIL OFL. `template/assets/logo-misa.png` is a MISA trademark. Keep the repository **private**, or remove Google Sans and the logo before making it public.
