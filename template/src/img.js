@@ -163,3 +163,173 @@ document.addEventListener('paste', e => {
 const imgPick = document.createElement('input'); imgPick.type = 'file'; imgPick.accept = 'image/*'; imgPick.multiple = true; imgPick.hidden = true; document.body.appendChild(imgPick);
 imgPick.addEventListener('change', () => { imgInsert(imgPick.files); imgPick.value = ''; });
 ebar.querySelector('.ad').onclick = () => imgPick.click();
+
+/* ---------- Chế độ Bố cục (trong chế độ sửa, phím M): chọn bất kỳ khối chữ / hình / thẻ nào để kéo di chuyển, phóng to-thu nhỏ hoặc xoá.
+   Lưu ở EDITS.blocks["trang:thứ tự"] = {x, y, sc, del}. Dùng thuộc tính CSS translate/scale (không đụng transform của hiệu ứng vào). ---------- */
+const bpan = document.getElementById('bpan');
+let blkMode = false, selBlk = null, blkDrag = null, hovBlk = null;
+const blkEl = key => stage.querySelector(`[data-b="${key}"]`);
+function blkApply(el){
+  const d = EDITS.blocks[el.dataset.b];
+  el.style.translate = d && (d.x || d.y) ? `${d.x || 0}px ${d.y || 0}px` : '';
+  el.style.scale = d && d.sc && d.sc !== 1 ? String(d.sc) : '';
+  el.classList.toggle('xdel', !!(d && d.del));
+}
+Object.keys(EDITS.blocks).forEach(k => { const el = blkEl(k); if (el) blkApply(el); });
+function blkClean(key){ const d = EDITS.blocks[key]; if (d && !d.x && !d.y && (!d.sc || d.sc === 1) && !d.del) delete EDITS.blocks[key]; }
+function blkName(el){
+  const t = (el.innerText || '').trim().replace(/\s+/g, ' ');
+  if (t) return '“' + (t.length > 34 ? t.slice(0, 34) + '…' : t) + '”';
+  if (el.matches('svg,.i')) return 'biểu tượng';
+  if (el.matches('img,[data-ph],[data-im],.im,.ph') || getComputedStyle(el).backgroundImage !== 'none') return 'hình ảnh';
+  return 'khối';
+}
+function blkPanel(){
+  if (!bpan) return;
+  bpan.querySelector('.bn').textContent = selBlk ? blkName(selBlk) : 'Bấm vào chữ / hình / thẻ để chọn';
+  const d = selBlk && EDITS.blocks[selBlk.dataset.b];
+  bpan.querySelector('.bsc').textContent = Math.round(((d && d.sc) || 1) * 100) + '%';
+  bpan.querySelectorAll('[data-ba]:not([data-ba="restore"]):not([data-ba="off"])').forEach(b => b.disabled = !selBlk);
+  const nDel = Object.entries(EDITS.blocks).filter(([k, v]) => v.del && +k.split(':')[0] === cur).length;
+  const rb = bpan.querySelector('[data-ba="restore"]'); rb.disabled = !nDel; rb.textContent = nDel ? `Hiện lại ${nDel} khối đã xoá` : 'Hiện lại khối đã xoá';
+}
+function blkSelect(el){
+  if (selBlk) selBlk.classList.remove('bsel');
+  selBlk = el; if (el) el.classList.add('bsel');
+  blkPanel();
+}
+function blkToggle(on){
+  blkMode = on === undefined ? !blkMode : on;
+  document.body.classList.toggle('blkmode', blkMode);
+  if (!blkMode) { blkSelect(null); if (hovBlk) { hovBlk.classList.remove('bhov'); hovBlk = null; } }
+  else { gripShow(null); imgDeselect(); if (document.activeElement && document.activeElement.isContentEditable) document.activeElement.blur(); lastEl = null; updFmt(); }
+  EDITABLE.forEach(el => { if (editing && !blkMode) { el.contentEditable = 'true'; el.spellcheck = false; } else el.removeAttribute('contenteditable'); });
+  const mb = ebar.querySelector('.mb'); if (mb) mb.classList.toggle('on', blkMode);
+  if (blkMode) { blkPanel(); toast('Bố cục: bấm để chọn khối · kéo để di chuyển · <b>Q</b> chọn khối lớn hơn · <b>Delete</b> xoá · <b>M</b> quay lại sửa chữ', 6000); }
+}
+/* khối nằm dưới con trỏ, trong trang đang xem */
+function blkAt(t){
+  const s = slides[cur]; if (!s || !t || !s.contains(t)) return null;
+  const el = t.closest('[data-b]'); return el && s.contains(el) ? el : null;
+}
+document.addEventListener('pointerdown', e => {
+  if (!editing || !blkMode || e.button !== 0) return;
+  if (e.target.closest('#ebar,#bpan,#fmt,#ipan,#toast,.uimg')) return;
+  const el = blkAt(e.target);
+  e.preventDefault(); e.stopPropagation();
+  if (!el) { blkSelect(null); return; }
+  const tgt = e.altKey && el.parentElement && el.parentElement.closest('[data-b]') ? el.parentElement.closest('[data-b]') : el;
+  if (!(selBlk && selBlk.contains(e.target) && !e.altKey)) blkSelect(tgt);
+  const key = selBlk.dataset.b, d = EDITS.blocks[key] || {};
+  blkDrag = { el: selBlk, key, p0: stagePt(e), x0: d.x || 0, y0: d.y || 0, moved: false };
+}, true);
+addEventListener('pointermove', e => {
+  if (!editing || !blkMode) return;
+  if (blkDrag) {
+    const p = stagePt(e), g = blkDrag, dx = p.x - g.p0.x, dy = p.y - g.p0.y;
+    if (!g.moved && Math.hypot(dx, dy) < 4) return;
+    g.moved = true;
+    const d = EDITS.blocks[g.key] || (EDITS.blocks[g.key] = {});
+    d.x = Math.round(g.x0 + dx); d.y = Math.round(g.y0 + dy); blkApply(g.el);
+    return;
+  }
+  const el = blkAt(e.target);
+  if (el !== hovBlk) { if (hovBlk) hovBlk.classList.remove('bhov'); hovBlk = el; if (el) el.classList.add('bhov'); }
+});
+addEventListener('pointerup', () => { if (!blkDrag) return; const g = blkDrag; blkDrag = null; if (g.moved) { blkClean(g.key); markDirty(); } });
+/* chặn bấm-chuyển-trang, mở link, mở khung video khi đang ở chế độ Bố cục */
+document.addEventListener('click', e => { if (editing && blkMode && slides[cur] && slides[cur].contains(e.target)) { e.preventDefault(); e.stopPropagation(); } }, true);
+function blkDo(a){
+  if (a === 'off') { blkToggle(false); return; }
+  if (a === 'restore') {
+    Object.entries(EDITS.blocks).forEach(([k, v]) => { if (v.del && +k.split(':')[0] === cur) { v.del = false; blkClean(k); const el = blkEl(k); if (el) blkApply(el); } });
+    markDirty(); blkPanel(); return;
+  }
+  if (!selBlk) return;
+  const key = selBlk.dataset.b, d = EDITS.blocks[key] || (EDITS.blocks[key] = {});
+  if (a === 'up') { const p = selBlk.parentElement && selBlk.parentElement.closest('[data-b]'); if (p && slides[cur].contains(p)) blkSelect(p); blkClean(key); return; }
+  if (a === 'big' || a === 'small') d.sc = Math.max(.2, Math.min(4, Math.round(((d.sc || 1) * (a === 'big' ? 1.1 : 1 / 1.1)) * 100) / 100));
+  else if (a === 'reset') { delete d.x; delete d.y; delete d.sc; }
+  else if (a === 'del') { d.del = true; blkApply(selBlk); blkSelect(null); blkClean(key); markDirty(); toast('Đã xoá khối. Bấm <b>Hiện lại khối đã xoá</b> nếu cần lấy lại.'); return; }
+  blkApply(selBlk); blkClean(key); markDirty(); blkPanel();
+}
+if (bpan) {
+  bpan.addEventListener('mousedown', e => e.preventDefault());
+  bpan.addEventListener('click', e => { const b = e.target.closest('[data-ba]'); if (b) blkDo(b.dataset.ba); });
+}
+const mbtn = ebar.querySelector('.mb'); if (mbtn) mbtn.onclick = () => blkToggle();
+/* Phím khi ở chế độ Bố cục: mũi tên dịch khối đang chọn (Shift = 10px), Delete xoá, Q khối lớn hơn, +/− phóng to/thu nhỏ, Esc bỏ chọn */
+function blkKey(e){
+  const k = e.key;
+  if (selBlk && !slides[cur].contains(selBlk)) blkSelect(null);
+  if (k === 'Escape') { if (selBlk) { blkSelect(null); return true; } blkToggle(false); return true; }
+  if (!selBlk) return false;
+  if (k === 'Delete' || k === 'Backspace') { e.preventDefault(); blkDo('del'); return true; }
+  if (k === 'q' || k === 'Q') { blkDo('up'); return true; }
+  if (k === '+' || k === '=') { blkDo('big'); return true; }
+  if (k === '-' || k === '_') { blkDo('small'); return true; }
+  const st = e.shiftKey ? 10 : 2, mv = { ArrowLeft:[-st,0], ArrowRight:[st,0], ArrowUp:[0,-st], ArrowDown:[0,st] }[k];
+  if (mv) { e.preventDefault(); const key = selBlk.dataset.b, d = EDITS.blocks[key] || (EDITS.blocks[key] = {}); d.x = (d.x || 0) + mv[0]; d.y = (d.y || 0) + mv[1]; blkApply(selBlk); blkClean(key); markDirty(); return true; }
+  return false;
+}
+
+/* ---------- Tay kéo ✥ khi đang sửa chữ (không cần bấm M): rê chuột vào chữ / hình / thẻ → tay kéo hiện ở góc trên-trái khối;
+   kéo để di chuyển (lưu chung EDITS.blocks), bấm đúp tay kéo để đưa khối về chỗ cũ. Chọn cả cụm, phóng to, xoá: phím M. ---------- */
+var gripEl = null, gripDrag = null, gripHide = 0;
+const grip = document.createElement('div'); grip.id = 'bgrip'; grip.textContent = '✥';
+grip.title = 'Kéo để di chuyển · bấm đúp: về chỗ cũ · phím M: chọn cả cụm, phóng to, xoá';
+document.body.appendChild(grip);
+function gripTarget(t){
+  const s = slides[cur]; if (!s || !t || !s.contains(t)) return null;
+  const leaf = t.closest('[data-e],[data-ph],[data-im],img,svg,.im,.ph');
+  const el = (leaf && s.contains(leaf) ? leaf : t).closest('[data-b]');
+  return el && s.contains(el) ? el : null;
+}
+function gripPlace(){
+  if (!gripEl) return;
+  const r = gripEl.getBoundingClientRect();
+  grip.style.left = Math.max(4, r.left - 32) + 'px'; grip.style.top = Math.max(4, r.top - 2) + 'px';
+}
+function gripShow(el){
+  const g = document.getElementById('bgrip'); if (!g) return;
+  clearTimeout(gripHide);
+  if (el !== gripEl && gripEl) gripEl.classList.remove('ghov');
+  gripEl = el;
+  if (!el) { g.classList.remove('on'); return; }
+  gripPlace(); g.classList.add('on');
+}
+addEventListener('pointermove', e => {
+  if (!editing || blkMode || gripDrag || imgDrag) return;
+  if (e.target === grip) { clearTimeout(gripHide); return; }
+  const el = gripTarget(e.target);
+  if (el) gripShow(el);
+  else if (gripEl) { clearTimeout(gripHide); gripHide = setTimeout(() => gripShow(null), 700); }
+});
+addEventListener('resize', () => gripShow(null));
+grip.addEventListener('pointerenter', () => { if (gripEl) gripEl.classList.add('ghov'); });
+grip.addEventListener('pointerleave', () => { if (gripEl && !gripDrag) gripEl.classList.remove('ghov'); });
+grip.addEventListener('pointerdown', e => {
+  if (!gripEl || e.button !== 0) return;
+  e.preventDefault(); e.stopPropagation();
+  const key = gripEl.dataset.b, d = EDITS.blocks[key] || {};
+  gripDrag = { el: gripEl, key, p0: stagePt(e), x0: d.x || 0, y0: d.y || 0, moved: false };
+  grip.setPointerCapture(e.pointerId); grip.classList.add('drag'); gripEl.classList.add('ghov');
+});
+grip.addEventListener('pointermove', e => {
+  const g = gripDrag; if (!g) return;
+  const p = stagePt(e), dx = p.x - g.p0.x, dy = p.y - g.p0.y;
+  if (!g.moved && Math.hypot(dx, dy) < 3) return;
+  g.moved = true;
+  const d = EDITS.blocks[g.key] || (EDITS.blocks[g.key] = {});
+  d.x = Math.round(g.x0 + dx); d.y = Math.round(g.y0 + dy); blkApply(g.el); gripPlace();
+});
+function gripEnd(){
+  const g = gripDrag; if (!g) return; gripDrag = null; grip.classList.remove('drag');
+  if (g.moved) { blkClean(g.key); markDirty(); }
+}
+grip.addEventListener('pointerup', gripEnd); grip.addEventListener('pointercancel', gripEnd);
+grip.addEventListener('dblclick', () => {
+  if (!gripEl) return;
+  const k = gripEl.dataset.b, d = EDITS.blocks[k];
+  if (d && (d.x || d.y)) { delete d.x; delete d.y; blkApply(gripEl); blkClean(k); markDirty(); gripPlace(); toast('Đã đưa khối về chỗ cũ'); }
+});

@@ -1,0 +1,42 @@
+/* Vivid Gradient — nền tím đêm, mảng gradient rực trôi chậm, thẻ kính mờ, hạt nhiễu phim.
+   Hợp: ra mắt sản phẩm, sự kiện giới trẻ, âm nhạc, game, marketing số, year-end party hiện đại. */
+:root{
+  --bg:#0C0A1D; --ink:#FFFFFF; --text:#CAC6EA; --muted:#8C88B4; --line:rgba(255,255,255,.14);
+  --blue:#5B8CFF; --red:#FF4D9D; --amber:#FFB547; --green:#3DDC97; --violet:#8B6CFF; --cyan:#22D3EE;
+  --sky:rgba(91,140,255,.18); --rose:rgba(255,77,157,.18); --sun:rgba(255,181,71,.17); --mint:rgba(61,220,151,.16); --lilac:rgba(139,108,255,.2);
+  --surface:#1A1733; --surface2:#141129; --cardline:rgba(255,255,255,.14); --edge:transparent;
+  --cardbg:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.04));
+  --shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.7);
+  --shadow-lg:inset 0 1px 0 rgba(255,255,255,.14),0 40px 80px -30px rgba(0,0,0,.8);
+  --onc:#FFFFFF; --accent2:#FF4D9D; --hi:#C9B8FF; --g1:#8B6CFF; --g2:#FF4D9D; --srcc:#7E7AA6;
+  --radius:28px; --rsm:18px; --blur:22px; --grain:.22;
+}
+#stage{background:#0C0A1D}
+#bg .blob{opacity:.62;filter:blur(120px)}
+#bg .b1{background:#6D4CFF!important;width:1100px;height:1100px}
+#bg .b2{background:#FF3D8B!important}
+#bg .b3{background:#14C8E8!important;opacity:.4}
+#bg .vig{background:radial-gradient(120% 100% at 50% 40%,transparent 45%,rgba(8,6,20,.7) 100%)}
+.t{font-weight:800;letter-spacing:-.01em}
+.t .hl,.statement .st-big .hl,.thanks .th-big .hl,.hero-num{background:linear-gradient(95deg,#B9A6FF,#FF6FB0 50%,#5FE3F5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.t-bar{background:linear-gradient(90deg,#8B6CFF,#FF4D9D,#22D3EE)}
+.ib.solid{background:linear-gradient(140deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c));color:#fff}
+.chip{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)}
+.chip .i{color:var(--c)}
+.banner{background:linear-gradient(100deg,#7B5CFF,#FF4D9D);color:#fff}
+.banner.soft{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(20px)}
+.lbl{color:color-mix(in srgb,var(--c) 70%,#fff)}
+.cover .ttl{font-weight:900;letter-spacing:-.02em}
+.cover .ttl .g{background-image:linear-gradient(95deg,#B9A6FF,#FF6FB0 50%,#5FE3F5)}
+.cover .ck{color:#fff}
+.rings span{border-color:rgba(255,255,255,.18)}
+.orb{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(16px);color:#fff}
+.orb .i{color:var(--c)}
+.sect .wm{-webkit-text-stroke:3px rgba(255,255,255,.1)}
+.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp{background:var(--cardbg);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
+.kpi::before{background:linear-gradient(180deg,var(--c),#FF4D9D)}
+.plan.feat{background:linear-gradient(150deg,#7B5CFF,#FF4D9D);border-color:transparent}
+.slide .plan.feat .plan-badge{background:#fff;color:#0C0A1D!important}
+.im .imt{box-shadow:0 0 0 1px rgba(255,255,255,.3),0 30px 60px -24px rgba(0,0,0,.8),0 0 60px -20px rgba(139,108,255,.6)}
+.code{background:rgba(0,0,0,.35);color:#EDEBFF}
+#foot .pt span{color:#8C88B4}

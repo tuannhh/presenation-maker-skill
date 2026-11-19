@@ -1,0 +1,48 @@
+/* Luxury Gold — đen sâu + vàng ánh kim, chữ Cormorant giãn rộng, khung viền mảnh, sao lấp lánh.
+   Hợp: gala, lễ vinh danh, tất niên, kỷ niệm thành lập, tri ân khách hàng VIP, đám cưới, ra mắt cao cấp. */
+:root{
+  --bg:#0B0A08; --ink:#F6EDD9; --text:#CFC3A8; --muted:#8E8470; --line:rgba(212,175,55,.24);
+  --blue:#D4AF37; --red:#E2896F; --amber:#F0C987; --green:#8FCFB2; --violet:#B9A4E8; --cyan:#9EC5F0;
+  --sky:rgba(212,175,55,.12); --rose:rgba(226,137,111,.13); --sun:rgba(240,201,135,.13); --mint:rgba(143,207,178,.12); --lilac:rgba(185,164,232,.13);
+  --surface:#16130E; --surface2:#1F1B14; --cardline:rgba(212,175,55,.30); --edge:transparent;
+  --cardbg:linear-gradient(180deg,rgba(34,29,20,.92),rgba(18,16,11,.92));
+  --shadow:0 30px 60px -30px rgba(0,0,0,.9); --shadow-lg:0 40px 80px -30px rgba(0,0,0,.95);
+  --onc:#120F08; --accent2:#F5E3A1; --hi:#F5E3A1; --g1:#9C7A1F; --g2:#F5E3A1; --srcc:#7D745F;
+  --radius:4px; --rsm:3px; --blur:6px; --tt:uppercase; --star:#F3D98B;
+}
+#stage{background:radial-gradient(90% 80% at 50% 30%,#221D14 0%,#110F0B 55%,#070605 100%)}
+#bg .blob{opacity:.16}
+#bg .vig{background:radial-gradient(120% 100% at 50% 40%,transparent 50%,rgba(0,0,0,.6) 100%)}
+.t{font-weight:600;font-size:72px;letter-spacing:.06em;line-height:1.08}
+.t .hl,.cover .ttl .g,.statement .st-big .hl,.thanks .th-big .hl{background:linear-gradient(100deg,#9C7A1F,#F5E3A1 45%,#D4AF37 60%,#9C7A1F);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:gradmove 7s ease-in-out infinite alternate}
+.t-bar{width:180px;height:2px;border-radius:0;background:linear-gradient(90deg,transparent,#D4AF37,transparent)}
+.s{font-weight:300;letter-spacing:.02em}
+.lbl,.eyebrow,.chip,.kpi-l{letter-spacing:.3em;font-weight:500}
+.h3,.h4,.ag-t,.pstep .pt,.person .pn,.vtl-t,.tl-t{font-weight:600;letter-spacing:.03em}
+.card,.kpi,.person,.plan,.ag-item,.pstep,.ba-pane{border:1px solid var(--cardline);box-shadow:var(--shadow);outline:1px solid rgba(212,175,55,.12);outline-offset:-10px}
+.ib{border-radius:50%;background:transparent;border:1px solid var(--c)}
+.ib.solid{background:linear-gradient(145deg,#F5E3A1,#D4AF37 50%,#9C7A1F);color:#120F08;box-shadow:0 10px 30px -10px rgba(212,175,55,.6);border:0}
+.chip{border-radius:0;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:transparent}
+.banner{border-radius:0;background:transparent;color:var(--ink);border:1px solid var(--c);box-shadow:none;font-family:var(--gs);font-weight:600;font-size:34px;letter-spacing:.05em;justify-content:center}
+.banner .i{color:var(--c)}
+.banner::after{background:linear-gradient(100deg,transparent 30%,rgba(245,227,161,.18) 50%,transparent 70%)}
+.big,.kpi-v,.hero-num,.ag-n,.tl-date{font-weight:500;color:var(--c)}
+.cover .ttl{font-weight:500;letter-spacing:.08em;font-size:110px;line-height:1.05}
+.cover .ck{color:var(--c);letter-spacing:.5em;font-weight:500}
+.cover .by{letter-spacing:.4em}
+.rings span{border:1px solid rgba(212,175,55,.35)}
+.orb{border-radius:50%;background:rgba(20,17,12,.7);border:1px solid var(--cardline);box-shadow:none}
+.sect .stitle{font-weight:500;letter-spacing:.06em}
+.sect .wm{-webkit-text-stroke:1.5px rgba(212,175,55,.22);font-weight:300}
+.sect .num-badge{border-radius:50%;background:transparent;border:1px solid var(--c);color:var(--c);box-shadow:none;font-weight:500}
+.kpi::before{display:none}
+.plan.feat{background:linear-gradient(160deg,#2A2216,#14110C);border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 40px 80px -30px rgba(212,175,55,.35)}
+.plan.feat *{color:var(--ink)!important}
+.plan.feat .plan-n,.plan.feat .plan-p{color:var(--c)!important}
+.pstep .pn,.chk .bx,.qt-av,.person .av{background:linear-gradient(145deg,#F5E3A1,#D4AF37 50%,#9C7A1F)}
+.ph{border-radius:2px;outline:1px solid var(--cardline);outline-offset:8px}
+.im .imt{border-radius:2px!important;box-shadow:0 0 0 1px var(--cardline),0 30px 60px -30px #000}
+.script{color:var(--c)}
+#foot .pt b{height:2px}
+
+.slide .plan.feat .bul li::before{background:var(--c)!important}

@@ -2,7 +2,20 @@
 
 Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm đúng ngay từ đầu.
 
-## Thẩm mỹ, thương hiệu
+- Mục **Chữ**, **Video và bút chiếu**, **Bộ đếm**, **Chế độ sửa**, **Xuất PDF** và **Quy tắc chung** áp dụng cho MỌI theme.
+- Mục **Thẩm mỹ MISA** chỉ là quy tắc của theme `misa-glass` (bài nội bộ MISA). Theme khác có font, màu, nền riêng (`themes.md`); đừng ép các quy tắc đó lên theme khác, trừ khi người dùng muốn.
+
+## Quy tắc chung cho mọi theme (rút ra khi làm 9 theme)
+
+- **Hỏi phong cách trước, đừng mặc định.** Chưa rõ thì cho xem `preview_themes.py` và để người dùng chọn.
+- **Theme tối**: logo màu phải có nền sáng (`logo_plate`), không thì chìm. Ảnh minh hoạ nền trắng trên theme tối vẫn đặt trong thẻ trắng bo góc, trông như "ảnh in".
+- **Chữ trên nền màu đặc** (gói nổi bật, banner, nút số) dễ trùng màu với nền ở theme lạ. Luôn xem contact sheet của trang bảng giá, banner, badge.
+- **Font phải đủ dấu tiếng Việt.** Mọi font trong `fonts/` đã kiểm tra; font mới thì xem dòng "thiếu N ký tự" khi build.
+- **Hiệu ứng vừa phải theo khán giả**: lãnh đạo/báo cáo → `calm`; sự kiện trẻ, pitch → `lively`; in/chiếu máy yếu → `none`.
+- **Không đặt CSS `opacity` lên phần tử có `data-a`** (fade của WAAPI ghi đè, phần tử thành đậm đặc).
+- **Kiểm tra bằng contact sheet sau mỗi lần build**, không chỉ xem vài trang đầu.
+
+## Thẩm mỹ MISA (theme misa-glass)
 
 - **Font:**
   - Tiêu đề dùng Google Sans, VIẾT HOA, đậm (700–900).
@@ -22,7 +35,9 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
 
 ## Chữ
 
-- **Không để dòng cuối của tiêu đề chỉ có 1 từ** (mồ côi). Dùng `&nbsp;` hoặc viết lại cho cân.
+- **Không để dòng cuối của tiêu đề chỉ có 1 từ** (mồ côi). Dùng `<br>` ở chỗ ngắt có nghĩa, `&nbsp;` hoặc viết lại cho cân.
+- **Không dùng `text-wrap: balance`** (kể cả trong theme/custom.css). Nó chia tiêu đề thành các dòng dài bằng nhau nên dòng trên bị hụt ("KHI KHÁCH ĐẶT / HÀNG 11H ĐÊM" dù dòng trên còn rất nhiều chỗ). Người dùng xoá dấu cách để kéo từ lên thì hai từ dính vào nhau mà vẫn nằm dưới. Engine dùng `text-wrap-style: pretty` (lấp đầy dòng, chỉ tránh mồ côi); `build.py` tự đổi `balance` thành `pretty` và báo. Viết dạng đầy đủ `text-wrap-style`, không viết `text-wrap: pretty` cho mọi phần tử con: dạng rút gọn đặt lại `wrap` và đè `white-space: nowrap` của khối cha.
+- **Tiêu đề chỉ dài hơn khung ≤ 10%** thì `app.js` (`fitText`) tự co cỡ chữ cho vừa 1 dòng, đo khi trang hiện và khi đang gõ sửa (biến `--fit`, không lưu vào file). Dài hơn thế thì để xuống dòng tự nhiên, `check_layout` sẽ báo mồ côi để thêm `<br>`.
 - **Không để chữ tràn khỏi thẻ/shape.** Luôn chạy `check_layout.mjs` và xem bằng mắt.
 - **Icon không được đè lên chữ.**
 - **Giữ nguyên nội dung gốc** khi người dùng yêu cầu. Chỉ đổi cách trình bày.
@@ -30,7 +45,7 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
 ## Ảnh
 
 - **Ảnh AI:** đặt nguyên ảnh nền trắng trên thẻ trắng bo 4 góc. KHÔNG tách nền tự động (đã lỗi, người dùng không chấp nhận).
-- **Prompt chuẩn** (Gemini `gemini-3-pro-image`, tỉ lệ 4:3 hoặc 1:1):
+- **Prompt chuẩn cho misa-glass** (Gemini `gemini-3-pro-image`, tỉ lệ 4:3 hoặc 1:1). Theme khác: lấy đuôi prompt ở `themes.md` › Phong cách ảnh.
 
   > `<chủ thể cụ thể, ẩn dụ của nội dung trang>`. Soft 3D clay illustration, glossy rounded shapes, bright cheerful pastel palette dominated by sky blue, white and light mint with small coral-red accents, single centered subject with generous empty margin, isolated on a pure flat white background (#FFFFFF), soft contact shadow, premium product-render quality, absolutely no text, no letters, no numbers, no logos, no watermark
 
@@ -64,6 +79,12 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
   - Kéo để di chuyển, kéo góc để đổi cỡ, kéo nút trên để xoay.
   - Chỉnh sáng/tối, bo góc, viền + màu, đổ bóng, lên trên/ra sau chữ.
 - **Video:** bấm hoặc kéo-thả file vào khung video.
+- **Tay kéo ✥** (ngay trong chế độ sửa chữ, không cần M): rê chuột vào chữ / hình / thẻ → ô ✥ tím hiện ở góc trên-trái khối; kéo ô đó để di chuyển, bấm đúp để đưa về chỗ cũ. Lưu chung `EDITS.blocks`. Người dùng hay không biết phím M, nên di chuyển phải làm được ngay khi đang sửa chữ.
+- **Bố cục** (phím M hoặc nút "✥ Bố cục" trên thanh sửa; M lần nữa quay lại sửa chữ):
+  - Bấm vào bất kỳ chữ / hình / thẻ nào để chọn (viền tím). Bấm trúng phần nhỏ bên trong thì nhấn Q (hoặc Alt+bấm) để chọn khối lớn hơn chứa nó.
+  - Kéo để di chuyển; mũi tên dịch từng chút (Shift = 10px); + / − phóng to, thu nhỏ; Delete xoá.
+  - "Về chỗ cũ" trả khối về vị trí và cỡ ban đầu; "Hiện lại khối đã xoá" lấy lại mọi khối đã xoá trên trang đang xem.
+  - Lưu trong `EDITS.blocks["trang:thứ tự"] = {x, y, sc, del}` (CSS `translate`/`scale`, không đụng hiệu ứng vào). Khối đánh số theo DOM gốc của từng trang → sửa `slides.html` rồi build lại thì chỉnh sửa bố cục cũ có thể lệch khối; khi người dùng đã tự sửa, làm tiếp trên chính file của họ.
 
 ## Xuất PDF
 

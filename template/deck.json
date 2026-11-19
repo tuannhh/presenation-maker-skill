@@ -1,12 +1,13 @@
 {
   "title": "MISA · Tên bài trình bày",
   "output": "MISA_Ten_bai_trinh_bay.html",
+  "theme": "misa-glass",
   "logo": "assets/logo-misa.png",
   "parts": [
-    {"name": "Thực trạng", "color": "#4D8BFF"},
-    {"name": "Nhận diện", "color": "#FF4D5E"},
-    {"name": "Phòng tránh", "color": "#18D48F"},
-    {"name": "Hành động", "color": "#8F7DFF"}
+    {"name": "Thực trạng"},
+    {"name": "Nhận diện"},
+    {"name": "Phòng tránh"},
+    {"name": "Hành động"}
   ],
   "videos": {}
 }

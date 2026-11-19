@@ -1,0 +1,33 @@
+/* Nature — be yến mạch, xanh rừng, đất nung; bo góc hữu cơ, sóng mềm dưới đáy.
+   Hợp: ESG, CSR, môi trường, sức khoẻ, y tế, nông nghiệp, thực phẩm, du lịch, phát triển bền vững. */
+:root{
+  --bg:#F3F0E6; --ink:#1F3B2C; --text:#43564A; --muted:#7C897E; --line:rgba(31,59,44,.14);
+  --blue:#3A7CA5; --red:#C2643A; --amber:#B5884B; --green:#2F7D4F; --violet:#6B5B95; --cyan:#3E8E8A;
+  --sky:rgba(58,124,165,.11); --rose:rgba(194,100,58,.11); --sun:rgba(181,136,75,.13); --mint:rgba(47,125,79,.11); --lilac:rgba(107,91,149,.11);
+  --surface:#FFFDF7; --surface2:#EAE6D8; --cardline:rgba(255,255,255,.9); --edge:rgba(31,59,44,.07);
+  --cardbg:linear-gradient(180deg,rgba(255,253,247,.95),rgba(250,247,238,.9));
+  --shadow:0 1px 2px rgba(31,59,44,.05),0 22px 44px -24px rgba(31,59,44,.3);
+  --shadow-lg:0 2px 4px rgba(31,59,44,.05),0 36px 70px -30px rgba(31,59,44,.38);
+  --onc:#FFFDF7; --accent2:#9CC08A; --hi:#9CC08A; --g1:#2F7D4F; --g2:#7FB069; --srcc:#8E978C;
+  --radius:34px 34px 34px 10px; --rsm:18px; --blur:8px; --tt:none;
+}
+#stage{background:radial-gradient(100% 90% at 75% 15%,#FBF9F1 0%,#F1EEE2 50%,#E5E3D3 100%)}
+#bg .blob{opacity:.5;filter:blur(120px)}
+#bg .circ{display:none}
+.t{font-weight:700;font-size:68px;letter-spacing:-.01em;line-height:1.08}
+.t-bar{width:70px;height:8px;border-radius:8px 8px 8px 2px;background:linear-gradient(90deg,var(--c),var(--accent2))}
+.s{font-size:28px}
+.ib{border-radius:46% 54% 50% 50% / 55% 45% 55% 45%}
+.ib.solid{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 70%,#E8F0D8),var(--c));box-shadow:0 14px 28px -14px color-mix(in srgb,var(--c) 80%,transparent)}
+.chip{border-radius:30px}
+.banner{border-radius:30px 30px 30px 8px;background:linear-gradient(100deg,var(--c),color-mix(in srgb,var(--c) 70%,var(--accent2)))}
+.cover .ttl{text-transform:none;font-weight:700;letter-spacing:-.015em;font-size:116px;line-height:1.02}
+.cover .ttl .g{font-style:italic}
+.rings span{border-color:color-mix(in srgb,var(--green) 22%,transparent)}
+.orb{border-radius:50%}
+.sect .stitle{text-transform:none;font-weight:700}
+.sect .num-badge{border-radius:50% 50% 50% 14%}
+.kpi::before{width:auto;right:0;height:6px;bottom:auto}
+.qt-av,.person .av{border-radius:50%}
+.ph,.im .imt{border-radius:34px 34px 34px 10px!important}
+#foot .pt b{height:6px}

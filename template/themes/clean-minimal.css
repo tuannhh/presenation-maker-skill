@@ -1,0 +1,39 @@
+/* Clean Minimal — trắng tinh, chữ lớn đậm, phẳng, một màu nhấn (kiểu Swiss).
+   Hợp: chiến lược, báo cáo lãnh đạo/HĐQT, tư vấn, số liệu, đề xuất dự án. */
+:root{
+  --bg:#FFFFFF; --ink:#0B0B0F; --text:#3B3B45; --muted:#73737F; --line:#E6E6EA;
+  --blue:#2448F5; --red:#E5484D; --amber:#E08A00; --green:#12A150; --violet:#7C5CFF; --cyan:#0E7490;
+  --sky:color-mix(in srgb,#2448F5 9%,#fff); --rose:color-mix(in srgb,#E5484D 9%,#fff); --sun:color-mix(in srgb,#E08A00 11%,#fff); --mint:color-mix(in srgb,#12A150 10%,#fff); --lilac:color-mix(in srgb,#7C5CFF 10%,#fff);
+  --surface:#FFFFFF; --surface2:#F4F4F6; --cardline:#E6E6EA; --edge:transparent;
+  --cardbg:#FFFFFF; --shadow:0 1px 2px rgba(0,0,0,.04); --shadow-lg:0 1px 2px rgba(0,0,0,.05),0 24px 48px -28px rgba(0,0,0,.25);
+  --onc:#FFFFFF; --accent2:#7C93FF; --hi:#7C93FF; --g1:#2448F5; --g2:#2448F5; --srcc:#9A9AA6;
+  --radius:10px; --rsm:8px; --blur:0px; --tt:none;
+}
+#stage{background:#FFFFFF}
+#bg .vig{display:none}
+.t{font-weight:800;font-size:66px;letter-spacing:-.035em;line-height:1.04}
+.t-bar{width:56px;height:5px;border-radius:0;background:var(--c)}
+.s{font-size:28px}
+.card{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border:1.5px solid var(--line)}
+.ib{border-radius:10px}
+.ib.solid{background:var(--c);box-shadow:none}
+.chip{border-radius:6px;border:0}
+.banner{background:var(--ink);color:#fff;box-shadow:none;border-radius:10px}
+.banner::after{display:none}
+.banner .i{color:color-mix(in srgb,var(--c) 60%,#fff)}
+.banner.soft{background:var(--surface2);color:var(--ink);border:0}
+.cover:not(.closing){align-items:flex-start;text-align:left;padding:120px 160px}
+.cover .ttl{font-weight:900;letter-spacing:-.045em;text-transform:none;font-size:120px;line-height:.98}
+.cover .ttl .g{background:none;-webkit-text-fill-color:var(--c);color:var(--c);animation:none}
+.cover .sub{max-width:1300px}
+.cover:not(.closing) .by{left:160px;text-align:left}
+.rings,.orb{display:none}
+.sect .stitle{text-transform:none;letter-spacing:-.05em}
+.sect .wm{-webkit-text-stroke:0;color:var(--surface2)}
+.sect .num-badge{border-radius:10px;box-shadow:none;background:var(--c)}
+.purpose .pp{box-shadow:none;border:1.5px solid var(--line)}
+.kpi::before{width:auto;right:0;height:5px;bottom:auto}
+.kpi,.person,.plan,.ag-item,.pstep,.ba-pane{box-shadow:none;border:1.5px solid var(--line)}
+.plan.feat{border-color:var(--c)}
+.im .imt{box-shadow:0 0 0 1.5px var(--line)}
+#foot .pt b{height:3px}

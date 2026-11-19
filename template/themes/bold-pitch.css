@@ -1,0 +1,49 @@
+/* Bold Pitch — neo-brutalism: viền đen dày, bóng cứng lệch, màu rực, chữ cô đặc in hoa.
+   Hợp: gọi vốn, pitch sản phẩm, chiến dịch marketing, sáng tạo, hackathon, startup. */
+:root{
+  --bg:#FFF3D6; --ink:#0A0A0A; --text:#1F1F1F; --muted:#555049; --line:#0A0A0A;
+  --blue:#2B59FF; --red:#FF5A36; --amber:#F5B700; --green:#00A86B; --violet:#8B5CF6; --cyan:#00B3D6;
+  --sky:#DCE5FF; --rose:#FFE0D7; --sun:#FFEFB0; --mint:#C9F2DF; --lilac:#E8DDFF;
+  --surface:#FFFFFF; --surface2:#FFE9B0; --cardline:#0A0A0A; --edge:transparent;
+  --cardbg:#FFFFFF; --shadow:8px 8px 0 #0A0A0A; --shadow-lg:12px 12px 0 #0A0A0A;
+  --onc:#FFFFFF; --accent2:#F5B700; --hi:#FFFFFF; --g1:#0A0A0A; --g2:#0A0A0A; --srcc:#555049;
+  --radius:14px; --rsm:10px; --blur:0px; --tt:uppercase; --pat:rgba(10,10,10,.22);
+}
+#stage{background:var(--bg)}
+#bg .blob,#bg .vig{display:none}
+#bg .dots{--pat:rgba(10,10,10,.2)}
+.t{font-weight:700;font-size:80px;letter-spacing:.005em;line-height:1}
+.t .hl{color:var(--ink);background:var(--c);padding:0 .14em;-webkit-box-decoration-break:clone;box-decoration-break:clone;color:#fff}
+.t-bar{width:120px;height:14px;border-radius:0;background:var(--c);border:3px solid var(--ink)}
+.s{font-weight:500;color:var(--text)}
+.card,.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp,.mx-c,.ring-card{backdrop-filter:none;-webkit-backdrop-filter:none;border:3px solid var(--ink)!important;box-shadow:var(--shadow)}
+.ib{border:3px solid var(--ink);border-radius:12px;background:var(--cs)}
+.ib.solid{background:var(--c);box-shadow:4px 4px 0 var(--ink);border:3px solid var(--ink)}
+.chip{border:2.5px solid var(--ink);border-radius:30px;color:var(--ink);background:var(--cs);font-weight:700}
+.lbl,.eyebrow{color:var(--ink);font-weight:700}
+.banner{background:var(--c);border:3px solid var(--ink);border-radius:14px;box-shadow:8px 8px 0 var(--ink);font-weight:700}
+.banner::after{display:none}
+.banner.soft{background:var(--surface);color:var(--ink)}
+.big,.kpi-v,.hero-num{font-family:var(--gs);font-weight:700}
+.cover .ttl{font-size:140px;line-height:.95;letter-spacing:0}
+.cover .ttl .g{background:var(--amber);-webkit-text-fill-color:var(--ink);color:var(--ink);padding:0 .12em;border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink);animation:none;display:inline-block;margin-top:14px}
+.cover .ck{color:var(--ink);font-weight:700}
+.rings{display:none}
+.orb{border:3px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);background:var(--cs);color:var(--ink)}
+.sect .stitle{letter-spacing:0}
+.sect .wm{-webkit-text-stroke:4px var(--ink);opacity:.12}
+.sect .num-badge{border:3px solid var(--ink);border-radius:14px;box-shadow:6px 6px 0 var(--ink)}
+.kpi::before{display:none}
+.kpi-v{color:var(--ink)}
+.kpi-d{border:2.5px solid var(--ink)}
+.plan.feat{transform:translateY(-14px) rotate(-1.2deg)}
+.plan-cta{border:3px solid var(--ink);background:var(--amber);color:var(--ink)!important}
+.pstep .pn,.chk .bx,.qt-av,.person .av{border:3px solid var(--ink)}
+.hb-t,.tl::before,.tl .tl-line{border:2.5px solid var(--ink)}
+.colb{border:3px solid var(--ink)}
+.im .imt{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink)!important;border-radius:14px!important}
+.ph{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink)}
+.vframe{border:3px solid var(--ink);box-shadow:12px 12px 0 var(--ink)}
+.code{border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);background:#fff}
+#foot .pt b{height:8px;border:2px solid var(--ink);border-radius:0}
+#foot .pt span{color:var(--ink)}

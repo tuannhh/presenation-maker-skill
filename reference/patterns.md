@@ -1,6 +1,6 @@
 # Cú pháp trang (src/slides.html)
 
-Muốn xem mẫu đầy đủ thì mở `slides-example.html` (38 trang), tìm theo tên class.
+Muốn xem mẫu đầy đủ thì mở `slides-example.html` (38 trang), tìm theo tên class. Bố cục v2 (agenda, KPI, ring, timeline, bảng giá, SWOT…) và các hiệu ứng mới ở `components.md`.
 
 ## Khung một trang
 
@@ -24,7 +24,7 @@ Muốn xem mẫu đầy đủ thì mở `slides-example.html` (38 trang), tìm t
 - **Trang kết:** `class="slide cover closing"`. Không đánh số; có khiên SVG `.cshield` bao `.biglogo`.
 
 **Lưu ý:**
-- Tiêu đề `h2.t` tự viết HOA bằng Google Sans đậm.
+- Tiêu đề `h2.t` dùng font tiêu đề của theme; viết HOA hay không tuỳ theme (`title_case` trong deck.json để ép).
 - `.hl` là chữ nhấn màu theo phần.
 - KHÔNG dùng nhãn `.kicker` ở góc trên trái (người dùng đã bỏ).
 - Logo: `<img src="{{LOGO}}">`. Build tự thay bằng logo trong `deck.json`.
@@ -36,7 +36,7 @@ Muốn xem mẫu đầy đủ thì mở `slides-example.html` (38 trang), tìm t
 - Gap và margin chỉnh bằng `style`.
 
 **Thẻ `card`:**
-- Kèm màu: `c-blue` / `c-red` / `c-amber` / `c-green` / `c-violet`. Màu này áp cho icon, chip và viền nhấn bên trong.
+- Kèm màu: `c-p1` … `c-p6` (màu phần, đổi theo theme) hoặc `c-blue` / `c-red` / `c-amber` / `c-green` / `c-violet` (cố định, dùng khi màu mang nghĩa). Màu này áp cho icon, chip và viền nhấn bên trong.
 - Biến thể: `q4`, `k4`, `w5`… là độ rộng theo lưới. Xem trang mẫu tương ứng.
 
 **Chữ:**
@@ -59,9 +59,9 @@ Muốn xem mẫu đầy đủ thì mở `slides-example.html` (38 trang), tìm t
 
 ## Icon
 
-`[[ten-icon]]` được build thay bằng SVG kiểu Lucide. Danh sách có sẵn (thiếu thì thêm path vào `ICONS` trong build.py):
+`[[ten-icon]]` được build thay bằng SVG kiểu Lucide. Danh sách ở `template/icons.json` (159 icon; thiếu thì thêm path SVG 24×24 kiểu Lucide vào file đó, hoặc tạo `icons.json` riêng trong dự án):
 
-shield shield-check shield-alert alert-triangle phone message link smartphone download banknote coins trending-up trending-down globe landmark bank users user user-check bot factory crosshair truck gift briefcase heart clock key lock eye eye-off help hand check-circle x-circle check arrow-right chevrons-right play zap brain bell megaphone flag repeat refresh home sparkles ban ticket receipt trophy grad flame qr search scan-face mic file-text image git-branch target hook toggle building wallet percent hourglass life-buoy share info lightbulb cast layers map-pin wrench id-card activity sliders handshake
+activity alert-triangle arrow-down arrow-left arrow-right arrow-up arrow-up-right atom award ban bank banknote bar-chart bell book-open bookmark bot brain briefcase building cake calculator calendar camera car cart cast check check-circle check-square chevrons-right circle-dot clipboard clock cloud code coffee coins compass cpu credit-card crosshair crown database dollar download droplet eye eye-off factory file-text filter flag flame flask folder gamepad gem gift git-branch globe grad hand handshake headphones heart heart-pulse help home hook hourglass id-card image infinity info key landmark laptop layers leaf life-buoy lightbulb line-chart link list-checks lock mail map map-pin megaphone message message-square mic minus monitor moon mountain mouse-pointer music package palette party pen percent phone pie-chart pill plane play plus puzzle qr quote receipt refresh repeat rocket scale scan-face school search send server settings share shield shield-alert shield-check sliders smartphone smile sparkles sprout star stethoscope store sun tag target thumbs-up ticket timer toggle trending-down trending-up trophy truck user user-check user-plus users video wallet wand wifi wrench x x-circle zap
 
 ## Ảnh minh hoạ
 
@@ -75,7 +75,7 @@ shield shield-check shield-alert alert-triangle phone message link smartphone do
 
 ## Hiệu ứng (đặt trên phần tử bất kỳ)
 
-- `data-a`: kiểu hiệu ứng. Có `up` · `down` · `left` · `right` · `fade` · `pop` · `zoom` · `flip` · `grow` (cho `.t-bar`) · `bar` (cột biểu đồ, mọc từ đáy) · `mask` · `draw` (nét SVG).
+- `data-a`: kiểu hiệu ứng. Có `up` · `down` · `left` · `right` · `fade` · `pop` · `zoom` · `flip` · `grow` (cho `.t-bar`) · `bar` (cột biểu đồ, mọc từ đáy) · `mask` · `draw` (nét SVG), và mới: `rise` · `slam` · `tilt` · `blur` · `wipe` · `spin` · `ring`. Cho cả nhóm xuất hiện lần lượt: `data-stagger` (xem `components.md`).
 - `data-d`: thời điểm bắt đầu (ms). Bỏ trống thì tự xếp lần lượt, mỗi phần tử cách nhau ~90ms. Nên rải 300→1200ms trong một trang.
 - `data-t`: thời lượng (ms).
 
@@ -83,11 +83,11 @@ shield shield-check shield-alert alert-triangle phone message link smartphone do
 
 | Thành phần | Mã mẫu | Ghi chú |
 |---|---|---|
-| Số đếm lên | `<span data-count="14">14</span>` | |
+| Số đếm lên | `<span data-count="14">14</span>` | Số lẻ: `data-count="4.7" data-dec="1"` |
 | Ô số quay kiểu máy đánh bạc | `<div class="slot" data-slot="2" data-d="500">2</div>` | |
 | Chữ gõ từng ký tự | `<span class="url" data-type>amazon.com</span>` | |
 | Đèn bật theo thời gian | `<div class="light" data-light="700">[[hand]]</div>` | |
-| Bộ đếm chạy theo thời gian thực | `<b data-live>0</b>` | Đang đặt cứng 14 tỷ/ngày trong `app.js`, đổi tốc độ ở đó. Số có độ rộng cố định để chữ bên cạnh đứng yên. |
+| Bộ đếm chạy theo thời gian thực | `<b data-live="14e9">0</b>` | Giá trị = số lượng mỗi ngày (mặc định 14 tỷ/ngày). Số có độ rộng cố định để chữ bên cạnh đứng yên. |
 | Biểu đồ cột | `<div class="bars"><div class="bar in" data-a="bar" style="height:56%"></div>…</div>` | |
 
 ## Khung video
@@ -103,5 +103,5 @@ shield shield-check shield-alert alert-triangle phone message link smartphone do
 ## Chống chữ mồ côi / tràn
 
 - Dùng `&nbsp;` giữa 2 từ cuối tiêu đề, hoặc giữa các cụm không được tách ("14&nbsp;tỷ", "Hình&nbsp;thức&nbsp;1").
-- CSS đã có `text-wrap: balance` cho tiêu đề. Ngắt dòng cố ý thì dùng `<br>`.
+- CSS dùng `text-wrap-style: pretty` (lấp đầy dòng, tránh mồ côi). **Không dùng `text-wrap: balance`**: build tự đổi thành pretty. Tiêu đề dài hơn khung ≤ 10% tự co chữ cho vừa 1 dòng. Ngắt dòng cố ý thì dùng `<br>`.
 - Kiểm tra bằng `scripts/check_layout.mjs`. Riêng ngắt dòng cố ý, script sẽ báo nhưng không phải lỗi.
