@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Đóng gói deck thành 1 file HTML tự chứa (font + ảnh + logo + video nhúng base64), theo THEME.
 
-Chạy:  <python của skill> build.py          (Windows: ~/.claude/skills/misa-html-deck/.venv/Scripts/python.exe
-                                                 macOS/Linux: ~/.claude/skills/misa-html-deck/.venv/bin/python)
+Chạy:  <python của skill> build.py          (Windows: <thư mục skill>/.venv/Scripts/python.exe
+                                                 macOS/Linux: <thư mục skill>/.venv/bin/python)
 Cấu hình ở deck.json:
   title, output, theme (xem themes/themes.json), logo (đường dẫn hoặc null = không logo),
   parts [{name, color?}], videos {"<số trang>": "file.mp4"},
@@ -22,7 +22,10 @@ try: sys.stdout.reconfigure(encoding="utf-8")
 except Exception: pass
 
 ROOT = Path(__file__).resolve().parent
-SKILL = Path(os.environ.get("HTML_DECK_SKILL") or Path.home() / ".claude" / "skills" / "misa-html-deck")
+# Thư mục skill: biến HTML_DECK_SKILL, nếu không thì tìm ở thư mục skill của Claude Code, Codex, Antigravity, Copilot
+_SK_CANDS = [Path.home() / d / "misa-html-deck" for d in (".claude/skills", ".codex/skills", ".agents/skills",
+             ".gemini/config/skills", ".gemini/antigravity/skills", ".copilot/skills")]
+SKILL = Path(os.environ.get("HTML_DECK_SKILL") or next((c for c in _SK_CANDS if (c / "fonts").is_dir()), _SK_CANDS[0]))
 SRC, AS, OUT = ROOT / "src", ROOT / "assets", ROOT / "dist"
 OUT.mkdir(exist_ok=True)
 CFG = json.loads((ROOT / "deck.json").read_text("utf-8"))
