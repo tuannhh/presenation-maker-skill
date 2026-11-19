@@ -103,5 +103,5 @@ activity alert-triangle arrow-down arrow-left arrow-right arrow-up arrow-up-righ
 ## Chống chữ mồ côi / tràn
 
 - Dùng `&nbsp;` giữa 2 từ cuối tiêu đề, hoặc giữa các cụm không được tách ("14&nbsp;tỷ", "Hình&nbsp;thức&nbsp;1").
-- CSS đã có `text-wrap: balance` cho tiêu đề. Ngắt dòng cố ý thì dùng `<br>`.
+- CSS dùng `text-wrap-style: pretty` (lấp đầy dòng, tránh mồ côi). **Không dùng `text-wrap: balance`**: build tự đổi thành pretty. Tiêu đề dài hơn khung ≤ 10% tự co chữ cho vừa 1 dòng. Ngắt dòng cố ý thì dùng `<br>`.
 - Kiểm tra bằng `scripts/check_layout.mjs`. Riêng ngắt dòng cố ý, script sẽ báo nhưng không phải lỗi.

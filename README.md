@@ -9,7 +9,7 @@ Skill cho **Claude Code**: dựng bài trình chiếu thành **một file HTML t
 - **Playbook theo thể loại** (`reference/genres.md`): đào tạo, pitch gọi vốn, bán hàng, báo cáo, ra mắt sản phẩm, gala/vinh danh, workshop, đề xuất dự án, onboarding, case study, tech talk, tuyên truyền.
 - **Hiệu ứng chuyển động** khi vào trang và chuyển trang (theo theme).
 - **Điều khiển bằng bút chiếu.** Ở trang video: next lần 1 hiện khung, lần 2 phát toàn màn hình có tiếng, lần 3 sang trang.
-- **Chế độ sửa tại chỗ** (phím **E**): sửa/định dạng chữ, chèn/kéo/xoay/chỉnh ảnh, gắn video; **chế độ Bố cục** (phím **M**) để kéo di chuyển, phóng to/thu nhỏ hoặc xoá bất kỳ cụm chữ, hình, thẻ nào có sẵn trên trang; **Ctrl+S** lưu file mới.
+- **Chế độ sửa tại chỗ** (phím **E**): sửa/định dạng chữ, chèn/kéo/xoay/chỉnh ảnh, gắn video; rê chuột vào chữ / hình rồi kéo ô **✥** để di chuyển ngay khi đang sửa; **chế độ Bố cục** (phím **M**) để kéo di chuyển, phóng to/thu nhỏ hoặc xoá bất kỳ cụm chữ, hình, thẻ nào có sẵn trên trang; **Ctrl+S** lưu file mới.
 - **Script kèm theo**: đọc PPTX, xem trước mọi theme, chụp contact sheet để rà nhanh, rà lỗi bố cục, sinh ảnh minh hoạ (Gemini/Vertex AI), nén video, xuất PDF có link video, bỏ trang trên file đã tự sửa.
 
 Bộ khung lấy từ một bài thật ("Xu hướng lừa đảo và cách phòng tránh", MISA, 11/2026) đã qua nhiều vòng góp ý; các góp ý được ghi thành quy tắc trong `reference/lessons.md`.

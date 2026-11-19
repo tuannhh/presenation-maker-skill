@@ -57,7 +57,8 @@ scripts/    setup.sh · new_deck.sh · preview_themes.py · contact_sheet.mjs ·
 - **Token theme** (khai trong `:root` của theme): `--ink --text --mute --line --blue --surface --surface2 --cardbg --cardline --onc --accent2 --hi --g1 --g2 --radius --rsm --blur --tt --srcc`. Theme chỉ cần đổi token + vài chi tiết riêng.
 - **Nền** (`bg`): `circuit · blobs · dots · grid · paper · mesh · waves · stars · confetti · none`, sinh trong `build.py` (`LAYERS`).
 - **Font**: `fonts/fonts.json` là sổ đăng ký; build cắt font theo đúng ký tự dùng và nhúng WOFF2. Font mono/script chỉ nhúng khi trang có dùng.
-- **Chế độ sửa, ảnh chèn, Bố cục (M), video base64 → Blob** (`app.js`, `img.js`). Mọi chỉnh sửa nằm trong `<script id="deck-edits">`: `texts`, `styles` (theo số khối chữ `data-e`), `images`, `videos`, `blocks` (theo `data-b="trang:thứ tự"`). Không dùng data: URL cho video (Safari không nạp được chuỗi lớn).
+- **Ngắt dòng:** `text-wrap-style: pretty`, cấm `balance` (build tự đổi). Tiêu đề vượt khung ≤ 10% tự co cho vừa 1 dòng (`fitText`).
+- **Chế độ sửa, tay kéo ✥, ảnh chèn, Bố cục (M), video base64 → Blob** (`app.js`, `img.js`). Mọi chỉnh sửa nằm trong `<script id="deck-edits">`: `texts`, `styles` (theo số khối chữ `data-e`), `images`, `videos`, `blocks` (theo `data-b="trang:thứ tự"`). Không dùng data: URL cho video (Safari không nạp được chuỗi lớn).
 - **Không đặt CSS `opacity` lên phần tử có `data-a`**: hiệu ứng fade của WAAPI sẽ ghi đè. Muốn mờ thì dùng `fill-opacity`, màu rgba hoặc bọc thêm 1 lớp.
 
 ## Bảo mật

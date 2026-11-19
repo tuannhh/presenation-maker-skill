@@ -27,7 +27,7 @@
 
 /* ---------- STATEMENT: một câu lớn giữa trang ---------- */
 .statement{align-items:center;justify-content:center;text-align:center;padding:120px 180px}
-.statement .st-big{font:800 96px/1.08 var(--gs);color:var(--ink);letter-spacing:-.02em;text-transform:var(--tt);max-width:1560px;text-wrap:balance}
+.statement .st-big{font:800 96px/1.08 var(--gs);color:var(--ink);letter-spacing:-.02em;text-transform:var(--tt);max-width:1560px;text-wrap:pretty}
 .statement .st-big .hl{color:var(--c)}
 .statement .st-sub{font:400 32px/1.45 var(--in);color:var(--text);margin-top:34px;max-width:1300px}
 .statement .st-k{margin-bottom:34px}

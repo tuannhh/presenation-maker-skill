@@ -420,8 +420,12 @@ body.hidecursor{cursor:none}
 .closing .sub{color:var(--text)}
 
 /* ===== Cân dòng chữ: không để 1 từ mồ côi ===== */
-.slide{text-wrap:pretty}
-.slide :is(h1,h2,h3,h4,.t,.h3,.h4,.ttl,.sub,.lbl,.chip,.eq,.fl,.kicker,.x,.tt,.big,.tf){text-wrap:balance}
+/* KHÔNG dùng text-wrap:balance: nó chia chữ thành các dòng dài bằng nhau nên dòng trên bị hụt
+   (vd "KHI KHÁCH ĐẶT / HÀNG 11H ĐÊM" dù dòng trên còn chỗ), người sửa chữ không kéo từ lên được.
+   pretty = lấp đầy dòng như bình thường, chỉ tránh 1 từ mồ côi ở dòng cuối. Muốn ngắt chỗ nào thì dùng <br> (Enter khi sửa). */
+.slide{text-wrap-style:pretty}  /* dạng đầy đủ: chỉ chỉnh kiểu ngắt, không đè white-space:nowrap của khối con */
+.fitm,.fitm *{white-space:nowrap!important}  /* lúc đo tiêu đề (fitText) */
+.slide .fitd{font-size:var(--fit)!important}  /* tiêu đề tự co cho vừa 1 dòng (app.js fitText) */
 .slide>*{flex-shrink:0}
 .slide .banner{flex-shrink:0}
 
@@ -858,3 +862,9 @@ body:not(.editing) #bpan{visibility:hidden}
 #bpan button:hover:not(:disabled){background:rgba(255,255,255,.2)}
 #bpan button:disabled{opacity:.35;cursor:default}
 #bpan button.del{background:rgba(227,38,58,.85)}
+/* Tay kéo ✥ khi sửa chữ */
+#bgrip{position:fixed;left:0;top:0;z-index:127;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:#8B5CFF;color:#fff;font:700 16px/1 system-ui,sans-serif;cursor:grab;box-shadow:0 6px 16px -4px rgba(40,10,120,.55);opacity:0;pointer-events:none;transition:opacity .15s;user-select:none;touch-action:none}
+#bgrip.on{opacity:1;pointer-events:auto}
+#bgrip.drag{cursor:grabbing}
+body:not(.editing) #bgrip,body.blkmode #bgrip{display:none}
+body.editing .slide .ghov{outline:2px dashed rgba(139,92,255,.8)!important;outline-offset:3px}

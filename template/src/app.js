@@ -199,6 +199,19 @@ function chrome(i){
   try { history.replaceState(null, '', '#' + n); } catch(e) {}
   updateNotes();
 }
+/* ---------- Tiêu đề chỉ dài hơn khung chút ít (≤ 10%) thì thu nhỏ chữ cho vừa, khỏi rơi 1–2 từ lẻ xuống dòng dưới.
+   Đo khi trang hiện ra và khi đang gõ sửa. Cỡ chữ tạm đặt qua biến --fit (không lưu vào file). ---------- */
+const FIT_SEL = 'h1,h2,.t,.st-big';
+function fitText(el){
+  el.classList.remove('fitd'); el.style.removeProperty('--fit');
+  if (el.closest('svg') || el.hasAttribute('data-type')) return;
+  const cs = getComputedStyle(el); if (cs.display.startsWith('inline')) return;
+  const pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight), avail = el.clientWidth - pad; if (avail <= 0) return;
+  el.classList.add('fitm'); const r = (el.scrollWidth - pad) / avail; el.classList.remove('fitm');
+  if (r > 1.002 && r <= 1.1) { el.style.setProperty('--fit', (parseFloat(cs.fontSize) / r * .995).toFixed(2) + 'px'); el.classList.add('fitd'); }
+}
+const fitSlide = s => s && s.querySelectorAll(FIT_SEL).forEach(fitText);
+
 function go(n, dir){
   n = Math.max(0, Math.min(slides.length-1, n));
   if (n === cur) return;
@@ -213,6 +226,7 @@ function go(n, dir){
     out.onfinish = () => { if (slides[cur] !== a) { a.classList.remove('on'); reset(a); } out.cancel(); a.style.zIndex = ''; };
   }
   b.classList.add('on'); b.style.zIndex = 2;
+  fitSlide(b);
   const big = b.classList.contains('sect') || b.classList.contains('cover') || b.classList.contains('statement') || b.classList.contains('thanks');
   if (a) {
     const BIG = {
@@ -235,6 +249,7 @@ function go(n, dir){
   cur = n; chrome(n);
   if (editing) setTimeout(() => settle(b), 50);
   if (editing && blkMode) { blkSelect(null); }
+  if (editing) gripShow(null);
 }
 const goNext = () => go(cur + 1, 1);
 /* Bút trình chiếu: tới trang video → video CHƯA chạy; bấm next lần nữa → phát toàn màn hình có tiếng; next tiếp → sang trang */
@@ -416,7 +431,7 @@ function settle(slide){
 function toggleEdit(on){
   editing = on === undefined ? !editing : on;
   document.body.classList.toggle('editing', editing);
-  if (!editing) { lastEl = null; updFmt(); imgDeselect(); if (blkMode) blkToggle(false); }
+  if (!editing) { lastEl = null; updFmt(); imgDeselect(); gripShow(null); if (blkMode) blkToggle(false); }
   EDITABLE.forEach(el => { if (editing && !blkMode) { el.contentEditable = 'true'; el.spellcheck = false; } else el.removeAttribute('contenteditable'); });
   if (editing) { settle(slides[cur]); help.classList.add('off'); }
   else if (document.activeElement && document.activeElement.isContentEditable) document.activeElement.blur();
@@ -427,6 +442,7 @@ EDITABLE.forEach(el => {
     if (el.hasAttribute('data-count')) { const v = parseInt(el.textContent.replace(/\D/g,'')); if (!isNaN(v)) el.dataset.count = v; }
     if (el.hasAttribute('data-slot')) { const v = parseInt(el.textContent.replace(/\D/g,'').slice(-1)); if (!isNaN(v)) el.dataset.slot = v; }
     if (el.matches('h2.t')) { const s = el.closest('.slide'); s.dataset.title = el.textContent.trim(); }
+    if (el.matches(FIT_SEL)) fitText(el);
     saveEl(el);
   });
   el.addEventListener('paste', e => { e.preventDefault(); const t = (e.clipboardData || window.clipboardData).getData('text/plain'); document.execCommand('insertText', false, t); });
@@ -440,8 +456,8 @@ function saveEl(el){
   if (!el) return;
   const id = el.dataset.e;
   EDITS.texts[id] = el.hasAttribute('data-count') || el.hasAttribute('data-slot') ? el.textContent : el.innerHTML;
-  // dịch chuyển / phóng to do chế độ Bố cục lưu riêng ở EDITS.blocks → không chép vào styles
-  const st = (el.getAttribute('style') || '').replace(/(^|;)\s*(translate|scale)\s*:[^;]*;?/g, '$1').trim();
+  // dịch chuyển / phóng to do chế độ Bố cục lưu riêng ở EDITS.blocks, cỡ chữ tự co (--fit) tính lại khi mở → không chép vào styles
+  const st = (el.getAttribute('style') || '').replace(/(^|;)\s*(translate|scale|--fit)\s*:[^;]*;?/g, '$1').trim();
   if (st !== (ORIG_STYLE[+id] || '').trim()) EDITS.styles[id] = st; else delete EDITS.styles[id];
   markDirty();
 }
