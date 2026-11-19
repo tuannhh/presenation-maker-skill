@@ -5,8 +5,8 @@
 const DV = {}; document.querySelectorAll('script[id^="dv-"]').forEach(s => { DV[s.id] = s.textContent.trim(); s.textContent = ''; });
 const PRISTINE = '<!doctype html>\n' + document.documentElement.outerHTML;
 const EDIT_TAG = '<script id="deck-' + 'edits" type="application/json">';
-let EDITS = { texts:{}, videos:{}, styles:{}, images:{} };
-try { const j = JSON.parse(document.getElementById('deck-edits').textContent || '{}'); EDITS = { texts: j.texts || {}, videos: j.videos || {}, styles: j.styles || {}, images: j.images || {} }; } catch(e) {}
+let EDITS = { texts:{}, videos:{}, styles:{}, images:{}, blocks:{} };
+try { const j = JSON.parse(document.getElementById('deck-edits').textContent || '{}'); EDITS = { texts: j.texts || {}, videos: j.videos || {}, styles: j.styles || {}, images: j.images || {}, blocks: j.blocks || {} }; } catch(e) {}
 const NOTES = {{NOTES_JSON}};
 const stage = document.getElementById('stage');
 const slides = [...document.querySelectorAll('.slide')];
@@ -33,6 +33,16 @@ slides.forEach(s => {
   walk(s);
 });
 EDITABLE.forEach((el, i) => el.dataset.e = i);
+/* Đánh số mọi khối (chữ, hình, thẻ…) theo "trang:thứ tự" để di chuyển / xoá ở chế độ Bố cục (phím M).
+   Đánh số trên DOM gốc, trước mọi thay đổi → giống nhau ở mọi lần mở file. Không đi vào trong khối chữ và SVG. */
+slides.forEach((s, si) => { let k = 0;
+  const walk = el => { for (const c of el.children) {
+    if (c.matches('script,style,input,video,source,br,.uimg')) continue;
+    c.dataset.b = si + ':' + (k++);
+    if (!c.matches('svg,[data-e]')) walk(c);
+  } };
+  walk(s);
+});
 function applyText(el, html){
   if (el.hasAttribute('data-count')) { const v = parseInt(html.replace(/<[^>]*>/g,'').replace(/\D/g,'')); if (!isNaN(v)) el.dataset.count = v; return; }
   if (el.hasAttribute('data-slot')) { const v = parseInt(html.replace(/<[^>]*>/g,'').replace(/\D/g,'').slice(-1)); if (!isNaN(v)) el.dataset.slot = v; return; }
@@ -224,6 +234,7 @@ function go(n, dir){
   reset(b); runIn(b);
   cur = n; chrome(n);
   if (editing) setTimeout(() => settle(b), 50);
+  if (editing && blkMode) { blkSelect(null); }
 }
 const goNext = () => go(cur + 1, 1);
 /* Bút trình chiếu: tới trang video → video CHƯA chạy; bấm next lần nữa → phát toàn màn hình có tiếng; next tiếp → sang trang */
@@ -248,6 +259,8 @@ function onKey(e){
   if ((e.ctrlKey || e.metaKey) && (k === 's' || k === 'S')) { e.preventDefault(); saveFile(); return; }
   if (e.ctrlKey || e.metaKey || e.altKey) return;
   if (editing && selImg && imgKey(e)) return;
+  if (editing && (k === 'm' || k === 'M')) { blkToggle(); return; }
+  if (editing && blkMode && blkKey(e)) return;
   if (k === 'e' || k === 'E') { toggleEdit(); return; }
   if (k === 'Escape' && editing && !ov.classList.contains('on')) { toggleEdit(false); return; }
   if (vfsOpen() && (k === 'p' || k === 'P' || k === 'k' || k === 'K')) { const v = vfs.querySelector('video'); v.paused ? v.play() : v.pause(); return; }
@@ -403,8 +416,8 @@ function settle(slide){
 function toggleEdit(on){
   editing = on === undefined ? !editing : on;
   document.body.classList.toggle('editing', editing);
-  if (!editing) { lastEl = null; updFmt(); imgDeselect(); }
-  EDITABLE.forEach(el => { if (editing) { el.contentEditable = 'true'; el.spellcheck = false; } else el.removeAttribute('contenteditable'); });
+  if (!editing) { lastEl = null; updFmt(); imgDeselect(); if (blkMode) blkToggle(false); }
+  EDITABLE.forEach(el => { if (editing && !blkMode) { el.contentEditable = 'true'; el.spellcheck = false; } else el.removeAttribute('contenteditable'); });
   if (editing) { settle(slides[cur]); help.classList.add('off'); }
   else if (document.activeElement && document.activeElement.isContentEditable) document.activeElement.blur();
 }
@@ -427,7 +440,8 @@ function saveEl(el){
   if (!el) return;
   const id = el.dataset.e;
   EDITS.texts[id] = el.hasAttribute('data-count') || el.hasAttribute('data-slot') ? el.textContent : el.innerHTML;
-  const st = (el.getAttribute('style') || '').trim();
+  // dịch chuyển / phóng to do chế độ Bố cục lưu riêng ở EDITS.blocks → không chép vào styles
+  const st = (el.getAttribute('style') || '').replace(/(^|;)\s*(translate|scale)\s*:[^;]*;?/g, '$1').trim();
   if (st !== (ORIG_STYLE[+id] || '').trim()) EDITS.styles[id] = st; else delete EDITS.styles[id];
   markDirty();
 }

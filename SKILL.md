@@ -1,6 +1,6 @@
 ---
 name: misa-html-deck
-description: Dựng bài trình chiếu thành MỘT file HTML tự chứa (font, ảnh, logo, video nhúng; chạy offline trên máy khác) với hiệu ứng chuyển động, NHIỀU phong cách (9 theme: MISA glass, tối công nghệ, tối giản, tạp chí, vui nhộn giáo dục, pitch neo-brutalism, sang trọng vàng-đen, thiên nhiên, gradient rực) và NHIỀU thể loại (đào tạo, bài giảng, pitch gọi vốn, bán hàng, báo cáo quý/năm, ra mắt sản phẩm, gala/vinh danh/tất niên, workshop, đề xuất dự án, onboarding nhân sự, case study, tech talk, tuyên truyền/cảnh báo). Có bút chiếu (video: next 1 hiện khung, next 2 phát toàn màn hình), chế độ sửa tại chỗ (phím E, Ctrl+S lưu), xuất PDF, bỏ trang trên file đã sửa. Dùng khi người dùng muốn "làm slide/deck/bài thuyết trình/bài trình chiếu HTML", thiết kế lại PPTX hoặc nội dung thành slide, đổi phong cách deck, hoặc sửa/xuất PDF/bỏ trang một deck đã dựng bằng skill này.
+description: Dựng bài trình chiếu thành MỘT file HTML tự chứa (font, ảnh, logo, video nhúng; chạy offline trên máy khác) với hiệu ứng chuyển động, NHIỀU phong cách (9 theme: MISA glass, tối công nghệ, tối giản, tạp chí, vui nhộn giáo dục, pitch neo-brutalism, sang trọng vàng-đen, thiên nhiên, gradient rực) và NHIỀU thể loại (đào tạo, bài giảng, pitch gọi vốn, bán hàng, báo cáo quý/năm, ra mắt sản phẩm, gala/vinh danh/tất niên, workshop, đề xuất dự án, onboarding nhân sự, case study, tech talk, tuyên truyền/cảnh báo). Có bút chiếu (video: next 1 hiện khung, next 2 phát toàn màn hình), chế độ sửa tại chỗ (phím E sửa chữ/ảnh, M di chuyển/xoá khối, Ctrl+S lưu), xuất PDF, bỏ trang trên file đã sửa. Dùng khi người dùng muốn "làm slide/deck/bài thuyết trình/bài trình chiếu HTML", thiết kế lại PPTX hoặc nội dung thành slide, đổi phong cách deck, hoặc sửa/xuất PDF/bỏ trang một deck đã dựng bằng skill này.
 ---
 
 # MISA HTML Deck (đa phong cách)
@@ -40,7 +40,7 @@ scripts/    setup.sh · new_deck.sh · preview_themes.py · contact_sheet.mjs ·
     - `node $SK/scripts/contact_sheet.mjs dist/<file>.html dist/sheet.jpg 4` rồi **xem ảnh** → thấy ngay trang tràn chữ, lệch, trống, sai màu.
     - `node $SK/scripts/check_layout.mjs dist/<file>.html`: tiêu đề mồ côi, chữ tràn thẻ, icon đè chữ.
     - Trang video: thử luồng bút chiếu (PageDown 2 lần, PageUp đóng video).
-11. **Giao**: đường dẫn, dung lượng, theme đã dùng, cách dùng (→/Space/bút chiếu, F toàn màn hình, N ghi chú, G mục lục, E sửa, Ctrl+S lưu).
+11. **Giao**: đường dẫn, dung lượng, theme đã dùng, cách dùng (→/Space/bút chiếu, F toàn màn hình, N ghi chú, G mục lục, E sửa, M trong chế độ sửa để kéo/xoá khối, Ctrl+S lưu).
 
 ## Việc thường gặp sau khi giao
 
@@ -57,7 +57,7 @@ scripts/    setup.sh · new_deck.sh · preview_themes.py · contact_sheet.mjs ·
 - **Token theme** (khai trong `:root` của theme): `--ink --text --mute --line --blue --surface --surface2 --cardbg --cardline --onc --accent2 --hi --g1 --g2 --radius --rsm --blur --tt --srcc`. Theme chỉ cần đổi token + vài chi tiết riêng.
 - **Nền** (`bg`): `circuit · blobs · dots · grid · paper · mesh · waves · stars · confetti · none`, sinh trong `build.py` (`LAYERS`).
 - **Font**: `fonts/fonts.json` là sổ đăng ký; build cắt font theo đúng ký tự dùng và nhúng WOFF2. Font mono/script chỉ nhúng khi trang có dùng.
-- **Chế độ sửa, ảnh chèn, video base64 → Blob** như bản gốc (`app.js`, `img.js`). Không dùng data: URL cho video (Safari không nạp được chuỗi lớn).
+- **Chế độ sửa, ảnh chèn, Bố cục (M), video base64 → Blob** (`app.js`, `img.js`). Mọi chỉnh sửa nằm trong `<script id="deck-edits">`: `texts`, `styles` (theo số khối chữ `data-e`), `images`, `videos`, `blocks` (theo `data-b="trang:thứ tự"`). Không dùng data: URL cho video (Safari không nạp được chuỗi lớn).
 - **Không đặt CSS `opacity` lên phần tử có `data-a`**: hiệu ứng fade của WAAPI sẽ ghi đè. Muốn mờ thì dùng `fill-opacity`, màu rgba hoặc bọc thêm 1 lớp.
 
 ## Bảo mật

@@ -77,6 +77,11 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
   - Kéo để di chuyển, kéo góc để đổi cỡ, kéo nút trên để xoay.
   - Chỉnh sáng/tối, bo góc, viền + màu, đổ bóng, lên trên/ra sau chữ.
 - **Video:** bấm hoặc kéo-thả file vào khung video.
+- **Bố cục** (phím M hoặc nút "✥ Bố cục" trên thanh sửa; M lần nữa quay lại sửa chữ):
+  - Bấm vào bất kỳ chữ / hình / thẻ nào để chọn (viền tím). Bấm trúng phần nhỏ bên trong thì nhấn Q (hoặc Alt+bấm) để chọn khối lớn hơn chứa nó.
+  - Kéo để di chuyển; mũi tên dịch từng chút (Shift = 10px); + / − phóng to, thu nhỏ; Delete xoá.
+  - "Về chỗ cũ" trả khối về vị trí và cỡ ban đầu; "Hiện lại khối đã xoá" lấy lại mọi khối đã xoá trên trang đang xem.
+  - Lưu trong `EDITS.blocks["trang:thứ tự"] = {x, y, sc, del}` (CSS `translate`/`scale`, không đụng hiệu ứng vào). Khối đánh số theo DOM gốc của từng trang → sửa `slides.html` rồi build lại thì chỉnh sửa bố cục cũ có thể lệch khối; khi người dùng đã tự sửa, làm tiếp trên chính file của họ.
 
 ## Xuất PDF
 

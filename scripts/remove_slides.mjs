@@ -1,6 +1,7 @@
 // Bỏ trang khỏi file deck (kể cả file người dùng đã sửa + Ctrl+S): giữ nguyên mọi chỉnh sửa còn lại.
 // node remove_slides.mjs <vào.html> <ra.html> 32,36      (số trang 1-based như hiển thị)
 // Chỉnh sửa (texts/styles) đánh số theo thứ tự khối chữ trong cả bài → phải đánh số lại sau khi bỏ trang.
+// Khối bố cục (blocks) đánh số "trang:thứ tự" → chỉ cần đổi số trang.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { openDeck } from './cdp.mjs';
 const [src, dst, list] = process.argv.slice(2);
@@ -29,6 +30,7 @@ for (const key of ['texts', 'styles']) {
   const o = {}; for (const [k, v] of Object.entries(ed[key] || {})) { const n = newId(+k); if (n === null) console.log('  bỏ chỉnh sửa trên trang đã xoá:', key, k); else o[n] = v; } ed[key] = o;
 }
 ed.videos = Object.fromEntries(Object.entries(ed.videos || {}).filter(([k]) => !REMOVE.has(+k)).map(([k, v]) => [String(+k - before(+k)), v]));
+ed.blocks = Object.fromEntries(Object.entries(ed.blocks || {}).filter(([k]) => !REMOVE.has(+k.split(':')[0])).map(([k, v]) => { const [s, i] = k.split(':'); return [`${+s - before(+s)}:${i}`, v]; }));
 ed.images = Object.fromEntries(Object.entries(ed.images || {}).filter(([, v]) => !REMOVE.has(v.s)).map(([k, v]) => [k, { ...v, s: v.s - before(v.s) }]));
 h = h.slice(0, i0) + JSON.stringify(ed).replace(/<\//g, '<\\/') + h.slice(j0);
 // ghi chú thuyết trình

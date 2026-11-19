@@ -838,3 +838,23 @@ body.editing.imgsel #ipan{transform:translate(-50%,0)}
 #ipan .cp{width:24px;height:24px;border-radius:50%;overflow:hidden;cursor:pointer;background:conic-gradient(#f33,#fd3,#3d6,#3cf,#63f,#f3c,#f33);position:relative}
 #ipan .cp input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 body:not(.editing) #ipan{visibility:hidden}
+
+/* ---- Chế độ Bố cục (M): chọn khối để kéo / phóng to-thu nhỏ / xoá ---- */
+.xdel{display:none!important}
+#ebar .mb.on{background:linear-gradient(145deg,#FF7AD9,#8B5CFF)}
+body.blkmode .slide [data-b]{cursor:move;user-select:none}
+body.blkmode .slide .bhov{outline:2px dashed rgba(139,92,255,.75)!important;outline-offset:3px}
+body.blkmode .slide .bsel{outline:2.5px solid #8B5CFF!important;outline-offset:3px;box-shadow:0 0 0 9999px rgba(10,20,60,0)}
+body.blkmode #fmt,body.blkmode #ipan{opacity:0;visibility:hidden}
+#bpan{position:fixed;left:50%;bottom:16px;transform:translate(-50%,160%);z-index:126;display:flex;align-items:center;gap:4px;padding:8px 10px;border-radius:16px;background:rgba(30,16,74,.97);border:1px solid rgba(170,130,255,.45);box-shadow:0 24px 50px -12px rgba(5,15,50,.55);font:500 13px/1 var(--in);color:#E6DEFF;white-space:nowrap;transition:transform .4s cubic-bezier(.2,.9,.2,1);user-select:none;max-width:calc(100vw - 24px);width:max-content;flex-wrap:wrap;justify-content:center;row-gap:8px}
+body.editing.blkmode #bpan{transform:translate(-50%,0)}
+body:not(.editing) #bpan{visibility:hidden}
+#bpan .g{display:flex;align-items:center;gap:6px;padding:0 6px;border-right:1px solid rgba(255,255,255,.12)}
+#bpan .g:last-child{border-right:0}
+#bpan .l{color:#C4A8FF;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+#bpan .bn{max-width:300px;overflow:hidden;text-overflow:ellipsis;color:#fff}
+#bpan .v{min-width:42px;text-align:center;font-variant-numeric:tabular-nums;color:#fff}
+#bpan button{height:32px;padding:0 11px;border:0;border-radius:9px;background:rgba(255,255,255,.1);color:#fff;font:600 13px/1 var(--in);cursor:pointer}
+#bpan button:hover:not(:disabled){background:rgba(255,255,255,.2)}
+#bpan button:disabled{opacity:.35;cursor:default}
+#bpan button.del{background:rgba(227,38,58,.85)}
