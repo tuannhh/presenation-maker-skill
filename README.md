@@ -30,6 +30,26 @@ VENV_DIR=D:/venvs/misa-html-deck bash ~/.claude/skills/misa-html-deck/scripts/se
 ```
 (`VENV_DIR` tuỳ chọn: đặt venv ở ổ khác rồi nối vào `.venv` bằng junction.)
 
+### Dùng với công cụ AI khác
+
+Skill theo chuẩn mở Agent Skills (thư mục có `SKILL.md`), nên chạy được ở mọi công cụ đọc chuẩn này. Chỉ đổi thư mục clone, rồi chạy `setup.sh` trong thư mục đó:
+
+| Công cụ | Thư mục cài cho mọi dự án | Hoặc riêng một dự án |
+|---|---|---|
+| Claude Code | `~/.claude/skills/misa-html-deck` | `.claude/skills/misa-html-deck` |
+| OpenAI Codex (CLI, app, VS Code extension) | `~/.codex/skills/misa-html-deck` | `.agents/skills/misa-html-deck` |
+| Google Antigravity | `~/.gemini/config/skills/misa-html-deck` (bản cũ: `~/.gemini/antigravity/skills/`) | `.agents/skills/misa-html-deck` |
+| VS Code + GitHub Copilot | `~/.copilot/skills/misa-html-deck` (Copilot cũng đọc `~/.claude/skills`) | `.github/skills/misa-html-deck` |
+
+Ví dụ với Codex:
+```bash
+git clone https://github.com/tuannhh/html-presentation-skill-claude.git ~/.codex/skills/misa-html-deck
+bash ~/.codex/skills/misa-html-deck/scripts/setup.sh
+```
+Đã cài cho Claude Code thì không cần clone lần nữa: tạo liên kết (Windows: `mklink /J`, macOS/Linux: `ln -s`) từ thư mục của công cụ kia tới `~/.claude/skills/misa-html-deck`.
+
+Công cụ chạy skill phải được chạy lệnh shell (bash, Python, Node) và ghi file. Khởi động lại công cụ sau khi cài để nó nhận skill.
+
 **Yêu cầu:** Python 3.10+; Node ≥ 22 và Chrome hoặc Edge (xuất PDF, contact sheet, rà bố cục); ffmpeg (nén video, ảnh bìa video khi xuất PPTX); python-pptx (xuất PPTX, có sẵn sau `setup.sh`).
 
 ## Dùng

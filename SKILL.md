@@ -1,6 +1,6 @@
 ---
 name: misa-html-deck
-description: Dựng bài trình chiếu thành MỘT file HTML tự chứa (font, ảnh, logo, video nhúng; chạy offline trên máy khác) với hiệu ứng chuyển động (chuyển trang kiểu Prezi, khối lập phương, lật thẻ, rút thẻ…), NHIỀU phong cách (15 theme: MISA glass, tối công nghệ, tối giản, tạp chí, vui nhộn giáo dục, pitch neo-brutalism, sang trọng vàng-đen, thiên nhiên, gradient rực, AVA lavender, navy doanh nghiệp, keynote đen trắng, hoàng hôn ấm, bảng phấn, biển xanh; hơn 40 bố cục gồm biểu đồ donut/phễu/waterfall/gauge/heatmap, sơ đồ vòng lặp/hub/Venn/tổ chức/kiến trúc, bento, chat, khung điện thoại/laptop) và NHIỀU thể loại (đào tạo, bài giảng, pitch gọi vốn, bán hàng, báo cáo quý/năm, ra mắt sản phẩm, gala/vinh danh/tất niên, workshop, đề xuất dự án, onboarding nhân sự, case study, tech talk, tuyên truyền/cảnh báo). Có bút chiếu (video: next 1 hiện khung, next 2 phát toàn màn hình), chế độ sửa tại chỗ (phím E sửa chữ/ảnh, kéo ✥ hoặc M di chuyển/xoá khối, nút Aa Font đổi font, Ctrl+S lưu), xuất PDF, xuất PPTX sửa được có hiệu ứng, bỏ trang trên file đã sửa. Dùng khi người dùng muốn "làm slide/deck/bài thuyết trình/bài trình chiếu HTML", thiết kế lại PPTX hoặc nội dung thành slide, đổi phong cách deck, hoặc sửa/xuất PDF/xuất PPTX/bỏ trang một deck đã dựng bằng skill này.
+description: Dựng bài trình chiếu thành MỘT file HTML tự chứa (font, ảnh, logo, video nhúng; chạy offline) có hiệu ứng chuyển động và chuyển trang kiểu Prezi, khối lập phương, lật thẻ. 15 theme (MISA glass, tối công nghệ, tối giản, tạp chí, vui nhộn, neo-brutalism, vàng-đen, thiên nhiên, gradient, AVA lavender, navy, keynote đen trắng, hoàng hôn, bảng phấn, biển xanh); hơn 40 bố cục gồm biểu đồ, sơ đồ, bento, chat, khung điện thoại/laptop; nhiều thể loại (đào tạo, pitch, bán hàng, báo cáo, ra mắt sản phẩm, gala, workshop, onboarding, tech talk, tuyên truyền). Có bút chiếu, chế độ sửa tại chỗ (sửa chữ/ảnh, kéo khối, đổi font, Ctrl+S lưu), xuất PDF, xuất PPTX sửa được có hiệu ứng, bỏ trang. Dùng khi người dùng muốn làm slide/deck/bài thuyết trình HTML, thiết kế lại PPTX hoặc nội dung thành slide, đổi phong cách deck, hoặc sửa/xuất PDF/xuất PPTX/bỏ trang một deck đã dựng bằng skill này.
 ---
 
 # MISA HTML Deck (đa phong cách)
@@ -17,7 +17,7 @@ scripts/    setup.sh · new_deck.sh · preview_themes.py · contact_sheet.mjs ·
             capture_pptx.mjs · make_pptx.py · export_pptx.sh
 ```
 
-**Môi trường** (`SK=~/.claude/skills/misa-html-deck`):
+**Môi trường** (`SK` = thư mục chứa file SKILL.md này, vd `~/.claude/skills/misa-html-deck`, `~/.codex/skills/misa-html-deck`, `~/.gemini/config/skills/misa-html-deck`, `~/.copilot/skills/misa-html-deck`):
 - Python của skill (gọi là `$PY` bên dưới): macOS/Linux `$SK/.venv/bin/python`, Windows `$SK/.venv/Scripts/python.exe`. Chưa có thì chạy `bash $SK/scripts/setup.sh` (đặt `VENV_DIR=D:/...` để venv nằm ổ khác rồi nối vào `.venv`).
 - Node ≥ 22 + Chrome/Edge cho các script `.mjs` (tự tìm theo hệ điều hành; đặt biến `CHROME` nếu ở chỗ khác).
 - Trên Windows chạy script `.sh` bằng Git Bash: `bash $SK/scripts/<tên>.sh …`.
