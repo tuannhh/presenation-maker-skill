@@ -1,0 +1,93 @@
+/* Mono Keynote — gần đen, chữ trắng tinh, tiêu đề rất to và đậm, mỗi trang một màu nhấn, nhiều khoảng trống,
+   gần như không trang trí (cảm giác keynote trên sân khấu). Hợp: keynote, ra mắt sản phẩm, tầm nhìn, diễn giả, sân khấu lớn. */
+:root{
+  --bg:#0A0A0B; --ink:#FFFFFF; --text:#BDBDC4; --muted:#85858F; --line:rgba(255,255,255,.12);
+  --blue:#4C9BFF; --red:#FF5A5F; --amber:#FFC23D; --green:#3FD68F; --violet:#B78CFF; --cyan:#3FD0E0;
+  --sky:rgba(76,155,255,.14); --rose:rgba(255,90,95,.14); --sun:rgba(255,194,61,.14); --mint:rgba(63,214,143,.13); --lilac:rgba(183,140,255,.15);
+  --surface:#151517; --surface2:#1C1C1F; --cardline:rgba(255,255,255,.09); --edge:transparent;
+  --cardbg:#141416; --shadow:none; --shadow-lg:0 40px 80px -40px rgba(0,0,0,.9);
+  --onc:#0A0A0B; --accent2:#FFFFFF; --hi:#FFFFFF; --g1:#FFFFFF; --g2:#FFFFFF; --srcc:#6E6E78;
+  --radius:20px; --rsm:12px; --blur:0px; --tt:none; --grain:.12;
+}
+html,body{background:var(--bg)}
+#stage{background:radial-gradient(70% 60% at 50% 0%,#18181B 0%,#0D0D0F 55%,#08080A 100%)}
+#bg .blob,#bg .vig,#bg .glow{display:none}
+/* một vệt sáng sân khấu rất nhẹ theo màu phần */
+#bg::before{content:"";position:absolute;left:50%;top:-520px;width:1500px;height:900px;margin-left:-750px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--b1,#4C9BFF) 22%,transparent),transparent);opacity:.55;filter:blur(30px);transition:background 1.4s}
+
+/* Khung */
+#logo{filter:none}
+#foot .pt b{height:2px;border-radius:0;background:rgba(255,255,255,.12)}
+#foot .pt b i{border-radius:0}
+#foot .pt span{color:#7A7A84}
+#foot .pg{color:#7A7A84}
+#foot .pg b{color:#fff}
+.kicker{background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;box-shadow:none}
+.kicker::before{background:var(--c)}
+
+/* Chữ: rất to, rất đậm, trắng */
+.t{font-weight:800;font-size:82px;letter-spacing:-.035em;line-height:1.02;color:#fff;text-shadow:none}
+.t .hl{color:var(--c)}
+.t-bar{width:48px;height:5px;border-radius:5px;background:var(--c);margin-bottom:26px}
+.s{font-size:30px;color:var(--text);font-weight:400}
+.s b,.p b,.bul li b,.tbl td b,.banner.soft b{color:#fff}
+.lbl,.eyebrow{letter-spacing:.18em;font-weight:600}
+.h3,.h4,.ag-t,.pstep .pt,.person .pn,.vtl-t,.tl-t{color:#fff;letter-spacing:-.01em}
+
+/* Thẻ: phẳng, tối, viền mờ */
+.card,.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp{background:var(--cardbg);border:1px solid var(--cardline);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.kpi::before{display:none}
+.kpi-v{color:#fff;font-weight:800;letter-spacing:-.04em}
+.kpi-l{color:var(--muted)}
+.ib{border-radius:16px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+.ib.solid{background:var(--c);color:var(--onc);box-shadow:none}
+.chip{background:transparent;color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.banner{background:var(--c);color:var(--onc);box-shadow:none;font-weight:600}
+.banner::after{display:none}
+.banner.soft{background:var(--surface);color:#fff;border:1px solid var(--cardline);box-shadow:none}
+.note{background:var(--surface)}
+.ag-item.on{background:#fff;border-color:#fff}
+.ag-item.on .ag-n,.ag-item.on .ag-t,.ag-item.on .ag-d{color:#0A0A0B}
+.plan.feat{background:#fff;border-color:#fff;box-shadow:none}
+.plan.feat *{color:#0A0A0B!important}
+.slide .plan.feat .plan-n{color:var(--c)!important;filter:brightness(.7)}
+.slide .plan.feat .bul li::before{background:var(--c)!important}
+.slide .plan.feat .plan-badge{background:var(--c);color:#0A0A0B!important}
+.plan-badge{background:#fff;color:#0A0A0B!important}
+.plan.feat .plan-cta{border-color:#0A0A0B}
+.ba-before{background:#0F0F11}
+.ba-after{border:1.5px solid var(--c);box-shadow:none}
+.mx-c{background:var(--surface);border:1px solid var(--cardline)}
+.mx-k{opacity:.1}
+.tl-dot{background:var(--bg);box-shadow:none}
+.vtl-item::before{background:var(--bg)}
+.vtl-item.done::before{background:var(--c)}
+.hb-t{background:rgba(255,255,255,.07)}
+.hb-f{background:var(--c)}
+.colb{background:var(--c)}
+.colw.dim .colb{background:rgba(255,255,255,.14)}
+.lchart .pt{fill:var(--bg)}
+.tbl td{background:var(--surface);border-color:var(--cardline);color:var(--text)}
+.tbl td:last-child{color:#fff}
+.tbl tr{filter:none}
+.code{background:#000;color:#E8E8EC;border:1px solid var(--cardline)}
+.im .imt{box-shadow:0 0 0 1px rgba(255,255,255,.1),0 40px 80px -40px #000}
+.light{color:var(--onc)}
+
+/* Bìa & trang phần */
+.cover .ck{color:var(--muted);letter-spacing:.34em}
+.cover .ttl{font-weight:800;font-size:150px;line-height:.96;letter-spacing:-.045em;text-transform:none;color:#fff}
+.cover .ttl .g{background:none;-webkit-text-fill-color:var(--c);color:var(--c);animation:none}
+.cover .sub{color:var(--text);font-size:32px}
+.rings{display:none}
+.orb{background:var(--surface);border:1px solid var(--cardline);box-shadow:none;color:var(--c)}
+.sect .stitle{text-transform:none;font-weight:800;font-size:170px;letter-spacing:-.05em;color:#fff}
+.sect .wm{-webkit-text-stroke:2px rgba(255,255,255,.06)}
+.sect .num-badge{background:var(--c);color:var(--onc);box-shadow:none;border-radius:50%}
+.toc .ti{border-bottom:1px solid var(--line)}
+.statement .st-big{font-weight:800;font-size:104px;letter-spacing:-.04em;color:#fff}
+.thanks .th-big{font-weight:800;letter-spacing:-.05em;color:#fff}
+.quote .qt-text{color:#fff;font-weight:600;letter-spacing:-.015em}
+.hero-num{letter-spacing:-.06em}
+#help kbd{background:rgba(255,255,255,.1);color:#fff}
+#jump{color:#fff}

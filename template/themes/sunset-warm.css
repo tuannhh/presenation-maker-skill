@@ -1,0 +1,79 @@
+/* Sunset Warm — nền kem ấm, nhấn san hô / cam / đào / hồng, thẻ bo tròn mềm, mảng gradient ấm và mặt trời kẻ sọc.
+   Hợp: nhân sự, văn hoá doanh nghiệp, cộng đồng, marketing, bán lẻ, F&B, sự kiện tri ân. */
+:root{
+  --bg:#FFF6EE; --ink:#3A1D14; --text:#5C4136; --muted:#957566; --line:rgba(120,60,30,.13);
+  --blue:#3E6FB0; --red:#E0365F; --amber:#C96F0E; --green:#1E8C7E; --violet:#8E4DB0; --cyan:#1E8C86;
+  --sky:rgba(62,111,176,.10); --rose:rgba(224,54,95,.10); --sun:rgba(201,111,14,.12); --mint:rgba(30,140,126,.10); --lilac:rgba(142,77,176,.10);
+  --surface:#FFFFFF; --surface2:#FDEDE2; --cardline:rgba(255,255,255,.95); --edge:rgba(214,110,70,.12);
+  --cardbg:linear-gradient(180deg,#FFFFFF 0%,#FFFAF5 100%);
+  --shadow:0 1px 2px rgba(120,50,20,.05),0 22px 44px -24px rgba(200,90,50,.32);
+  --shadow-lg:0 2px 4px rgba(120,50,20,.05),0 36px 70px -30px rgba(200,90,50,.4);
+  --onc:#FFFFFF; --accent2:#FFB070; --hi:#FFB38A; --g1:#F2683A; --g2:#E0365F; --srcc:#A08578;
+  --radius:30px; --rsm:18px; --blur:6px; --tt:none;
+  --warm:linear-gradient(100deg,#F57A3D 0%,#EE4F5E 55%,#D93A7A 100%);
+}
+html,body{background:var(--bg)}
+#stage{background:radial-gradient(110% 90% at 85% 0%,#FFEBDD 0%,#FFF4EA 40%,#FFF8F1 70%,#FFF1E6 100%)}
+#bg .blob{opacity:.38;filter:blur(120px)}
+#bg .b1{background:#FFB48C!important}
+#bg .b2{background:#FF9DB0!important}
+#bg .b3{background:#FFD38A!important;opacity:.45}
+#bg .vig{display:none}
+/* mặt trời lặn kẻ sọc ở góc phải dưới */
+#bg::before{content:"";position:absolute;right:-150px;bottom:-260px;width:640px;height:640px;border-radius:50%;
+  background:linear-gradient(180deg,#FFC27A 0%,#FF8A5B 45%,#F0567A 100%);opacity:.32;
+  -webkit-mask-image:linear-gradient(180deg,#000 0 40%,transparent 40% 44%,#000 44% 52%,transparent 52% 57%,#000 57% 64%,transparent 64% 70%,#000 70% 76%,transparent 76% 83%,#000 83%);
+  mask-image:linear-gradient(180deg,#000 0 40%,transparent 40% 44%,#000 44% 52%,transparent 52% 57%,#000 57% 64%,transparent 64% 70%,#000 70% 76%,transparent 76% 83%,#000 83%);
+  animation:sunrise 18s ease-in-out infinite alternate}
+@keyframes sunrise{to{transform:translateY(-36px)}}
+/* vầng sáng đào góc trái trên */
+#bg::after{content:"";position:absolute;left:-220px;top:-260px;width:760px;height:760px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,170,120,.35),transparent)}
+
+/* Khung */
+#logo{filter:drop-shadow(0 8px 18px rgba(200,90,50,.14))}
+#foot .pt b{height:6px;background:rgba(160,80,40,.12)}
+#foot .pt span{color:var(--muted)}
+.kicker{background:rgba(255,255,255,.8);border-radius:40px}
+
+/* Chữ */
+.t{font-weight:800;font-size:64px;letter-spacing:-.015em;line-height:1.08}
+.t .hl{color:var(--c)}
+.t-bar{width:90px;height:8px;border-radius:8px;background:var(--warm)}
+.s{font-size:28px}
+.lbl,.eyebrow{letter-spacing:.14em}
+
+/* Thẻ mềm, bo tròn */
+.card{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--cardbg);border:1px solid var(--edge);box-shadow:var(--shadow)}
+.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp{border:1px solid var(--edge)}
+.kpi::before{width:auto;right:0;height:6px;bottom:auto;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 40%,#FFC27A))}
+.ib{border-radius:50%}
+.ib.solid{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 65%,#FFD3A8),var(--c));color:#fff;box-shadow:0 12px 24px -12px color-mix(in srgb,var(--c) 85%,transparent)}
+.chip{border-radius:40px;background:color-mix(in srgb,var(--c) 10%,#fff);border:1px solid color-mix(in srgb,var(--c) 22%,transparent)}
+.banner{border-radius:40px;background:var(--warm);color:#fff;box-shadow:0 20px 40px -20px rgba(238,79,94,.6)}
+.banner.soft{background:rgba(255,255,255,.85);color:var(--ink);border:1px solid var(--edge)}
+.plan.feat{background:var(--warm);border-color:transparent;box-shadow:0 30px 60px -24px rgba(238,79,94,.55)}
+.slide .plan.feat .plan-badge{background:#fff;color:#C2304F!important}
+.plan-cta{border-radius:40px}
+.ba-before{background:#FBEDE3}
+.mx-c{background:color-mix(in srgb,var(--c) 7%,#fff)}
+.hb-f{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 55%,#FFC27A),var(--c))}
+.colb{border-radius:22px 22px 6px 6px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 55%,#FFC27A),var(--c))}
+.tl .tl-line{background:var(--warm)}
+.tbl td{background:#fff;border-color:rgba(214,110,70,.12)}
+.tbl tr{filter:drop-shadow(0 8px 16px rgba(200,90,50,.08))}
+.code{background:#FFF0E4;border-color:rgba(214,110,70,.18);color:#3A1D14}
+.im .imt{border-radius:30px!important;box-shadow:0 0 0 1px rgba(214,110,70,.1),0 24px 44px -22px rgba(200,90,50,.4)}
+.ph{border-radius:30px}
+
+/* Bìa & trang phần */
+.cover .ck{color:var(--red);letter-spacing:.3em}
+.cover .ttl{text-transform:none;font-weight:900;font-size:116px;letter-spacing:-.025em;line-height:1.02}
+.cover .ttl .g{background-image:var(--warm);background-size:200% 100%}
+.rings span{border-color:rgba(240,110,80,.22)}
+.orb{border-radius:50%;background:rgba(255,255,255,.88);border:1px solid var(--edge)}
+.sect .stitle{text-transform:none;font-weight:900;letter-spacing:-.03em}
+.sect .num-badge{border-radius:50%;background:var(--warm)}
+.sect .wm{-webkit-text-stroke:3px color-mix(in srgb,var(--c) 16%,transparent)}
+.statement .st-big .hl,.thanks .th-big .hl{background:var(--warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.statement .st-big,.thanks .th-big{text-transform:none}
+.quote .qt-mark{background:var(--warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}

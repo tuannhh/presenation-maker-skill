@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Đóng gói deck thành 1 file HTML tự chứa (font + ảnh + logo + video nhúng base64), theo THEME.
 
-Chạy:  <python của skill> build.py          (Windows: ~/.claude/skills/misa-html-deck/.venv/Scripts/python.exe
-                                                 macOS/Linux: ~/.claude/skills/misa-html-deck/.venv/bin/python)
+Chạy:  <python của skill> build.py          (Windows: <thư mục skill>/.venv/Scripts/python.exe
+                                                 macOS/Linux: <thư mục skill>/.venv/bin/python)
 Cấu hình ở deck.json:
   title, output, theme (xem themes/themes.json), logo (đường dẫn hoặc null = không logo),
   parts [{name, color?}], videos {"<số trang>": "file.mp4"},
@@ -22,7 +22,10 @@ try: sys.stdout.reconfigure(encoding="utf-8")
 except Exception: pass
 
 ROOT = Path(__file__).resolve().parent
-SKILL = Path(os.environ.get("HTML_DECK_SKILL") or Path.home() / ".claude" / "skills" / "misa-html-deck")
+# Thư mục skill: biến HTML_DECK_SKILL, nếu không thì tìm ở thư mục skill của Claude Code, Codex, Antigravity, Copilot
+_SK_CANDS = [Path.home() / d / "misa-html-deck" for d in (".claude/skills", ".codex/skills", ".agents/skills",
+             ".gemini/config/skills", ".gemini/antigravity/skills", ".copilot/skills")]
+SKILL = Path(os.environ.get("HTML_DECK_SKILL") or next((c for c in _SK_CANDS if (c / "fonts").is_dir()), _SK_CANDS[0]))
 SRC, AS, OUT = ROOT / "src", ROOT / "assets", ROOT / "dist"
 OUT.mkdir(exist_ok=True)
 CFG = json.loads((ROOT / "deck.json").read_text("utf-8"))
@@ -216,8 +219,8 @@ html_body = f"""<div id="stage" data-p="1">
 </div>
 <div id="ov"></div><div id="jump"></div>
 <div id="help"><kbd>→</kbd><kbd>Space</kbd> tiếp · <kbd>←</kbd> lùi · <kbd>F</kbd> toàn màn hình · <kbd>N</kbd> ghi chú · <kbd>G</kbd> mục lục · <kbd>E</kbd> sửa nội dung · gõ số + <kbd>Enter</kbd> nhảy trang</div>
-<div id="ebar"><span class="dot"></span><b>Chế độ chỉnh sửa</b><span>Bấm chữ để sửa · rê chuột vào chữ/hình rồi kéo <kbd>✥</kbd> để di chuyển · kéo-thả hoặc Ctrl+V ảnh để chèn · <kbd>M</kbd> chọn cụm, phóng to, xoá · <kbd>←</kbd><kbd>→</kbd> đổi trang</span><span class="st">Có thay đổi chưa lưu</span><button class="mb" title="Chọn chữ / hình / thẻ để kéo di chuyển, phóng to-thu nhỏ hoặc xoá (phím M)">✥ Bố cục (M)</button><button class="ad">🖼 Chèn ảnh</button><button class="sv">Lưu file (Ctrl+S)</button><button class="ex">Thoát (E)</button></div>
-<div id="fmt" class="off"><div class="g"><button data-f="fs-" title="Chữ nhỏ hơn">A−</button><span class="fsv" title="Cỡ chữ">–</span><button data-f="fs+" title="Chữ to hơn">A+</button></div><div class="g"><button data-f="lh-" title="Giảm dãn dòng">↕−</button><span class="lhv" title="Dãn dòng">–</span><button data-f="lh+" title="Tăng dãn dòng">↕+</button></div><div class="g"><button data-f="br" title="Xuống dòng (Enter)">↵ Xuống dòng</button></div><div class="g"><button data-f="bold" title="In đậm (Ctrl+B)"><b>B</b></button><button data-f="italic" title="In nghiêng (Ctrl+I)"><i>I</i></button><button data-f="underline" title="Gạch chân (Ctrl+U)"><u>U</u></button></div><div class="g cl">{''.join(f'<button data-f="c" data-v="{c}" title="Màu nhấn" style="--sw:{c}"></button>' for c in PALETTE[:5])}<button data-f="c" data-v="var(--ink)" title="Màu chữ mặc định" style="--sw:var(--ink)"></button><button data-f="hl" title="Tô nền vàng nhấn mạnh" class="hlb">▇</button></div><div class="g"><button data-f="al" data-v="left" title="Căn trái"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 10h12M3 14h18M3 18h12"/></svg></button><button data-f="al" data-v="center" title="Căn giữa"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 10h12M3 14h18M6 18h12"/></svg></button><button data-f="al" data-v="right" title="Căn phải"><svg viewBox="0 0 24 24"><path d="M3 6h18M9 10h12M3 14h18M9 18h12"/></svg></button><button data-f="al" data-v="justify" title="Căn đều 2 bên"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 10h18M3 14h18M3 18h18"/></svg></button></div><div class="g"><button data-f="up" title="VIẾT HOA">AA</button><button data-f="low" title="viết thường">aa</button><button data-f="none" title="Giữ nguyên như khi gõ">Aa</button></div><div class="g"><button data-f="undo" title="Hoàn tác (Ctrl+Z)">↶</button><button data-f="redo" title="Làm lại">↷</button><button data-f="clear" title="Xoá định dạng">⌫ Định dạng</button></div><span class="tip">Bấm vào một đoạn chữ để định dạng</span></div><div id="ipan"><div class="g"><span class="l">Sáng / tối</span><input type="range" data-k="b" min="30" max="170" step="1"><span class="v" data-v="b"></span></div><div class="g"><span class="l">Bo góc</span><input type="range" data-k="rad" min="0" max="50" step="1"><span class="v" data-v="rad"></span></div><div class="g"><span class="l">Viền</span><input type="range" data-k="bw" min="0" max="24" step="1"><span class="v" data-v="bw"></span><button data-bc="#ffffff" title="Trắng" style="--sw:#ffffff"></button><button data-bc="#0B1A4A" title="Xanh đen" style="--sw:#0B1A4A"></button><button data-bc="#1557F0" title="Xanh dương" style="--sw:#1557F0"></button><button data-bc="#E3263A" title="Đỏ" style="--sw:#E3263A"></button><button data-bc="#DE8A00" title="Cam" style="--sw:#DE8A00"></button><label class="cp" title="Chọn màu viền khác"><input type="color" data-k="bc"></label></div><div class="g"><span class="l">Đổ bóng</span><input type="range" data-k="sh" min="0" max="100" step="1"><span class="v" data-v="sh"></span></div><div class="g"><span class="l">Xoay</span><input type="range" data-k="r" min="-180" max="180" step="1"><span class="v" data-v="r"></span></div><div class="g"><button data-ia="front" title="Đưa ảnh lên trên cùng">Lên trên</button><button data-ia="back" title="Đưa ảnh ra sau chữ">Ra sau chữ</button><button data-ia="reset" title="Bỏ xoay, sáng tối, viền… về mặc định">Đặt lại</button><button data-ia="del" class="del" title="Xoá ảnh (Delete)">Xoá</button></div></div><div id="bpan"><div class="g"><span class="l">Bố cục</span><span class="bn"></span></div><div class="g"><button data-ba="up" title="Chọn khối lớn hơn chứa khối này (Q · hoặc Alt+bấm)">⤴ Khối lớn hơn</button></div><div class="g"><button data-ba="small" title="Thu nhỏ (−)">−</button><span class="bsc v">100%</span><button data-ba="big" title="Phóng to (+)">+</button></div><div class="g"><button data-ba="reset" title="Đưa khối về vị trí, kích thước ban đầu">Về chỗ cũ</button><button data-ba="del" class="del" title="Xoá khối (Delete)">Xoá</button></div><div class="g"><button data-ba="restore" title="Hiện lại các khối đã xoá trên trang này">Hiện lại khối đã xoá</button><button data-ba="off" title="Quay lại sửa chữ (M)">✎ Sửa chữ</button></div></div><div id="toast"></div>
+<div id="ebar"><span class="dot"></span><b>Chế độ chỉnh sửa</b><span>Bấm chữ để sửa · rê chuột vào chữ/hình rồi kéo <kbd>✥</kbd> để di chuyển · kéo-thả hoặc Ctrl+V ảnh để chèn · <kbd>M</kbd> chọn cụm, phóng to, xoá · <kbd>←</kbd><kbd>→</kbd> đổi trang</span><span class="st">Có thay đổi chưa lưu</span><button class="mb" title="Chọn chữ / hình / thẻ để kéo di chuyển, phóng to-thu nhỏ hoặc xoá (phím M)">✥ Bố cục (M)</button><button class="fb" title="Đổi font chữ cho cả bài">Aa Font</button><button class="ad">🖼 Chèn ảnh</button><button class="sv">Lưu file (Ctrl+S)</button><button class="ex">Thoát (E)</button></div>
+<div id="fmt" class="off"><div class="g"><button data-f="fs-" title="Chữ nhỏ hơn">A−</button><span class="fsv" title="Cỡ chữ">–</span><button data-f="fs+" title="Chữ to hơn">A+</button></div><div class="g"><button data-f="lh-" title="Giảm dãn dòng">↕−</button><span class="lhv" title="Dãn dòng">–</span><button data-f="lh+" title="Tăng dãn dòng">↕+</button></div><div class="g"><button data-f="br" title="Xuống dòng (Enter)">↵ Xuống dòng</button></div><div class="g"><select class="ffs" title="Font của khối chữ này"><option value="">Font: theo bài</option></select></div><div class="g"><button data-f="bold" title="In đậm (Ctrl+B)"><b>B</b></button><button data-f="italic" title="In nghiêng (Ctrl+I)"><i>I</i></button><button data-f="underline" title="Gạch chân (Ctrl+U)"><u>U</u></button></div><div class="g cl">{''.join(f'<button data-f="c" data-v="{c}" title="Màu nhấn" style="--sw:{c}"></button>' for c in PALETTE[:5])}<button data-f="c" data-v="var(--ink)" title="Màu chữ mặc định" style="--sw:var(--ink)"></button><button data-f="hl" title="Tô nền vàng nhấn mạnh" class="hlb">▇</button></div><div class="g"><button data-f="al" data-v="left" title="Căn trái"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 10h12M3 14h18M3 18h12"/></svg></button><button data-f="al" data-v="center" title="Căn giữa"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 10h12M3 14h18M6 18h12"/></svg></button><button data-f="al" data-v="right" title="Căn phải"><svg viewBox="0 0 24 24"><path d="M3 6h18M9 10h12M3 14h18M9 18h12"/></svg></button><button data-f="al" data-v="justify" title="Căn đều 2 bên"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 10h18M3 14h18M3 18h18"/></svg></button></div><div class="g"><button data-f="up" title="VIẾT HOA">AA</button><button data-f="low" title="viết thường">aa</button><button data-f="none" title="Giữ nguyên như khi gõ">Aa</button></div><div class="g"><button data-f="undo" title="Hoàn tác (Ctrl+Z)">↶</button><button data-f="redo" title="Làm lại">↷</button><button data-f="clear" title="Xoá định dạng">⌫ Định dạng</button></div><span class="tip">Bấm vào một đoạn chữ để định dạng</span></div><div id="ipan"><div class="g"><span class="l">Sáng / tối</span><input type="range" data-k="b" min="30" max="170" step="1"><span class="v" data-v="b"></span></div><div class="g"><span class="l">Bo góc</span><input type="range" data-k="rad" min="0" max="50" step="1"><span class="v" data-v="rad"></span></div><div class="g"><span class="l">Viền</span><input type="range" data-k="bw" min="0" max="24" step="1"><span class="v" data-v="bw"></span><button data-bc="#ffffff" title="Trắng" style="--sw:#ffffff"></button><button data-bc="#0B1A4A" title="Xanh đen" style="--sw:#0B1A4A"></button><button data-bc="#1557F0" title="Xanh dương" style="--sw:#1557F0"></button><button data-bc="#E3263A" title="Đỏ" style="--sw:#E3263A"></button><button data-bc="#DE8A00" title="Cam" style="--sw:#DE8A00"></button><label class="cp" title="Chọn màu viền khác"><input type="color" data-k="bc"></label></div><div class="g"><span class="l">Đổ bóng</span><input type="range" data-k="sh" min="0" max="100" step="1"><span class="v" data-v="sh"></span></div><div class="g"><span class="l">Xoay</span><input type="range" data-k="r" min="-180" max="180" step="1"><span class="v" data-v="r"></span></div><div class="g"><button data-ia="front" title="Đưa ảnh lên trên cùng">Lên trên</button><button data-ia="back" title="Đưa ảnh ra sau chữ">Ra sau chữ</button><button data-ia="reset" title="Bỏ xoay, sáng tối, viền… về mặc định">Đặt lại</button><button data-ia="del" class="del" title="Xoá ảnh (Delete)">Xoá</button></div></div><div id="bpan"><div class="g"><span class="l">Bố cục</span><span class="bn"></span></div><div class="g"><button data-ba="up" title="Chọn khối lớn hơn chứa khối này (Q · hoặc Alt+bấm)">⤴ Khối lớn hơn</button></div><div class="g"><button data-ba="small" title="Thu nhỏ (−)">−</button><span class="bsc v">100%</span><button data-ba="big" title="Phóng to (+)">+</button></div><div class="g"><button data-ba="reset" title="Đưa khối về vị trí, kích thước ban đầu">Về chỗ cũ</button><button data-ba="del" class="del" title="Xoá khối (Delete)">Xoá</button></div><div class="g"><button data-ba="restore" title="Hiện lại các khối đã xoá trên trang này">Hiện lại khối đã xoá</button><button data-ba="off" title="Quay lại sửa chữ (M)">✎ Sửa chữ</button></div></div><div id="fpan"><div class="g"><span class="l">Tiêu đề</span><span class="fo" data-r="head"></span></div><div class="g"><span class="l">Nội dung</span><span class="fo" data-r="body"></span></div><div class="g"><button class="fx" title="Đóng">✕</button></div></div><div id="toast"></div>
 """
 
 # ---------- CSS theme + ghi đè ----------
@@ -244,7 +247,7 @@ def subset_font(path, label, axes=None):
     f = TTFont(path, lazy=False)
     if axes and "fvar" in f:
         have = {a.axisTag: (a.minValue, a.maxValue) for a in f["fvar"].axes}
-        lim = {k: (max(v[0], have[k][0]), min(v[1], have[k][1])) for k, v in axes.items() if k in have}
+        lim = {k: (v if isinstance(v, (int, float)) else (max(v[0], have[k][0]), min(v[1], have[k][1]))) for k, v in axes.items() if k in have}
         f = instancer.instantiateVariableFont(f, lim)
         b = io.BytesIO(); f.save(b); b.seek(0); f = TTFont(b, lazy=False)
     cmap = f.getBestCmap()
@@ -252,7 +255,7 @@ def subset_font(path, label, axes=None):
     opts = subset.Options(); opts.flavor = "woff2"; opts.layout_features = ["*"]; opts.name_IDs = ["*"]; opts.notdef_outline = True
     sub = subset.Subsetter(opts); sub.populate(unicodes=unicodes); sub.subset(f)
     buf = io.BytesIO(); f.flavor = "woff2"; f.save(buf)
-    miss = [c for c in missing if c in USED and c not in "↕↵↶↷⌫▇▶◀🖼✕"]  # chỉ báo ký tự có trên trang (bỏ qua ký tự giao diện/dự phòng)
+    miss = [c for c in missing if c in USED and c not in "↕↵↶↷⌫▇▶◀🖼✕←→✎✥⤴"]  # chỉ báo ký tự có trên trang (bỏ qua ký tự giao diện/dự phòng)
     print(f"  {label}: {len(buf.getvalue())//1024} KB" + (f"  (thiếu {len(miss)} ký tự: {''.join(miss[:30])})" if miss else ""))
     return buf.getvalue()
 
@@ -263,8 +266,8 @@ face_css, done = [], set()
 NEED = {"head": True, "body": True,
         "mono": bool(re.search(r'class="[^"]*\b(code|mono)\b|var\(--mono\)', slides)),
         "script": bool(re.search(r'class="[^"]*\bscript\b|var\(--script\)', slides))}
-for role, key in FONTSEL.items():
-    if not key or key in done or not NEED.get(role, True): continue
+def embed_font(key):
+    if key in done: return
     if key not in FREG: sys.exit(f"Font '{key}' không có trong fonts.json")
     done.add(key); spec = FREG[key]
     for style, files in (("normal", spec["files"]), ("italic", spec.get("italic", []))):
@@ -273,10 +276,21 @@ for role, key in FONTSEL.items():
             if not p: sys.exit(f"Thiếu file font {fn} (đặt vào {SKILL / 'fonts'})")
             data = subset_font(p, f"{spec['family']} {w}{' italic' if style == 'italic' else ''}", spec.get("axes"))
             face_css.append(f'@font-face{{font-family:"{spec["family"]}";src:url({b64(data, "font/woff2")}) format("woff2");font-weight:{w};font-style:{style};font-display:block}}')
+for role, key in FONTSEL.items():
+    if key and NEED.get(role, True): embed_font(key)
+# Bộ đổi font trong chế độ sửa (nút "Aa Font"): nhúng sẵn các font cho người dùng chọn.
+# deck.json "font_picker": [khoá fonts.json…] để đổi danh sách, false để tắt (file nhẹ hơn ~0,5 MB).
+DEF_PICK = ["inter", "montserrat", "barlow", "roboto", "google-sans", "open-sans"]
+PICK = CFG.get("font_picker", DEF_PICK)
+PICK = [k for k in (PICK or []) if k in FREG]
+if PICK: print("Font cho người dùng chọn: " + ", ".join(FREG[k]["family"] for k in PICK))
+for key in PICK: embed_font(key)
 fam = lambda k: f'"{FREG[k]["family"]}"' if k and k in FREG else None
 head, body = fam(FONTSEL.get("head")) or '"Inter"', fam(FONTSEL.get("body")) or '"Inter"'
 font_vars = (f':root{{--gs:{head},{body},system-ui,sans-serif;--in:{body},system-ui,sans-serif;'
              f'--mono:{fam(FONTSEL.get("mono")) or "ui-monospace"},Consolas,monospace;--script:{fam(FONTSEL.get("script")) or head},cursive}}')
+js = js.replace("{{FONTS_JSON}}", json.dumps({"choices": [FREG[k]["family"] for k in PICK],
+                                              "head": head.strip('"'), "body": body.strip('"')}, ensure_ascii=False))
 
 css_all = "\n".join([css, "\n".join(face_css), font_vars, part_css, f"/* theme: {TNAME} */", theme_css, "\n".join(over),
                      custom.read_text("utf-8") if custom.exists() else "", "".join(img_css)])

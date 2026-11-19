@@ -63,5 +63,47 @@
     "bg": "mesh", "shield": false, "dark": true, "logo_plate": true,
     "palette": ["#8B6CFF", "#FF4D9D", "#22D3EE", "#FFB547", "#3DDC97", "#5B8CFF"],
     "motion": {"speed": 1, "blur": true, "enter": "zoom", "big": "circle"}
+  },
+  "ava-lavender": {
+    "label": "AVA Lavender — sáng, lavender tím-hồng, dải lụa, sóng chấm, chữ gradient (sản phẩm AI, chatbot/mascot, marketing, giới trẻ)",
+    "fonts": {"head": "montserrat", "body": "be-vietnam-pro", "mono": "jetbrains-mono", "script": "dancing-script"},
+    "bg": "blobs", "shield": false, "dark": false,
+    "palette": ["#7B3FF2", "#E0367F", "#4B5CFF", "#0A9BB0", "#D9720F", "#11996C"],
+    "motion": {"speed": 1, "blur": true, "enter": "slide", "big": "circle"}
+  },
+  "corporate-navy": {
+    "label": "Corporate Navy — trắng + navy đậm + vàng đồng, kẻ chỉ mảnh, thẻ phẳng góc vuông (ngân hàng, tài chính, báo cáo thường niên, HĐQT, cơ quan nhà nước)",
+    "fonts": {"head": "barlow", "body": "roboto", "mono": "jetbrains-mono"},
+    "bg": "grid", "shield": false, "dark": false,
+    "palette": ["#1B4B8F", "#A8741A", "#1F7A55", "#8C2A3C", "#4E5D7E", "#13707E"],
+    "motion": {"speed": 0.95, "blur": false, "enter": "fade", "big": "wipe"}
+  },
+  "mono-keynote": {
+    "label": "Mono Keynote — nền gần đen, chữ trắng rất to, mỗi trang một màu nhấn, nhiều khoảng trống (keynote sân khấu, ra mắt sản phẩm, tầm nhìn)",
+    "fonts": {"head": "inter", "body": "inter", "mono": "jetbrains-mono"},
+    "bg": "none", "shield": false, "dark": true, "logo_plate": true,
+    "palette": ["#4C9BFF", "#FF6B3D", "#3FD68F", "#B78CFF", "#FFC23D", "#FF5A8A"],
+    "motion": {"speed": 1.1, "blur": true, "enter": "fade", "big": "fade"}
+  },
+  "sunset-warm": {
+    "label": "Sunset Warm — kem ấm, san hô / cam / đào / hồng, thẻ bo tròn mềm, mặt trời gradient (nhân sự, văn hoá, cộng đồng, marketing, bán lẻ)",
+    "fonts": {"head": "montserrat", "body": "open-sans", "mono": "jetbrains-mono"},
+    "bg": "blobs", "shield": false, "dark": false,
+    "palette": ["#E8572F", "#D93A6E", "#1E8C86", "#8E4DB0", "#C96F0E", "#3E6FB0"],
+    "motion": {"speed": 1, "blur": true, "enter": "rise", "big": "circle"}
+  },
+  "chalkboard": {
+    "label": "Chalkboard — bảng xanh rêu, khung gỗ, chữ phấn trắng, phấn màu pastel, viền nét đứt vẽ tay (giảng dạy, lớp học, workshop, đào tạo)",
+    "fonts": {"head": "baloo", "body": "nunito", "mono": "jetbrains-mono"},
+    "bg": "mesh", "shield": false, "dark": true, "logo_plate": true,
+    "palette": ["#F7DC6F", "#F5A3C0", "#9FD3F5", "#A8E6B8", "#F8B878", "#C9B3F2"],
+    "motion": {"speed": 0.95, "blur": false, "enter": "slide", "big": "wipe"}
+  },
+  "ocean-fresh": {
+    "label": "Ocean Fresh — sáng, xanh biển / ngọc / da trời, sóng mềm, thẻ kính trong (logistics, y tế, du lịch, nước & biển, SaaS)",
+    "fonts": {"head": "barlow", "body": "open-sans", "mono": "jetbrains-mono"},
+    "bg": "waves", "shield": false, "dark": false,
+    "palette": ["#0A78BE", "#0E9A9A", "#3B5FD9", "#E5594B", "#C98307", "#0F9A6A"],
+    "motion": {"speed": 1.05, "blur": true, "enter": "slide", "big": "circle"}
   }
 }
