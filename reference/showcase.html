@@ -1,4 +1,4 @@
-<!-- SHOWCASE: 18 trang mẫu cho các bố cục v2 (components.css). Chạy được với MỌI theme.
+<!-- SHOWCASE: 33 trang mẫu cho các bố cục v2 (trang 1–17, 33) và v3 (trang 18–32: biểu đồ, sơ đồ, bố cục mới) của components.css. Chạy được với MỌI theme.
      Dùng: scripts/preview_themes.py để build bộ này ra mọi theme và so sánh.
      Ảnh minh hoạ dùng ảnh có sẵn trong template/assets/img. -->
 
@@ -224,6 +224,303 @@
   method: <span class="s">"POST"</span>,
   body: <span class="f">JSON.stringify</span>({ year: <span class="n">2027</span> })
 });</pre>
+  </div>
+</section>
+
+<!-- ===================== BỐ CỤC v3 (trang 18–32): biểu đồ · sơ đồ · bố cục mới ===================== -->
+
+<section class="slide" data-p="4" data-title="Cơ cấu doanh thu" data-k="Donut + thanh chồng 100%">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Cơ cấu <span class="hl">doanh thu</span></h2>
+  <div class="row" style="flex:1;gap:44px;margin-top:40px;margin-bottom:40px;min-height:0">
+    <div class="card col" data-a="up" data-d="300" style="width:800px;padding:36px 44px">
+      <div class="lbl c-p1">Theo nhóm sản phẩm</div>
+      <div class="row grow" style="align-items:center;gap:44px">
+        <div class="dn" style="--sz:330px;--sw:20">
+          <svg viewBox="0 0 120 120"><circle class="dn-trk" cx="60" cy="60" r="50"/>
+            <circle class="dn-seg c-p1" style="--v:46;--o:0" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="500"/>
+            <circle class="dn-seg c-p2" style="--v:27;--o:46" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="750"/>
+            <circle class="dn-seg c-p3" style="--v:17;--o:73" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="1000"/>
+            <circle class="dn-seg c-p4" style="--v:10;--o:90" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="1250"/></svg>
+          <div class="dn-c"><b><span data-count="1250">1.250</span></b><small>tỷ đồng năm 2026</small></div>
+        </div>
+        <div class="lgd v grow" data-stagger="110" data-d0="700" data-sa="left">
+          <span class="c-p1">Kế toán <b>46%</b></span>
+          <span class="c-p2">Bán hàng <b>27%</b></span>
+          <span class="c-p3">Nhân sự <b>17%</b></span>
+          <span class="c-p4">Hoá đơn điện tử <b>10%</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="card col grow" data-a="up" data-d="450" style="padding:36px 44px">
+      <div class="lbl c-p1">Theo vùng</div>
+      <div class="sb" style="--lw:190px;flex:1;justify-content:center;gap:34px;--bh:66px">
+        <div class="sb-r"><div class="sb-l">Miền Bắc<small>520 tỷ</small></div><div class="sb-t" data-a="mask" data-d="600"><i class="c-p1" style="--v:50">50%</i><i class="c-p2" style="--v:26">26%</i><i class="c-p3" style="--v:15">15%</i><i class="c-p4" style="--v:9"></i></div></div>
+        <div class="sb-r"><div class="sb-l">Miền Trung<small>210 tỷ</small></div><div class="sb-t" data-a="mask" data-d="750"><i class="c-p1" style="--v:38">38%</i><i class="c-p2" style="--v:32">32%</i><i class="c-p3" style="--v:18">18%</i><i class="c-p4" style="--v:12">12%</i></div></div>
+        <div class="sb-r"><div class="sb-l">Miền Nam<small>520 tỷ</small></div><div class="sb-t" data-a="mask" data-d="900"><i class="c-p1" style="--v:44">44%</i><i class="c-p2" style="--v:28">28%</i><i class="c-p3" style="--v:18">18%</i><i class="c-p4" style="--v:10">10%</i></div></div>
+      </div>
+      <div class="note c-p1" data-a="up" data-d="1100"><b>Miền Trung</b> có tỷ trọng Bán hàng cao nhất nhờ chuỗi bán lẻ mới.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Phễu bán hàng" data-k="Phễu">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Phễu <span class="hl">bán hàng</span> 2026</h2>
+  <div class="row" style="flex:1;gap:50px;margin-top:40px;margin-bottom:40px;align-items:center;min-height:0">
+    <div class="fn grow c-p1" style="--lw:250px">
+      <div class="fn-s" style="--w:100%"><div class="fn-l">Lượt truy cập<small>Website và quảng cáo</small></div><div class="fn-bw"><div class="fn-b" data-a="grow" data-d="300">48.000</div></div><div class="fn-r"></div></div>
+      <div class="fn-s" style="--w:80%"><div class="fn-l">Đăng ký dùng thử</div><div class="fn-bw"><div class="fn-b" data-a="grow" data-d="450">9.600</div></div><div class="fn-r" data-a="fade" data-d="900">20%<small>chuyển đổi</small></div></div>
+      <div class="fn-s" style="--w:61%"><div class="fn-l">Dùng tích cực<small>Trên 5 ngày/tuần</small></div><div class="fn-bw"><div class="fn-b" data-a="grow" data-d="600">4.800</div></div><div class="fn-r" data-a="fade" data-d="1050">50%<small>chuyển đổi</small></div></div>
+      <div class="fn-s" style="--w:43%"><div class="fn-l">Nhận báo giá</div><div class="fn-bw"><div class="fn-b" data-a="grow" data-d="750">2.400</div></div><div class="fn-r" data-a="fade" data-d="1200">50%<small>chuyển đổi</small></div></div>
+      <div class="fn-s c-p3" style="--w:28%"><div class="fn-l">Ký hợp đồng</div><div class="fn-bw"><div class="fn-b" data-a="grow" data-d="900">1.480</div></div><div class="fn-r" data-a="fade" data-d="1350">62%<small>chuyển đổi</small></div></div>
+    </div>
+    <div class="card col c-p3" data-a="right" data-d="700" style="width:420px;padding:40px 40px 36px">
+      <div class="lbl">Truy cập → hợp đồng</div>
+      <div class="hero-num" style="font-size:150px;margin-top:20px">3,1<small>%</small></div>
+      <p class="p" style="margin-top:16px">Cao gấp 1,6 lần trung bình ngành phần mềm doanh nghiệp.</p>
+      <div class="kpi-d up" style="align-self:flex-start">[[arrow-up]] 0,8 điểm so với 2025</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Từ doanh thu đến lợi nhuận" data-k="Waterfall">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Từ doanh thu đến <span class="hl">lợi nhuận</span></h2>
+  <div class="row" style="justify-content:space-between;align-items:center;margin-top:14px">
+    <p class="s" data-a="up" data-d="200" style="margin-top:0">Đơn vị: tỷ đồng · năm 2026</p>
+    <div class="lgd" data-a="fade" data-d="300"><span class="c-green">Tăng</span><span class="c-red">Giảm</span><span class="c-blue">Tổng</span></div>
+  </div>
+  <div class="wf" style="margin-top:10px">
+    <div class="wf-c tot" style="--b:0;--h:96.2"><div class="wf-bar" data-a="bar" data-d="300"><span class="wf-v">1.250</span></div><div class="wf-l">Doanh thu</div></div>
+    <div class="wf-c neg" style="--b:59.2;--h:37"><div class="wf-bar" data-a="bar" data-d="500"><span class="wf-v">−480</span></div><div class="wf-l">Giá vốn</div></div>
+    <div class="wf-c neg" style="--b:43.1;--h:16.1"><div class="wf-bar" data-a="bar" data-d="700"><span class="wf-v">−210</span></div><div class="wf-l">Chi phí bán hàng</div></div>
+    <div class="wf-c neg" style="--b:30.8;--h:12.3"><div class="wf-bar" data-a="bar" data-d="900"><span class="wf-v">−160</span></div><div class="wf-l">Chi phí quản lý</div></div>
+    <div class="wf-c pos" style="--b:30.8;--h:3.5"><div class="wf-bar" data-a="bar" data-d="1100"><span class="wf-v">+45</span></div><div class="wf-l">Thu nhập khác</div></div>
+    <div class="wf-c neg" style="--b:27.4;--h:6.9"><div class="wf-bar" data-a="bar" data-d="1300"><span class="wf-v">−89</span></div><div class="wf-l">Thuế TNDN</div></div>
+    <div class="wf-c tot" style="--b:0;--h:27.4"><div class="wf-bar" data-a="bar" data-d="1500"><span class="wf-v">356</span></div><div class="wf-l">Lợi nhuận ròng</div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Sức khoẻ khách hàng" data-k="Gauge + Waffle">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Sức khoẻ <span class="hl">khách hàng</span></h2>
+  <div class="row" style="flex:1;gap:44px;margin-top:40px;margin-bottom:40px;min-height:0">
+    <div class="card col c-p3" data-a="up" data-d="300" style="width:700px;padding:36px 44px;align-items:center">
+      <div class="lbl" style="align-self:flex-start">Điểm hài lòng (CSAT)</div>
+      <div class="gz" style="--v:82;--sz:500px;margin-top:auto">
+        <div class="gz-d"><svg viewBox="0 0 200 110"><path class="gz-trk" d="M20 100 A80 80 0 0 1 180 100" pathLength="100"/><path class="gz-val" d="M20 100 A80 80 0 0 1 180 100" pathLength="100" data-a="ring" data-d="500"/></svg><div class="gz-ndl"></div></div>
+        <div class="gz-mm"><span>0</span><span>100</span></div>
+        <div class="gz-n"><b><span data-count="82">82</span></b><small>mục tiêu năm: 80 điểm</small></div>
+      </div>
+      <div style="margin-top:auto"></div>
+    </div>
+    <div class="card row grow c-p1" data-a="up" data-d="450" style="padding:40px 48px;align-items:center;gap:50px">
+      <div class="wfl" style="--n:68;--sz:420px"><b data-a="fade" data-d="700" data-t="1400"></b></div>
+      <div class="col">
+        <div class="lbl">Mức gắn bó</div>
+        <div class="wfl-n" style="margin-top:16px"><span data-count="68">68</span><small>/100</small></div>
+        <div class="wfl-t">doanh nghiệp dùng từ <b>3 phân hệ</b> trở lên</div>
+        <div class="kpi-d up" style="align-self:flex-start;margin-top:22px">[[arrow-up]] 14 so với 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Mức dùng AI theo phòng ban" data-k="Heatmap">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Mức dùng <span class="hl">trợ lý AI</span></h2>
+  <p class="s" data-a="up">Tỷ lệ nhân viên dùng trợ lý AI mỗi tuần, theo phòng ban (%)</p>
+  <div class="card col c-p1" data-a="up" data-d="300" style="margin-top:30px;margin-bottom:40px;padding:30px 44px 26px">
+    <div class="hm" style="--n:6;--lw:240px;--ch:60px" data-stagger="18" data-d0="450" data-sa="zoom">
+      <span></span><span class="hm-h">T7</span><span class="hm-h">T8</span><span class="hm-h">T9</span><span class="hm-h">T10</span><span class="hm-h">T11</span><span class="hm-h">T12</span>
+      <span class="hm-l">Kế toán</span><i style="--v:.42">42</i><i style="--v:.55">55</i><i style="--v:.63">63</i><i style="--v:.71">71</i><i style="--v:.82">82</i><i style="--v:.9">90</i>
+      <span class="hm-l">Bán hàng</span><i style="--v:.35">35</i><i style="--v:.41">41</i><i style="--v:.52">52</i><i style="--v:.6">60</i><i style="--v:.66">66</i><i style="--v:.74">74</i>
+      <span class="hm-l">Nhân sự</span><i style="--v:.18">18</i><i style="--v:.22">22</i><i style="--v:.3">30</i><i style="--v:.41">41</i><i style="--v:.48">48</i><i style="--v:.57">57</i>
+      <span class="hm-l">Kho vận</span><i style="--v:.08">8</i><i style="--v:.12">12</i><i style="--v:.15">15</i><i style="--v:.21">21</i><i style="--v:.27">27</i><i style="--v:.33">33</i>
+      <span class="hm-l">Marketing</span><i style="--v:.5">50</i><i style="--v:.58">58</i><i style="--v:.69">69</i><i style="--v:.77">77</i><i style="--v:.85">85</i><i style="--v:.93">93</i>
+      <span class="hm-l">Ban giám đốc</span><i style="--v:.25">25</i><i style="--v:.31">31</i><i style="--v:.44">44</i><i style="--v:.5">50</i><i style="--v:.61">61</i><i style="--v:.68">68</i>
+    </div>
+    <div class="row" style="justify-content:space-between;align-items:center;margin-top:20px">
+      <div class="p sm muted">Kho vận tăng chậm nhất: cần thêm kịch bản AI cho nghiệp vụ kho.</div>
+      <div class="hm-key">Thấp <i></i> Cao</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="So sánh giải pháp" data-k="Bảng so sánh">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Vì sao chọn <span class="hl">giải pháp của chúng ta</span></h2>
+  <div class="cpt c-p1" style="--n:3;--hl:1;--lw:520px;--rh:64px;margin-top:56px" data-stagger="70" data-d0="350">
+    <div class="cpt-r cpt-h"><div></div><div class="on"><span class="cpt-tag">Đề xuất</span><br>Nền tảng AMIS<small>6,5 triệu/năm</small></div><div>Phần mềm rời<small>4–9 triệu/năm</small></div><div>Excel thủ công<small>Miễn phí</small></div></div>
+    <div class="cpt-r"><div>Hoá đơn điện tử tích hợp</div><div><span class="cpt-y">[[check]]</span></div><div><span class="cpt-y">[[check]]</span></div><div><span class="cpt-x">[[x]]</span></div></div>
+    <div class="cpt-r"><div>Đối soát ngân hàng tự động</div><div><span class="cpt-y">[[check]]</span></div><div>Một phần</div><div><span class="cpt-x">[[x]]</span></div></div>
+    <div class="cpt-r"><div>Trợ lý AI gợi ý hạch toán</div><div><span class="cpt-y">[[check]]</span></div><div><span class="cpt-x">[[x]]</span></div><div><span class="cpt-x">[[x]]</span></div></div>
+    <div class="cpt-r"><div>Báo cáo quản trị theo thời gian thực</div><div><span class="cpt-y">[[check]]</span></div><div>Cuối ngày</div><div>Cuối tháng</div></div>
+    <div class="cpt-r"><div>Dùng trên điện thoại</div><div><span class="cpt-y">[[check]]</span></div><div><span class="cpt-y">[[check]]</span></div><div><span class="cpt-x">[[x]]</span></div></div>
+    <div class="cpt-r"><div>Thời gian triển khai</div><div><b style="color:var(--c)">3 ngày</b></div><div>2–4 tuần</div><div>Ngay</div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Vòng cải tiến" data-k="Cycle">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Vòng <span class="hl">cải tiến liên tục</span></h2>
+  <div class="cyc c-p3" style="--n:5;--h:680px;--ry:235px;align-self:center;margin-top:6px" data-stagger="150" data-d0="400" data-sa="pop">
+    <div class="cyc-c"><div class="cyc-cn">Mỗi quý<small>một vòng đầy đủ</small></div></div>
+    <div class="cyc-i" style="--i:0"><div class="cyc-b card"><div class="cyc-ic">[[database]]</div><div class="cyc-t">Thu thập</div><div class="cyc-d">Dữ liệu dùng sản phẩm</div></div></div>
+    <div class="cyc-i" style="--i:1"><div class="cyc-b card"><div class="cyc-ic">[[search]]</div><div class="cyc-t">Phân tích</div><div class="cyc-d">Tìm điểm nghẽn</div></div></div>
+    <div class="cyc-i" style="--i:2"><div class="cyc-b card"><div class="cyc-ic">[[lightbulb]]</div><div class="cyc-t">Đề xuất</div><div class="cyc-d">Chọn 3 cải tiến ưu tiên</div></div></div>
+    <div class="cyc-i" style="--i:3"><div class="cyc-b card"><div class="cyc-ic">[[rocket]]</div><div class="cyc-t">Triển khai</div><div class="cyc-d">Phát hành từng phần</div></div></div>
+    <div class="cyc-i" style="--i:4"><div class="cyc-b card"><div class="cyc-ic">[[target]]</div><div class="cyc-t">Đo lường</div><div class="cyc-d">So với chỉ số mục tiêu</div></div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Hệ sinh thái" data-k="Hub & spoke">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Một nền tảng, <span class="hl">sáu phân hệ</span></h2>
+  <div class="hs c-p1" style="--n:6;--h:660px;--ry:240px;align-self:center;margin-top:10px">
+    <div class="hs-c" data-a="zoom" data-d="300"><div class="hs-cn">[[layers]]<b>AMIS</b><small>Dữ liệu dùng chung</small></div></div>
+    <div class="hs-i" style="--i:0" data-a="pop" data-d="600"><div class="hs-b card"><span class="ib">[[calculator]]</span><div><div class="hs-t">Kế toán</div><div class="hs-d">Sổ sách, báo cáo thuế</div></div></div></div>
+    <div class="hs-i" style="--i:1" data-a="pop" data-d="710"><div class="hs-b card"><span class="ib">[[cart]]</span><div><div class="hs-t">Bán hàng</div><div class="hs-d">Đơn hàng, công nợ</div></div></div></div>
+    <div class="hs-i" style="--i:2" data-a="pop" data-d="820"><div class="hs-b card"><span class="ib">[[users]]</span><div><div class="hs-t">Nhân sự</div><div class="hs-d">Chấm công, tính lương</div></div></div></div>
+    <div class="hs-i" style="--i:3" data-a="pop" data-d="930"><div class="hs-b card"><span class="ib">[[bank]]</span><div><div class="hs-t">Ngân hàng</div><div class="hs-d">Kết nối 30 ngân hàng</div></div></div></div>
+    <div class="hs-i" style="--i:4" data-a="pop" data-d="1040"><div class="hs-b card"><span class="ib">[[receipt]]</span><div><div class="hs-t">Hoá đơn</div><div class="hs-d">Phát hành, tra cứu</div></div></div></div>
+    <div class="hs-i" style="--i:5" data-a="pop" data-d="1150"><div class="hs-b card"><span class="ib">[[package]]</span><div><div class="hs-t">Kho vận</div><div class="hs-d">Tồn kho, giao nhận</div></div></div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Điểm giao thoa" data-k="Venn">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Điểm <span class="hl">giao thoa</span></h2>
+  <div class="row" style="flex:1;gap:70px;margin-top:20px;margin-bottom:30px;align-items:center;justify-content:center;min-height:0">
+    <div class="vn" style="--sz:700px">
+      <div class="vn-o c-p1" data-a="zoom" data-d="300"><div class="vn-t">[[cpu]]<b>Công nghệ</b><small>Nền tảng đám mây, AI</small></div></div>
+      <div class="vn-o c-p2" data-a="zoom" data-d="450"><div class="vn-t">[[database]]<b>Dữ liệu</b><small>Sạch, liên thông</small></div></div>
+      <div class="vn-o c-p3" data-a="zoom" data-d="600"><div class="vn-t">[[users]]<b>Con người</b><small>Kỹ năng số, văn hoá</small></div></div>
+      <div class="vn-x ab" data-a="fade" data-d="1000"><span>Tự động hoá</span></div>
+      <div class="vn-x ac" data-a="fade" data-d="1100"><span>Công cụ<br>dễ dùng</span></div>
+      <div class="vn-x bc" data-a="fade" data-d="1200"><span>Ra quyết<br>định</span></div>
+      <div class="vn-c" data-a="pop" data-d="1400"><span>Chuyển đổi số</span></div>
+    </div>
+    <div class="col" style="gap:30px;align-items:center">
+      <div class="vn two" style="--sz:760px">
+        <div class="vn-o c-p4" data-a="left" data-d="700"><div class="vn-t"><b>Nhu cầu</b><small>Điều khách hàng cần</small></div></div>
+        <div class="vn-o c-p5" data-a="right" data-d="800"><div class="vn-t"><b>Năng lực</b><small>Điều ta làm giỏi</small></div></div>
+        <div class="vn-c" data-a="pop" data-d="1300"><span>Cơ hội</span></div>
+      </div>
+      <p class="p tc" data-a="up" data-d="1400" style="max-width:640px">Chỉ đầu tư vào vùng giao nhau: nơi nhu cầu thật gặp năng lực sẵn có.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Sơ đồ tổ chức" data-k="Org chart">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Cơ cấu <span class="hl">tổ chức</span> 2027</h2>
+  <div class="otr" style="margin-top:44px">
+    <ul><li><div class="ot-n card" data-a="pop" data-d="300"><span class="ot-av">MT</span><div><b>Minh Tâm</b><small>Tổng giám đốc</small></div></div>
+      <ul>
+        <li class="c-p1"><div class="ot-n card" data-a="up" data-d="550"><span class="ot-av">HL</span><div><b>Khối Sản phẩm</b><small>Hải Linh</small></div></div>
+          <ul><li><div class="ot-n card" data-a="left" data-d="900"><b>Kế toán số</b></div></li><li><div class="ot-n card" data-a="left" data-d="980"><b>Nền tảng AI</b></div></li><li><div class="ot-n card" data-a="left" data-d="1060"><b>Trải nghiệm</b></div></li></ul></li>
+        <li class="c-p2"><div class="ot-n card" data-a="up" data-d="650"><span class="ot-av">QB</span><div><b>Khối Kinh doanh</b><small>Quốc Bảo</small></div></div>
+          <ul><li><div class="ot-n card" data-a="left" data-d="1000"><b>Doanh nghiệp lớn</b></div></li><li><div class="ot-n card" data-a="left" data-d="1080"><b>SME và hộ KD</b></div></li></ul></li>
+        <li class="c-p3"><div class="ot-n card" data-a="up" data-d="750"><span class="ot-av">TV</span><div><b>Khối Vận hành</b><small>Thu Vân</small></div></div>
+          <ul><li><div class="ot-n card" data-a="left" data-d="1100"><b>Chăm sóc KH</b></div></li><li><div class="ot-n card" data-a="left" data-d="1180"><b>Triển khai</b></div></li><li><div class="ot-n card" data-a="left" data-d="1260"><b>Đào tạo</b></div></li></ul></li>
+        <li class="c-p4"><div class="ot-n card" data-a="up" data-d="850"><span class="ot-av">ĐK</span><div><b>Khối Tài chính</b><small>Đức Khang</small></div></div>
+          <ul><li><div class="ot-n card" data-a="left" data-d="1200"><b>Kế toán</b></div></li><li><div class="ot-n card" data-a="left" data-d="1280"><b>Pháp chế</b></div></li></ul></li>
+      </ul>
+    </li></ul>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Kiến trúc nền tảng" data-k="Layer stack">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Kiến trúc <span class="hl">nền tảng</span></h2>
+  <div class="lyr" style="--lw:330px;--rh:98px;margin-top:40px" data-stagger="120" data-d0="350" data-sa="left">
+    <div class="ly-r c-p1"><div class="ly-l">[[smartphone]]<div>Kênh tương tác<small>Người dùng chạm vào</small></div></div><div class="ly-b"><span class="ly-ch">[[monitor]] Web</span><span class="ly-ch">[[smartphone]] Ứng dụng di động</span><span class="ly-ch">[[message]] Zalo OA</span><span class="ly-ch">[[code]] API mở</span></div></div>
+    <div class="ly-r c-p2"><div class="ly-l">[[briefcase]]<div>Ứng dụng nghiệp vụ<small>12 phân hệ</small></div></div><div class="ly-b"><span class="ly-ch">Kế toán</span><span class="ly-ch">Bán hàng</span><span class="ly-ch">Nhân sự</span><span class="ly-ch">Kho vận</span><span class="ly-ch">Hoá đơn</span></div></div>
+    <div class="ly-r c-p4 hi"><div class="ly-l">[[brain]]<div>Lớp AI<small>Mới năm 2027</small></div></div><div class="ly-b"><span class="ly-ch">[[bot]] Trợ lý ảo</span><span class="ly-ch">[[scan-face]] Đọc hoá đơn (OCR)</span><span class="ly-ch">[[line-chart]] Dự báo dòng tiền</span></div></div>
+    <div class="ly-r c-p3"><div class="ly-l">[[database]]<div>Dữ liệu<small>Một nguồn duy nhất</small></div></div><div class="ly-b"><span class="ly-ch">Kho dữ liệu</span><span class="ly-ch">Data lake</span><span class="ly-ch">Báo cáo BI</span></div></div>
+    <div class="ly-r c-p5"><div class="ly-l">[[server]]<div>Hạ tầng<small>Đám mây trong nước</small></div></div><div class="ly-b"><span class="ly-ch">[[cloud]] Cloud</span><span class="ly-ch">[[shield-check]] ISO 27001</span><span class="ly-ch">[[refresh]] Sao lưu mỗi giờ</span></div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Bản đồ định vị" data-k="Positioning map">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Bản đồ <span class="hl">định vị</span></h2>
+  <div class="row" style="flex:1;gap:60px;margin-top:44px;margin-bottom:46px;align-items:center;min-height:0">
+    <div class="pm c-p1" style="--w:1040px;--h:620px">
+      <div class="pm-q q1">Cao cấp</div><div class="pm-q q2 on">Đáng tiền nhất</div><div class="pm-q q3">Cơ bản</div><div class="pm-q q4">Đắt, ít tính năng</div>
+      <div class="pm-ax yh"><span>Đầy đủ tính năng ↑</span></div><div class="pm-ax yl"><span>↓ Tính năng cơ bản</span></div>
+      <div class="pm-ax xl">← Giá thấp</div><div class="pm-ax xh">Giá cao →</div>
+      <div class="pm-b me" style="--x:34;--y:76;--s:110" data-a="pop" data-d="500"><i>[[star]]</i><span>Chúng ta</span></div>
+      <div class="pm-b c-p2" style="--x:74;--y:70;--s:84" data-a="pop" data-d="650"><i></i><span>Đối thủ A</span></div>
+      <div class="pm-b c-p4" style="--x:80;--y:30;--s:64" data-a="pop" data-d="750"><i></i><span>Đối thủ B</span></div>
+      <div class="pm-b c-p3" style="--x:26;--y:36;--s:72" data-a="pop" data-d="850"><i></i><span>Đối thủ C</span></div>
+      <div class="pm-b c-p5 r" style="--x:9;--y:13;--s:44" data-a="pop" data-d="950"><i></i><span>Bảng tính miễn phí</span></div>
+    </div>
+    <div class="col grow" style="gap:22px" data-stagger="130" data-d0="900">
+      <div class="lbl">Cỡ bong bóng = thị phần</div>
+      <div class="h3">Giữ vị trí <span style="color:var(--c)">đáng tiền nhất</span></div>
+      <p class="p">Tính năng ngang nhóm cao cấp, giá chỉ bằng một nửa đối thủ A.</p>
+      <div class="note">Rủi ro: đối thủ C đang thêm AI, có thể dịch lên góc trái trên.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Năm 2026 trong một trang" data-k="Bento">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Năm 2026 <span class="hl">trong một trang</span></h2>
+  <div class="bento" style="--n:4;margin-top:36px;margin-bottom:40px" data-stagger="100" data-d0="350" data-sa="zoom">
+    <div class="bt card solid w2 h2 c-p1"><div class="bt-k">Người dùng hoạt động</div><div class="bt-v"><span data-count="1.2" data-dec="1">1,2</span><small>triệu</small></div><div class="bt-d">Tăng 38% so với năm 2025, chủ yếu từ ứng dụng di động.</div></div>
+    <div class="bt-ph h2" data-ph="money_industry"><div class="cap">Nhà máy đầu tiên dùng kế toán AI toàn trình</div></div>
+    <div class="bt card c-p3"><div class="bt-k">Uptime</div><div class="bt-v" style="font-size:72px">99,9<small>%</small></div></div>
+    <div class="bt card c-p2"><div class="bt-k">Thời gian phản hồi</div><div class="bt-v" style="font-size:72px">45<small>giây</small></div></div>
+    <div class="bt card w3 c-p4" style="flex-direction:row;align-items:center;gap:26px"><span class="ib solid lg">[[award]]</span><div><div class="bt-t" style="margin-top:0">Giải thưởng Sao Khuê 2026</div><div class="bt-d">Hạng mục nền tảng quản trị doanh nghiệp xuất sắc</div></div></div>
+    <div class="bt card c-p5"><div class="bt-k">Đối tác mới</div><div class="bt-v" style="font-size:72px">120</div></div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Trợ lý AI chăm sóc khách hàng" data-k="Chat + điện thoại">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Trợ lý AI <span class="hl">trả lời 24/7</span></h2>
+  <div class="row" style="flex:1;gap:70px;margin-top:30px;margin-bottom:24px;min-height:0;align-items:center">
+    <div class="cv grow c-p1" data-stagger="350" data-d0="400" data-sa="up">
+      <div class="cv-m"><div class="cv-av">NL</div><div><div class="cv-n">Chị Ngọc Lan · Cửa hàng Hoa Sen <time>09:41</time></div><div class="cv-bb">Hoá đơn tháng 11 của tôi bị sai mã số thuế, sửa thế nào?</div></div></div>
+      <div class="cv-m me"><div class="cv-av">[[bot]]</div><div><div class="cv-n">Trợ lý AMIS <time>09:41</time></div><div class="cv-bb">Em đã tìm thấy <b>hoá đơn số 0001234</b>. Chị chọn “Lập hoá đơn điều chỉnh”, em điền sẵn mã số thuế đúng để chị ký nhé.</div></div></div>
+      <div class="cv-m"><div class="cv-av">NL</div><div><div class="cv-n">Chị Ngọc Lan <time>09:42</time></div><div class="cv-bb">Được rồi, cảm ơn em!</div></div></div>
+      <div class="cv-m me"><div class="cv-av">[[bot]]</div><div><div class="cv-bb cv-typing"><i></i><i></i><i></i></div></div></div>
+    </div>
+    <div class="dv-phone c-p1" data-a="rise" data-d="500" style="--w:300px">
+      <div class="dv-scr ui">
+        <div class="lbl" style="font-size:13px">Trợ lý AMIS</div>
+        <div style="font:800 24px/1.15 var(--gs);color:var(--ink)">Dòng tiền tuần này</div>
+        <div class="dn" style="--sz:170px;--sw:22;align-self:center;margin-top:6px">
+          <svg viewBox="0 0 120 120"><circle class="dn-trk" cx="60" cy="60" r="50"/>
+            <circle class="dn-seg c-p3" style="--v:64;--o:0" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="900"/>
+            <circle class="dn-seg c-p2" style="--v:36;--o:64" cx="60" cy="60" r="50" pathLength="100" data-a="ring" data-d="1100"/></svg>
+          <div class="dn-c"><b style="font-size:36px">+1,8</b><small style="font-size:12px">tỷ đồng</small></div>
+        </div>
+        <div class="lgd v" style="font-size:16px;gap:12px;margin-top:8px"><span class="c-p3">Thu <b>3,2 tỷ</b></span><span class="c-p2">Chi <b>1,4 tỷ</b></span></div>
+        <div class="cv-bb" style="font-size:15px;padding:12px 14px;margin-top:auto;border-radius:16px">3 hoá đơn sắp đến hạn thanh toán</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-p="4" data-title="Ra mắt bản web mới" data-k="Laptop">
+  <span class="t-bar" data-a="grow"></span>
+  <h2 class="t" data-a="up">Giao diện <span class="hl">web mới</span></h2>
+  <div class="row" style="flex:1;gap:30px;margin-top:36px;margin-bottom:30px;min-height:0;align-items:center">
+    <div class="dv-lap" data-a="rise" data-d="300" style="--w:860px"><div class="dv-scr" data-ph="people_shield"></div></div>
+    <div class="col grow" style="gap:26px">
+      <div class="eyebrow" data-a="up" data-d="500">Phát hành tháng 3/2027</div>
+      <div class="h3" data-a="up" data-d="600">Nhanh gấp 2 lần, gọn hơn một nửa số bước</div>
+      <div class="checks" data-stagger="120" data-d0="750">
+        <div class="chk"><span class="bx">[[check]]</span><span>Tìm kiếm mọi chứng từ</span></div>
+        <div class="chk"><span class="bx">[[check]]</span><span>Bảng điều khiển tự chọn</span></div>
+        <div class="chk"><span class="bx">[[check]]</span><span>Chế độ tối cho kế toán</span></div>
+      </div>
+    </div>
   </div>
 </section>
 

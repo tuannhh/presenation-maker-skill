@@ -1,5 +1,5 @@
 {
-  "_doc": "Kho font dùng chung. Mỗi mục: family (tên CSS), files: [[tệp, weight]] (weight '300 800' cho font biến thiên), axes (giới hạn trục khi cắt). Tất cả đã kiểm tra đủ dấu tiếng Việt. Google Sans là font bản quyền Google; các font còn lại là OFL.",
+  "_doc": "Kho font dùng chung. Mỗi mục: family (tên CSS), files: [[tệp, weight]] (weight '300 800' cho font biến thiên), axes (giới hạn trục khi cắt: [min, max] giữ biến thiên, 1 số = ghim trục, vd wdth 100). Tất cả đã kiểm tra đủ dấu tiếng Việt. Google Sans là font bản quyền Google; các font còn lại là OFL.",
   "google-sans": {"family": "Google Sans", "files": [["GoogleSans-Regular.otf", 400], ["GoogleSans-Medium.otf", 500], ["GoogleSans-Bold.ttf", 700], ["GoogleSans-Black.ttf", 900]]},
   "inter": {"family": "Inter", "files": [["Inter-VariableFont_opsz,wght.ttf", "300 800"]], "axes": {"wght": [300, 800], "opsz": [14, 32]}},
   "be-vietnam-pro": {"family": "Be Vietnam Pro", "files": [["BeVietnamPro-Regular.ttf", 400], ["BeVietnamPro-Medium.ttf", 500], ["BeVietnamPro-Bold.ttf", 700], ["BeVietnamPro-ExtraBold.ttf", 800], ["BeVietnamPro-Black.ttf", 900]]},
@@ -13,5 +13,8 @@
   "oswald": {"family": "Oswald", "files": [["Oswald-wght.ttf", "300 700"]], "axes": {"wght": [300, 700]}},
   "lexend": {"family": "Lexend", "files": [["Lexend-wght.ttf", "300 900"]], "axes": {"wght": [300, 900]}},
   "jetbrains-mono": {"family": "JetBrains Mono", "files": [["JetBrainsMono-wght.ttf", "300 800"]], "axes": {"wght": [300, 800]}},
-  "dancing-script": {"family": "Dancing Script", "files": [["DancingScript-wght.ttf", "400 700"]], "axes": {"wght": [400, 700]}}
+  "dancing-script": {"family": "Dancing Script", "files": [["DancingScript-wght.ttf", "400 700"]], "axes": {"wght": [400, 700]}},
+  "barlow": {"family": "Barlow", "files": [["Barlow-Regular.ttf", 400], ["Barlow-Medium.ttf", 500], ["Barlow-SemiBold.ttf", 600], ["Barlow-Bold.ttf", 700], ["Barlow-ExtraBold.ttf", 800], ["Barlow-Black.ttf", 900]]},
+  "roboto": {"family": "Roboto", "files": [["Roboto-wght.ttf", "300 900"]], "axes": {"wght": [300, 900], "wdth": 100}},
+  "open-sans": {"family": "Open Sans", "files": [["OpenSans-wght.ttf", "300 800"]], "axes": {"wght": [300, 800], "wdth": 100}}
 }

@@ -1,0 +1,73 @@
+/* Ocean Fresh — sáng, xanh nước biển / ngọc / da trời, sóng mềm dưới đáy, đường sóng mảnh góc trên, thẻ kính trong.
+   Hợp: logistics, vận tải biển, y tế, du lịch, nước sạch, thuỷ sản, SaaS, sản phẩm số "sạch và nhẹ". */
+:root{
+  --bg:#EFF9FC; --ink:#063A50; --text:#2C5567; --muted:#5F8494; --line:rgba(6,90,120,.13);
+  --blue:#0A78BE; --red:#E5594B; --amber:#C98307; --green:#0F9A6A; --violet:#4F5BD5; --cyan:#0E9A9A;
+  --sky:rgba(10,120,190,.10); --rose:rgba(229,89,75,.10); --sun:rgba(201,131,7,.12); --mint:rgba(15,154,106,.10); --lilac:rgba(79,91,213,.10);
+  --surface:#FFFFFF; --surface2:#E6F5F9; --cardline:rgba(255,255,255,.95); --edge:rgba(10,140,180,.13);
+  --cardbg:linear-gradient(180deg,rgba(255,255,255,.86),rgba(240,250,253,.72));
+  --shadow:inset 0 1px 0 #fff,0 1px 2px rgba(6,70,100,.05),0 22px 44px -24px rgba(10,110,150,.32);
+  --shadow-lg:inset 0 1px 0 #fff,0 2px 4px rgba(6,70,100,.05),0 36px 70px -30px rgba(10,110,150,.4);
+  --onc:#FFFFFF; --accent2:#3CCFD8; --hi:#7FD8F0; --g1:#0A78BE; --g2:#14B8C4; --srcc:#7896A2;
+  --radius:24px; --rsm:16px; --blur:16px; --tt:none;
+  --sea:linear-gradient(100deg,#0A78BE 0%,#1398BE 55%,#13A3A0 100%);
+}
+html,body{background:var(--bg)}
+#stage{background:linear-gradient(180deg,#F7FDFF 0%,#EDF9FC 55%,#DDF2F8 100%)}
+#bg .blob{opacity:.45;filter:blur(120px)}
+#bg .b1{background:#A9E4F5!important}
+#bg .b2{background:#B7F0E6!important}
+#bg .b3{background:#C4DDFB!important}
+#bg .vig{display:none}
+#bg .waves{height:300px}
+#bg .waves .w1{fill:#BFE9F3;opacity:.75}
+#bg .waves .w2{fill:#D3F3EE;opacity:.7}
+#bg .waves .w3{fill:#DCEEFB;opacity:.75}
+/* đường sóng mảnh góc phải trên */
+#bg::before{content:"";position:absolute;right:-60px;top:70px;width:1000px;height:360px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 360'%3E%3Cg fill='none' stroke='%2322A6C8' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M0 40 L25 54 L50 65 L75 69 L100 68 L125 63 L150 57 L175 52 L200 50 L225 49 L250 48 L275 45 L300 37 L325 27 L350 16 L375 7 L400 4 L425 8 L450 18 L475 31 L500 43 L525 51 L550 56 L575 56 L600 55 L625 55 L650 57 L675 61 L700 64 L725 64 L750 59 L775 49 L800 35 L825 21 L850 11 L875 7 L900 9 L925 16 L950 24 L975 32 L1000 36' opacity='0.90'/%3E%3Cpath d='M0 94 L25 102 L50 104 L75 100 L100 94 L125 88 L150 85 L175 83 L200 83 L225 81 L250 76 L275 67 L300 55 L325 45 L350 39 L375 39 L400 46 L425 58 L450 71 L475 81 L500 88 L525 90 L550 90 L575 89 L600 90 L625 93 L650 96 L675 99 L700 96 L725 89 L750 77 L775 62 L800 50 L825 42 L850 41 L875 46 L900 54 L925 62 L950 68 L975 71 L1000 73' opacity='0.80'/%3E%3Cpath d='M0 137 L25 137 L50 132 L75 125 L100 120 L125 118 L150 117 L175 116 L200 113 L225 106 L250 95 L275 84 L300 75 L325 72 L350 76 L375 85 L400 98 L425 110 L450 119 L475 124 L500 124 L525 123 L550 123 L575 125 L600 128 L625 132 L650 132 L675 127 L700 117 L725 104 L750 90 L775 79 L800 75 L825 77 L850 83 L875 92 L900 99 L925 104 L950 106 L975 107 L1000 110' opacity='0.70'/%3E%3Cpath d='M0 169 L25 163 L50 157 L75 153 L100 151 L125 151 L150 149 L175 144 L200 135 L225 124 L250 114 L275 107 L300 107 L325 114 L350 125 L375 138 L400 149 L425 156 L450 159 L475 158 L500 157 L525 158 L550 160 L575 164 L600 166 L625 164 L650 157 L675 145 L700 131 L725 118 L750 110 L775 109 L800 113 L825 121 L850 130 L875 136 L900 140 L925 141 L950 142 L975 146 L1000 153' opacity='0.60'/%3E%3Cpath d='M0 194 L25 188 L50 186 L75 185 L100 184 L125 181 L150 174 L175 164 L200 153 L225 144 L250 140 L275 143 L300 153 L325 165 L350 178 L375 187 L400 192 L425 193 L450 192 L475 191 L500 193 L525 196 L550 199 L575 200 L600 196 L625 186 L650 172 L675 158 L700 148 L725 143 L750 144 L775 151 L800 159 L825 167 L850 172 L875 175 L900 176 L925 178 L950 183 L975 191 L1000 200' opacity='0.50'/%3E%3Cpath d='M0 221 L25 219 L50 218 L75 217 L100 212 L125 203 L150 193 L175 182 L200 175 L225 175 L250 181 L275 193 L300 206 L325 217 L350 224 L375 227 L400 226 L425 225 L450 226 L475 228 L500 232 L525 234 L550 232 L575 225 L600 214 L625 200 L650 187 L675 178 L700 177 L725 181 L750 189 L775 197 L800 204 L825 208 L850 209 L875 211 L900 214 L925 221 L950 229 L975 238 L1000 243' opacity='0.40'/%3E%3Cpath d='M0 252 L25 252 L50 249 L75 242 L100 232 L125 221 L150 212 L175 208 L200 211 L225 220 L250 233 L275 245 L300 255 L325 260 L350 261 L375 260 L400 259 L425 261 L450 264 L475 267 L500 268 L525 264 L550 254 L575 241 L600 227 L625 216 L650 211 L675 212 L700 218 L725 227 L750 235 L775 240 L800 243 L825 244 L850 246 L875 251 L900 259 L925 268 L950 275 L975 278 L1000 274' opacity='0.30'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%;opacity:.22;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%);animation:oceanline 16s ease-in-out infinite alternate}
+@keyframes oceanline{to{transform:translateX(-40px) translateY(10px)}}
+
+/* Khung */
+#logo{filter:drop-shadow(0 8px 18px rgba(10,110,150,.14))}
+#foot .pt b{background:rgba(6,90,120,.12)}
+#foot .pt span{color:var(--muted)}
+.kicker{background:rgba(255,255,255,.8)}
+
+/* Chữ */
+.t{font-weight:700;font-size:66px;letter-spacing:-.01em;line-height:1.06}
+.t .hl{color:var(--c)}
+.t-bar{width:80px;height:6px;border-radius:6px;background:var(--sea)}
+.s{font-size:28px}
+.lbl,.eyebrow{letter-spacing:.16em;font-weight:600}
+
+/* Thẻ kính trong */
+.card,.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp{background:var(--cardbg);border:1px solid var(--edge);box-shadow:var(--shadow);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
+.ba-before{background:color-mix(in srgb,var(--surface2) 85%,transparent);box-shadow:none}
+.kpi::before{width:auto;right:0;height:5px;bottom:auto;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 40%,#3CCFD8))}
+.ib{border-radius:18px}
+.ib.solid{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 70%,#7FE3F0),var(--c));color:#fff;box-shadow:0 12px 24px -12px color-mix(in srgb,var(--c) 80%,transparent)}
+.chip{background:rgba(255,255,255,.8);border:1px solid color-mix(in srgb,var(--c) 25%,transparent)}
+.banner{background:var(--sea);color:#fff;box-shadow:0 20px 40px -22px rgba(10,120,190,.65)}
+.banner.soft{background:rgba(255,255,255,.8);color:var(--ink);border:1px solid var(--edge)}
+.plan.feat{background:var(--sea);border-color:transparent;box-shadow:0 30px 60px -24px rgba(10,120,190,.55)}
+.slide .plan.feat .plan-badge{background:#fff;color:var(--blue)!important}
+.mx-c{background:color-mix(in srgb,var(--c) 7%,rgba(255,255,255,.8))}
+.hb-f{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 60%,#7FE3F0),var(--c))}
+.colb{background:linear-gradient(180deg,color-mix(in srgb,var(--c) 55%,#7FE3F0),var(--c))}
+.tl .tl-line{background:var(--sea)}
+.tbl td{background:rgba(255,255,255,.85);border-color:var(--edge)}
+.tbl tr{filter:drop-shadow(0 8px 16px rgba(10,110,150,.08))}
+.code{background:#0B3247;color:#DDF3FA;border:0}
+.code .k{color:#A9B4FF}.code .s{color:#7FE3C0}.code .n{color:#FFD27A}.code .c{color:#7FA3B3}.code .f{color:#7FD0FF}
+.im .imt{box-shadow:0 0 0 1px rgba(10,140,180,.1),0 24px 44px -22px rgba(10,110,150,.4)}
+
+/* Bìa & trang phần */
+.cover .ck{color:var(--blue);letter-spacing:.3em}
+.cover .ttl{text-transform:none;font-weight:800;font-size:118px;line-height:1.02;letter-spacing:-.02em}
+.cover .ttl .g{background-image:linear-gradient(90deg,#0A78BE,#14B8C4 55%,#0A78BE)}
+.rings span{border-color:rgba(20,163,200,.22)}
+.orb{background:rgba(255,255,255,.8);border:1px solid var(--edge);border-radius:50%}
+.sect .stitle{text-transform:none;font-weight:800;letter-spacing:-.025em}
+.sect .num-badge{border-radius:50%;background:var(--sea)}
+.statement .st-big .hl,.thanks .th-big .hl{background:var(--sea);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}

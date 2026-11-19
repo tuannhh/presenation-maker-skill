@@ -80,13 +80,29 @@ Những điều sếp, người dùng đã yêu cầu sửa. Mặc định làm 
   - Chỉnh sáng/tối, bo góc, viền + màu, đổ bóng, lên trên/ra sau chữ.
 - **Video:** bấm hoặc kéo-thả file vào khung video.
 - **Tay kéo ✥** (ngay trong chế độ sửa chữ, không cần M): rê chuột vào chữ / hình / thẻ → ô ✥ tím hiện ở góc trên-trái khối; kéo ô đó để di chuyển, bấm đúp để đưa về chỗ cũ. Lưu chung `EDITS.blocks`. Người dùng hay không biết phím M, nên di chuyển phải làm được ngay khi đang sửa chữ.
+- **Đổi font**: nút "Aa Font" trên thanh sửa chọn font tiêu đề / nội dung cho cả bài (lưu `EDITS.fonts`, áp bằng biến `--gs` / `--in` trên `<html>`); ô "Font" trên thanh định dạng đổi font riêng khối chữ đang sửa (lưu vào `styles` của khối). Chỉ các font trong `font_picker` (mặc định 6 font) được nhúng sẵn; font ngoài danh sách sẽ không hiển thị khi mở trên máy khác.
 - **Bố cục** (phím M hoặc nút "✥ Bố cục" trên thanh sửa; M lần nữa quay lại sửa chữ):
   - Bấm vào bất kỳ chữ / hình / thẻ nào để chọn (viền tím). Bấm trúng phần nhỏ bên trong thì nhấn Q (hoặc Alt+bấm) để chọn khối lớn hơn chứa nó.
   - Kéo để di chuyển; mũi tên dịch từng chút (Shift = 10px); + / − phóng to, thu nhỏ; Delete xoá.
   - "Về chỗ cũ" trả khối về vị trí và cỡ ban đầu; "Hiện lại khối đã xoá" lấy lại mọi khối đã xoá trên trang đang xem.
   - Lưu trong `EDITS.blocks["trang:thứ tự"] = {x, y, sc, del}` (CSS `translate`/`scale`, không đụng hiệu ứng vào). Khối đánh số theo DOM gốc của từng trang → sửa `slides.html` rồi build lại thì chỉnh sửa bố cục cũ có thể lệch khối; khi người dùng đã tự sửa, làm tiếp trên chính file của họ.
 
+## Bố cục v3 cần trình duyệt mới
+
+- Vòng lặp, hub & spoke, bản đồ định vị đặt vị trí bằng `cos()/sin()/atan2()/hypot()` của CSS; waffle dùng `round()`. Cần Chrome/Edge 125+ hoặc Safari 17.2+ (máy trình chiếu cập nhật trình duyệt là đủ). Không đặt vị trí các khối này bằng `transform` vì hiệu ứng `data-a` dùng `transform`.
+- `components.css` khai báo sẵn `.c-p1..c-p6` theo màu tên của theme; `build.py` ghi đè bằng màu phần khi deck có đủ số phần.
+
 ## Xuất PDF
 
 - Không có hiệu ứng. Chụp từng trang ở trạng thái cuối, nét 1.5×.
 - PDF không phát video tại chỗ. Gắn link tương đối tới `video/video-trang-NN.mp4` và phải gửi kèm thư mục `video/`.
+
+## Xuất PPTX
+
+- Mỗi trang = ảnh nền (đã ẩn chữ) + từng khối `data-a` chụp riêng trên nền trong suốt + text box cho mọi `[data-e]`. Muốn chữ nào sửa được trong PowerPoint thì chữ đó phải nằm trong phần tử có `data-e`.
+- Chữ tô gradient (`background-clip:text`) phải được gỡ khỏi ảnh nền và khối trước khi chụp, nếu không PowerPoint hiện chữ hai lần; text box dùng `gradFill` cùng màu.
+- Chữ đứng sau icon nội dòng (vd `<small>[[moon]] 23:00</small>`): đo lề trái dòng đầu của từng đoạn và đặt `indent`, nếu không chữ đè lên icon.
+- Video: python-pptx tự tạo một `p:timing` cho nút phát; mỗi trang chỉ được có một `p:timing`, nên phải gộp nút video vào cây hiệu ứng, nếu không PowerPoint báo không mở được file.
+- Ảnh bìa video lấy khung hình giây 1 bằng ffmpeg (trong HTML khung video chỉ hiện sau lần bấm đầu, nên ảnh nền không có).
+- Trước khi giao: mở bằng PowerPoint (hoặc xuất PNG qua COM trên Windows) so với HTML, nhất là trang có chữ gradient, icon nội dòng, video.
+- Người nhận phải cài font trong `<ten>_fonts/`, nếu không PowerPoint thay font và chữ tràn khung.

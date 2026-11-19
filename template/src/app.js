@@ -5,8 +5,8 @@
 const DV = {}; document.querySelectorAll('script[id^="dv-"]').forEach(s => { DV[s.id] = s.textContent.trim(); s.textContent = ''; });
 const PRISTINE = '<!doctype html>\n' + document.documentElement.outerHTML;
 const EDIT_TAG = '<script id="deck-' + 'edits" type="application/json">';
-let EDITS = { texts:{}, videos:{}, styles:{}, images:{}, blocks:{} };
-try { const j = JSON.parse(document.getElementById('deck-edits').textContent || '{}'); EDITS = { texts: j.texts || {}, videos: j.videos || {}, styles: j.styles || {}, images: j.images || {}, blocks: j.blocks || {} }; } catch(e) {}
+let EDITS = { texts:{}, videos:{}, styles:{}, images:{}, blocks:{}, fonts:{} };
+try { const j = JSON.parse(document.getElementById('deck-edits').textContent || '{}'); EDITS = { texts: j.texts || {}, videos: j.videos || {}, styles: j.styles || {}, images: j.images || {}, blocks: j.blocks || {}, fonts: j.fonts || {} }; } catch(e) {}
 const NOTES = {{NOTES_JSON}};
 const stage = document.getElementById('stage');
 const slides = [...document.querySelectorAll('.slide')];
@@ -14,6 +14,15 @@ const TOTAL_NUMBERED = {{TOTAL_NUMBERED}};
 const PARTS = {{PARTS_JSON}};
 /* Nhịp chuyển động theo theme (build chèn từ themes.json + deck.json "motion") */
 const MOTION = Object.assign({speed:1, blur:true, enter:'slide', big:'circle'}, {{MOTION_JSON}});
+/* Font: choices = các font nhúng sẵn cho người dùng chọn; head/body = font theo theme. Lựa chọn cả bài lưu ở EDITS.fonts {head, body}. */
+const FONTS = {{FONTS_JSON}};
+const fq = f => `"${f}"`;
+function fontApply(){
+  const r = document.documentElement.style, h = EDITS.fonts.head, b = EDITS.fonts.body;
+  if (h || b) r.setProperty('--gs', `${fq(h || FONTS.head)},${fq(b || FONTS.body)},system-ui,sans-serif`); else r.removeProperty('--gs');
+  if (b) r.setProperty('--in', `${fq(b)},system-ui,sans-serif`); else r.removeProperty('--in');
+}
+fontApply();
 const SP = +MOTION.speed || 1;
 /* data-stagger: cho các con xuất hiện lần lượt.  <div data-stagger="120" data-sa="up" data-d0="400">…</div> */
 slides.forEach(s => s.querySelectorAll('[data-stagger]').forEach(box => {
@@ -212,6 +221,52 @@ function fitText(el){
 }
 const fitSlide = s => s && s.querySelectorAll(FIT_SEL).forEach(fitText);
 
+/* ---------- Chuyển trang ----------
+   Tên kiểu: data-tr trên <section> (riêng trang đó) > deck.json motion.big (bìa, trang phần, statement, cảm ơn) / motion.enter (trang thường).
+   Một lớp (chỉ trang mới chuyển động): slide, fade, zoom, rise, cut; trang lớn thêm circle, wipe.
+   Hai lớp (TWO, cả trang cũ và mới cùng chuyển động): prezi (lùi xa – lướt – zoom vào như Prezi), cube (khối lập phương xoay),
+   flip (lật thẻ), zoomin (bay xuyên vào trang), stack (rút thẻ trên cùng ra), parallax (đẩy có chiều sâu), swirl (xoáy).
+   mix = luân phiên các kiểu hai lớp theo số trang. */
+const MIX = ['prezi', 'cube', 'zoomin', 'parallax', 'flip', 'stack', 'prezi', 'swirl'];
+function trName(n){
+  const s = slides[n]; if (!s) return 'slide';
+  const big = s.classList.contains('sect') || s.classList.contains('cover') || s.classList.contains('statement') || s.classList.contains('thanks');
+  let t = s.dataset.tr || (big ? MOTION.big : MOTION.enter) || (big ? 'circle' : 'slide');
+  if (t === 'mix') t = MIX[n % MIX.length];
+  return t;
+}
+const PZ_DIRS = [[1,0],[1,1],[0,1],[1,-1],[-1,1],[1,.6],[0,-1],[-1,-.5]];
+const cubeT = deg => `perspective(2600px) translateZ(-960px) rotateY(${deg}deg) translateZ(960px)`;
+const TWO = {
+  prezi(dir, n){
+    const k = dir > 0 ? PZ_DIRS[n % PZ_DIRS.length] : PZ_DIRS[(n + 1) % PZ_DIRS.length].map(v => -v);
+    const V = { x: k[0] * 2180, y: k[1] * 1300 }, Z = [1, .36, 1], C = [{x:0, y:0}, {x:V.x / 2, y:V.y / 2}, V];
+    const at = p => C.map((c, i) => ({ transform: `translate(${(p.x - c.x) * Z[i]}px,${(p.y - c.y) * Z[i]}px) scale(${Z[i]})` }));
+    return { du: 1500, cam: true, a: at({x:0, y:0}), b: at(V), ez: 'cubic-bezier(.55,0,.35,1)',
+      bg: [{transform:'scale(1)'}, {transform:'scale(1.12)'}, {transform:'scale(1)'}] };
+  },
+  cube(dir){ return { du: 1100, cam: true, ez: 'cubic-bezier(.6,0,.3,1)',
+    a: [{transform: cubeT(0), filter:'brightness(1)'}, {transform: cubeT(-90 * dir), filter:'brightness(.55)'}],
+    b: [{transform: cubeT(90 * dir), filter:'brightness(.55)'}, {transform: cubeT(0), filter:'brightness(1)'}] }; },
+  flip(dir){ return { du: 520, cam: true, bDelay: 520, ez: 'cubic-bezier(.5,0,.5,1)',
+    a: [{transform:'perspective(2400px) rotateY(0deg) scale(1)'}, {transform:`perspective(2400px) rotateY(${-90 * dir}deg) scale(.88)`}],
+    b: [{transform:`perspective(2400px) rotateY(${90 * dir}deg) scale(.88)`}, {transform:'perspective(2400px) rotateY(0deg) scale(1)'}] }; },
+  zoomin(){ return { du: 1000, ez: 'cubic-bezier(.5,0,.2,1)',
+    a: [{transform:'scale(1)', opacity:1, filter:'blur(0px)'}, {transform:'scale(2.6)', opacity:0, filter:'blur(14px)'}],
+    b: [{transform:'scale(.5)', opacity:0, filter:'blur(8px)'}, {transform:'scale(1)', opacity:1, filter:'blur(0px)'}],
+    bg: [{transform:'scale(1)'}, {transform:'scale(1.18)'}, {transform:'scale(1)'}] }; },
+  stack(dir){ return { du: 1000, cam: true, aTop: true, ez: 'cubic-bezier(.6,0,.3,1)',
+    a: [{transform:'translate(0px,0px) rotate(0deg)'}, {transform:`translate(${-dir * 2100}px,160px) rotate(${-dir * 14}deg)`}],
+    b: [{transform:'scale(.9)', filter:'brightness(.75)'}, {transform:'scale(1)', filter:'brightness(1)'}] }; },
+  parallax(dir){ return { du: 1050, cam: true, ez: 'cubic-bezier(.7,0,.25,1)',
+    a: [{transform:'translateX(0px) scale(1)', opacity:1}, {transform:`translateX(${-dir * 900}px) scale(.86)`, opacity:0}],
+    b: [{transform:`translateX(${dir * 1920}px)`}, {transform:'translateX(0px)'}],
+    bg: [{transform:'translateX(0px)'}, {transform:`translateX(${-dir * 60}px)`}, {transform:'translateX(0px)'}] }; },
+  swirl(dir){ return { du: 1100, ez: 'cubic-bezier(.6,0,.3,1)',
+    a: [{transform:'rotate(0deg) scale(1)', opacity:1, filter:'blur(0px)'}, {transform:`rotate(${dir * 28}deg) scale(1.7)`, opacity:0, filter:'blur(10px)'}],
+    b: [{transform:`rotate(${-dir * 28}deg) scale(.4)`, opacity:0}, {transform:'rotate(0deg) scale(1)', opacity:1}] }; },
+};
+
 function go(n, dir){
   n = Math.max(0, Math.min(slides.length-1, n));
   if (n === cur) return;
@@ -219,6 +274,20 @@ function go(n, dir){
   imgDeselect();
   dir = dir || (n > cur ? 1 : -1);
   const a = slides[cur], b = slides[n];
+  const big = b.classList.contains('sect') || b.classList.contains('cover') || b.classList.contains('statement') || b.classList.contains('thanks');
+  const tr = trName(n);
+  if (a && TWO[tr]) {
+    /* chuyển trang hai lớp: trang cũ và trang mới cùng chuyển động (kiểu Prezi, khối lập phương, lật…) */
+    b.classList.add('on'); fitSlide(b);
+    const run = TWO[tr](dir, n), du = run.du * SP, opt = { duration: du, easing: run.ez || 'cubic-bezier(.65,0,.35,1)' };
+    a.style.zIndex = run.aTop ? 3 : 1; b.style.zIndex = 2;
+    if (run.cam) { a.classList.add('cam'); b.classList.add('cam'); }
+    const out = a.animate(run.a, { ...opt, fill: 'forwards' });
+    const inn = b.animate(run.b, { ...opt, delay: (run.bDelay || 0) * SP, fill: 'backwards' });
+    if (run.bg) { const bgEl = document.getElementById('bg'); if (bgEl) bgEl.animate(run.bg, { duration: du + (run.bDelay || 0) * SP, easing: 'ease-in-out' }); }
+    out.onfinish = () => { if (slides[cur] !== a) { a.classList.remove('on'); reset(a); } out.cancel(); a.style.zIndex = ''; a.classList.remove('cam'); };
+    inn.onfinish = () => { b.classList.remove('cam'); };
+  } else {
   if (a) {
     a.style.zIndex = 1;
     const outKF = MOTION.enter === 'cut' ? [{opacity:1}, {opacity:0}] : MOTION.blur ? [{opacity:1, transform:'none', filter:'blur(0px)'}, {opacity:0, transform:`translateX(${-dir*70}px) scale(.97)`, filter:'blur(8px)'}] : [{opacity:1, transform:'none'}, {opacity:0, transform: MOTION.enter === 'slide' ? `translateX(${-dir*70}px)` : 'scale(.98)'}];
@@ -227,7 +296,6 @@ function go(n, dir){
   }
   b.classList.add('on'); b.style.zIndex = 2;
   fitSlide(b);
-  const big = b.classList.contains('sect') || b.classList.contains('cover') || b.classList.contains('statement') || b.classList.contains('thanks');
   if (a) {
     const BIG = {
       circle: [[{clipPath:'circle(0% at 50% 55%)'}, {clipPath:'circle(75% at 50% 55%)'}], 1200, 'cubic-bezier(.75,0,.2,1)'],
@@ -242,8 +310,9 @@ function go(n, dir){
       rise:  [[{opacity:0, transform:'translateY(60px)'}, {opacity:1, transform:'none'}], 850, SPRING],
       cut:   [[{opacity:1}, {opacity:1}], 1, 'linear'],
     };
-    const [kf, du, ez] = big ? (BIG[MOTION.big] || BIG.circle) : (ENTER[MOTION.enter] || ENTER.slide);
+    const [kf, du, ez] = (big ? BIG[tr] || ENTER[tr] : ENTER[tr] || BIG[tr]) || (big ? BIG.circle : ENTER.slide);
     b.animate(kf, {duration: du * SP, easing: ez});
+  }
   }
   reset(b); runIn(b);
   cur = n; chrome(n);
@@ -431,7 +500,7 @@ function settle(slide){
 function toggleEdit(on){
   editing = on === undefined ? !editing : on;
   document.body.classList.toggle('editing', editing);
-  if (!editing) { lastEl = null; updFmt(); imgDeselect(); gripShow(null); if (blkMode) blkToggle(false); }
+  if (!editing) { lastEl = null; updFmt(); imgDeselect(); gripShow(null); if (blkMode) blkToggle(false); if (window.fontPanel) fontPanel(false); }
   EDITABLE.forEach(el => { if (editing && !blkMode) { el.contentEditable = 'true'; el.spellcheck = false; } else el.removeAttribute('contenteditable'); });
   if (editing) { settle(slides[cur]); help.classList.add('off'); }
   else if (document.activeElement && document.activeElement.isContentEditable) document.activeElement.blur();
@@ -470,6 +539,8 @@ function updFmt(){
   fmt.querySelector('.lhv').textContent = lh.toFixed(2);
   fmt.querySelectorAll('[data-f="al"]').forEach(b => b.classList.toggle('on', cs.textAlign === b.dataset.v || (b.dataset.v === 'left' && (cs.textAlign === 'start'))));
   ['bold','italic','underline'].forEach(c => { const b = fmt.querySelector(`[data-f="${c}"]`); try { b.classList.toggle('on', document.queryCommandState(c)); } catch(e){} });
+  const ffs = fmt.querySelector('.ffs');
+  if (ffs) { const ff = (lastEl.style.fontFamily || '').split(',')[0].replace(/["']/g, '').trim(); ffs.value = FONTS.choices.includes(ff) ? ff : ''; }
 }
 document.addEventListener('selectionchange', () => {
   if (!editing) return;
@@ -521,6 +592,34 @@ fmt.addEventListener('click', e => {
   saveEl(el); updFmt();
 });
 
+/* ---------- Đổi font: cả bài (nút "Aa Font" trên thanh sửa → EDITS.fonts) và từng khối chữ (ô chọn trên thanh định dạng → styles của khối) ---------- */
+(() => {
+  const fpan = document.getElementById('fpan'), fbtn = ebar.querySelector('.fb'), ffs = fmt.querySelector('.ffs');
+  if (!fpan || !fbtn || !ffs) return;
+  if (!FONTS.choices.length) { fbtn.remove(); ffs.closest('.g').remove(); fpan.remove(); return; }
+  const opts = r => { const now = EDITS.fonts[r] || '';
+    return `<button data-v="" class="${now ? '' : 'on'}" style="font-family:${fq(FONTS[r])}">Theo theme (${FONTS[r]})</button>`
+      + FONTS.choices.map(f => `<button data-v="${f}" class="${now === f ? 'on' : ''}" style="font-family:${fq(f)}">${f}</button>`).join(''); };
+  const render = () => fpan.querySelectorAll('.fo').forEach(o => o.innerHTML = opts(o.dataset.r));
+  const show = on => { fpan.classList.toggle('on', on); fbtn.classList.toggle('on', on); if (on) render(); };
+  fbtn.onclick = () => show(!fpan.classList.contains('on'));
+  fpan.addEventListener('mousedown', e => e.preventDefault());
+  fpan.addEventListener('click', e => {
+    if (e.target.closest('.fx')) { show(false); return; }
+    const b = e.target.closest('.fo button'); if (!b) return;
+    const r = b.closest('.fo').dataset.r;
+    if (b.dataset.v) EDITS.fonts[r] = b.dataset.v; else delete EDITS.fonts[r];
+    fontApply(); render(); markDirty(); fitSlide(slides[cur]);
+  });
+  ffs.insertAdjacentHTML('beforeend', FONTS.choices.map(f => `<option value="${f}" style="font-family:${fq(f)}">${f}</option>`).join(''));
+  ffs.addEventListener('change', () => {
+    const el = lastEl; if (!el) return;
+    el.style.fontFamily = ffs.value ? `${fq(ffs.value)},system-ui,sans-serif` : '';
+    saveEl(el); if (el.matches(FIT_SEL)) fitText(el);
+  });
+  window.fontPanel = show;
+})();
+
 async function saveFile(){
   const json = JSON.stringify(EDITS).replace(/<\//g, '<\\/');
   const i = PRISTINE.indexOf(EDIT_TAG), j = PRISTINE.indexOf('</' + 'script>', i);
@@ -546,7 +645,7 @@ ebar.querySelector('.sv').onclick = saveFile;
 ebar.querySelector('.ex').onclick = () => toggleEdit(false);
 addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
-window.deck = { go: n => go(n - 1), get index(){ return cur + 1; } };
+window.deck = { go: n => go(n - 1), get index(){ return cur + 1; }, get count(){ return slides.length; }, get motion(){ return MOTION; }, tr: n => trName(n - 1) };
 /* ---------- Start ---------- */
 const startAt = Math.max(0, Math.min(slides.length-1, (parseInt(location.hash.slice(1)) || 1) - 1));
 document.fonts && document.fonts.ready ? document.fonts.ready.then(() => go(startAt)) : go(startAt);

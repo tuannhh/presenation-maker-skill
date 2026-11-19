@@ -1,0 +1,106 @@
+/* Chalkboard — bảng đen xanh rêu có vân bụi phấn và vết lau, khung gỗ, chữ phấn trắng, nhấn phấn màu pastel
+   (vàng, hồng, xanh nhạt), viền nét đứt như vẽ tay. Hợp: giảng dạy, lớp học, workshop, đào tạo, chia sẻ kiến thức. */
+:root{
+  --bg:#1E3832; --ink:#F6F3EA; --text:#DCE4DC; --muted:#A7B8AE; --line:rgba(246,243,234,.22);
+  --blue:#9FD3F5; --red:#F5A3C0; --amber:#F7DC6F; --green:#A8E6B8; --violet:#C9B3F2; --cyan:#8EE0DA;
+  --sky:rgba(159,211,245,.14); --rose:rgba(245,163,192,.14); --sun:rgba(247,220,111,.14); --mint:rgba(168,230,184,.13); --lilac:rgba(201,179,242,.14);
+  --surface:#24433B; --surface2:#1A322C; --cardline:rgba(246,243,234,.38); --edge:transparent;
+  --cardbg:rgba(255,255,255,.035); --shadow:none; --shadow-lg:0 30px 60px -30px rgba(0,0,0,.6);
+  --onc:#16302A; --accent2:#F7DC6F; --hi:#F7DC6F; --g1:#F7DC6F; --g2:#F5A3C0; --srcc:#93A89C;
+  --radius:22px 14px 26px 12px / 14px 24px 12px 22px; --rsm:12px 8px 14px 7px; --blur:0px; --tt:none; --grain:.32;
+  --chalk:2.5px dashed rgba(246,243,234,.4);
+}
+html,body{background:var(--bg)}
+#stage{background:radial-gradient(90% 80% at 45% 35%,#2A4A42 0%,#203D36 55%,#172E28 100%)}
+/* vết lau phấn mờ */
+#bg .blob{background:#fff!important;opacity:.045;filter:blur(110px)}
+#bg .grain{mix-blend-mode:screen;opacity:var(--grain)}
+#bg .vig{background:radial-gradient(120% 100% at 50% 45%,transparent 55%,rgba(0,0,0,.35) 100%)}
+/* khung gỗ */
+#bg{box-shadow:inset 0 0 0 12px #6E4B2E,inset 0 0 0 14px #4A301C,inset 0 0 40px 14px rgba(0,0,0,.35)}
+/* hình vẽ phấn ở hai lề */
+#bg::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Cg fill='none' stroke='%23F4F1E8' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M54 300 L64 319 L86 321 L67 334 L74 354 L58 343 L37 354 L44 334 L29 321 L47 319 L56 300'/%3E%3Cpath d='M58 720 L58 720 L58 720 L58 720 L59 721 L59 721 L59 721 L59 721 L59 722 L59 722 L59 722 L59 723 L59 723 L59 723 L59 724 L59 724 L58 724 L58 724 L58 725 L58 725 L57 725 L57 726 L57 726 L56 726 L56 726 L56 726 L55 726 L55 726 L54 727 L54 727 L53 727 L53 727 L52 726 L52 726 L51 726 L51 726 L50 726 L50 725 L49 725 L49 725 L48 724 L48 724 L47 723 L47 723 L47 722 L46 722 L46 721 L46 720 L46 720 L46 719 L46 718 L46 718 L46 717 L46 716 L46 715 L46 715 L46 714 L46 713 L47 712 L47 712 L48 711 L48 710 L49 710 L49 709 L50 709 L51 708 L51 708 L52 707 L53 707 L54 706 L55 706 L56 706 L57 706 L58 706 L58 706 L59 706 L60 706 L61 706 L62 706 L63 706 L64 707 L65 707 L66 708 L67 708 L68 709 L69 710 L70 710 L70 711 L71 712 L72 713 L72 714 L73 715 L73 716 L74 717 L74 719 L74 720 L74 721 L75 722 L74 723 L74 725 L74 726 L74 727 L74 728 L73 730 L73 731 L72 732 L71 733 L71 734 L70 735 L69 736 L68 737 L67 738 L66 739 L64 740 L63 740 L62 741 L60 741 L59 742 L58 742 L56 742 L55 743 L53 743 L52 742 L50 742 L49 742 L47 742 L46 741 L44 741 L43 740 L41 739 L40 738 L39 737 L37 736 L36 735 L35 734 L34 732 L33 731 L32 730 L32 728 L31 727 L30 725 L30 723 L30 721 L29 720 L29 718 L29 716 L30 714 L30 713 L30 711 L31 709 L31 707 L32 706 L33 704 L34 702 L35 701 L36 699 L37 698 L39 697 L40 696 L42 694 L43 693 L45 692 L47 692 L49 691 L51 690 L53 690 L55 690 L57 689 L59 689 L61 689 L63 690 L65 690 L67 690 L69 691 L71 692 L73 693 L75 694 L76 695 L78 696 L80 698 L81 699 L83 701 L84 702 L85 704 L87 706 L88 708 L88 710 L89 712 L90 714 L90 717 L91 719 L91 721 L91 724 L91 726 L90 728 L90 730 L89 733 L89 735 L88 737 L87 739'/%3E%3Cpath d='M1846 300 C1890 330 1890 400 1858 440'/%3E%3Cpath d='M1846 424 L1858 442 L1878 432'/%3E%3Cpath d='M1864 650 C1898 650 1902 700 1868 712 C1834 722 1822 680 1846 658 C1856 650 1874 648 1886 656'/%3E%3Cpath d='M44 520 L68 520 M56 508 L56 532'/%3E%3Cpath d='M1852 560 L1876 584 M1876 560 L1852 584'/%3E%3C/g%3E%3C/svg%3E");background-size:100% 100%;opacity:.22}
+
+/* Khung */
+#logo{filter:none}
+#foot .pt b{height:4px;background:rgba(246,243,234,.14)}
+#foot .pt span{color:#A7B8AE}
+#foot .pg{color:#A7B8AE}
+.kicker{background:transparent;border:var(--chalk);color:var(--c);box-shadow:none}
+
+/* Chữ phấn */
+.t{font-weight:700;font-size:66px;letter-spacing:0;line-height:1.1;color:var(--ink);text-shadow:0 0 2px rgba(255,255,255,.35)}
+.t .hl{color:var(--c);text-shadow:0 0 2px color-mix(in srgb,var(--c) 50%,transparent);background:linear-gradient(transparent 84%,color-mix(in srgb,var(--c) 55%,transparent) 84% 92%,transparent 92%)}
+.t-bar{width:150px;height:14px;border-radius:0;background:var(--c);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 14'%3E%3Cpath d='M3 8 Q13 2 23 8 T43 8 T63 7 T83 8 T103 7 T123 8 T147 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 14'%3E%3Cpath d='M3 8 Q13 2 23 8 T43 8 T63 7 T83 8 T103 7 T123 8 T147 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.s{font-size:28px;color:var(--text)}
+.s b,.p b,.bul li b,.tbl td b,.banner.soft b,.note b{color:#fff}
+.lbl,.eyebrow{letter-spacing:.12em}
+.h3,.h4,.ag-t,.pstep .pt,.person .pn,.vtl-t,.tl-t{color:var(--ink)}
+
+/* Thẻ: viền phấn nét đứt */
+.card,.kpi,.person,.plan,.ag-item,.pstep,.ba-pane,.purpose .pp,.mx-c{background:var(--cardbg);border:var(--chalk);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.kpi::before{display:none}
+.kpi-v{color:var(--c)}
+.kpi-l{color:var(--muted)}
+.ib{border-radius:46% 54% 50% 50% / 55% 45% 55% 45%;background:transparent;border:2.5px solid var(--c)}
+.ib.solid{background:var(--c);color:var(--onc);border:0;box-shadow:none}
+.chip{background:transparent;color:var(--c);border:2px dashed color-mix(in srgb,var(--c) 70%,transparent);border-radius:30px}
+.banner{background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--ink);border:2.5px dashed var(--c);box-shadow:none}
+.banner .i{color:var(--c)}
+.banner::after{display:none}
+.banner.soft{background:transparent;color:var(--ink);border:var(--chalk)}
+.note{background:rgba(255,255,255,.04);border-left:5px solid var(--c)}
+.ag-item.on{background:color-mix(in srgb,var(--c) 18%,transparent);border-color:var(--c)}
+.ag-item.on .ag-n,.ag-item.on .ag-t,.ag-item.on .ag-d{color:var(--ink)}
+.plan.feat{background:color-mix(in srgb,var(--c) 16%,transparent);border:3px solid var(--c);box-shadow:none}
+.plan.feat *{color:var(--ink)!important}
+.slide .plan.feat .plan-n,.slide .plan.feat .plan-p{color:var(--c)!important}
+.slide .plan.feat .bul li::before{background:var(--c)!important}
+.slide .plan.feat .plan-badge{background:var(--c);color:var(--onc)!important}
+.plan-badge{background:var(--ink);color:var(--onc)!important}
+.plan-cta{border-style:dashed}
+.ba-before{background:transparent;border-color:rgba(246,243,234,.25)}
+.ba-after{border:3px dashed var(--c)}
+.mx-c{border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+.mx-k{opacity:.16}
+.pstep .pn{color:var(--onc)}
+.pstep:not(:last-child)::after{opacity:.8}
+.tl-dot{background:var(--bg);box-shadow:none}
+.vtl-item::before{background:var(--bg)}
+.vtl-item.done::before{background:var(--c)}
+.tl::before,.vtl::before{background:repeating-linear-gradient(90deg,rgba(246,243,234,.35) 0 14px,transparent 14px 22px)}
+.vtl::before{background:repeating-linear-gradient(180deg,rgba(246,243,234,.35) 0 14px,transparent 14px 22px)}
+.hb-t{background:rgba(255,255,255,.06);border:2px dashed rgba(246,243,234,.25)}
+.hb-f{background:var(--c)}
+.colb{background:repeating-linear-gradient(135deg,var(--c) 0 10px,color-mix(in srgb,var(--c) 70%,transparent) 10px 16px)}
+.colw.dim .colb{background:repeating-linear-gradient(135deg,rgba(246,243,234,.3) 0 10px,rgba(246,243,234,.15) 10px 16px)}
+.cols{border-bottom:3px solid rgba(246,243,234,.5)}
+.lchart .pt{fill:var(--bg)}
+.lchart .ln{stroke-dasharray:none}
+.tbl th{color:var(--muted)}
+.tbl td{background:rgba(255,255,255,.05);border-color:rgba(246,243,234,.2);color:var(--text)}
+.tbl td:last-child{color:var(--ink)}
+.tbl tr{filter:none}
+.code{background:#132721;color:#EDEBE2;border:var(--chalk)}
+.code .k{color:#C9B3F2}.code .s{color:#A8E6B8}.code .n{color:#F7DC6F}.code .c{color:#93A89C}.code .f{color:#9FD3F5}
+.im .imt{border-radius:14px!important;box-shadow:0 0 0 6px rgba(246,243,234,.9),0 30px 60px -30px #000}
+.ph{border-radius:14px}
+.toc .ti{border-bottom:2px dashed var(--line)}
+.toc .ti .n{background:transparent;border:2px solid var(--c)}
+.light{color:var(--onc)}
+
+/* Bìa & trang phần */
+.cover .ck{color:var(--amber);letter-spacing:.24em}
+.cover .ttl{text-transform:none;font-weight:800;font-size:120px;line-height:1.02;letter-spacing:-.005em;text-shadow:0 0 3px rgba(255,255,255,.3)}
+.cover .ttl .g{background:none;-webkit-text-fill-color:var(--amber);color:var(--amber);animation:none}
+.rings span{border:2.5px dashed rgba(246,243,234,.22)}
+.orb{border-radius:50%;background:transparent;border:2.5px dashed color-mix(in srgb,var(--c) 70%,transparent);box-shadow:none;color:var(--c)}
+.sect .stitle{text-transform:none;font-weight:800;text-shadow:0 0 3px rgba(255,255,255,.3)}
+.sect .wm{-webkit-text-stroke:3px rgba(246,243,234,.1)}
+.sect .num-badge{border-radius:50%;background:var(--c);color:var(--onc);box-shadow:none}
+.statement .st-big{text-shadow:0 0 3px rgba(255,255,255,.3)}
+.thanks .th-big{text-shadow:0 0 3px rgba(255,255,255,.3)}
+#help kbd{background:rgba(255,255,255,.1);color:#fff}
+#jump{color:var(--ink)}

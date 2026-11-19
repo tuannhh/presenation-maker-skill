@@ -1,6 +1,6 @@
 # Danh mục theme
 
-Đổi theme = đổi `"theme"` trong `deck.json` rồi build lại; cùng một `slides.html` chạy được với mọi theme. Xem tận mắt cả 9 bản:
+Đổi theme = đổi `"theme"` trong `deck.json` rồi build lại; cùng một `slides.html` chạy được với mọi theme. Xem tận mắt cả 15 bản:
 
 ```bash
 "$PY" $SK/scripts/preview_themes.py <thư-mục-ra> [--slides src/slides.html] [--themes a,b] [--logo none]
@@ -19,10 +19,16 @@
 | `luxury-gold` | đen + vàng ánh kim, thanh lịch | gala, vinh danh, tất niên, kỷ niệm thành lập, tri ân khách hàng VIP | Cormorant Garamond / Montserrat (+ Dancing Script) | stars | chậm, sang |
 | `nature-green` | xanh lá, be, sóng mềm | ESG, CSR, môi trường, sức khoẻ, nông nghiệp, thực phẩm, giáo dục mầm non | Lora / Be Vietnam Pro | waves | chậm, êm |
 | `vivid-gradient` | nền tối, gradient tím-hồng-cyan rực, glass | ra mắt sản phẩm, sự kiện trẻ, âm nhạc, Gen Z, khởi động năm mới | Montserrat / Inter | mesh | vừa, zoom |
+| `ava-lavender` | sáng, lavender tím-hồng, dải lụa, sóng chấm trắng, chữ gradient | sản phẩm AI, ra mắt chatbot/mascot, marketing, khán giả trẻ | Montserrat / Be Vietnam Pro (+ Dancing Script) | blobs + lụa + sóng chấm | vừa, mềm |
+| `corporate-navy` | trắng + navy đậm + vàng đồng, kẻ chỉ mảnh, thẻ phẳng góc vuông | ngân hàng, tài chính, báo cáo thường niên, họp HĐQT/đại hội cổ đông, cơ quan nhà nước | Barlow / Roboto | grid rất nhạt + dải navy-vàng trên đỉnh | gọn, fade, không blur |
+| `mono-keynote` | gần đen, chữ trắng rất to, mỗi trang một màu nhấn, nhiều khoảng trống | keynote sân khấu, ra mắt sản phẩm, tầm nhìn, diễn giả | Inter / Inter | none (vệt sáng sân khấu nhẹ) | chậm, fade |
+| `sunset-warm` | kem ấm, san hô / cam / đào / hồng, bo tròn mềm, mặt trời kẻ sọc | nhân sự, văn hoá doanh nghiệp, cộng đồng, marketing, bán lẻ, F&B | Montserrat / Open Sans | blobs ấm + mặt trời | vừa, rise |
+| `chalkboard` | bảng xanh rêu, khung gỗ, chữ phấn, phấn màu pastel, viền nét đứt | giảng dạy, lớp học, workshop, đào tạo, chia sẻ kiến thức | Baloo 2 / Nunito | mesh (bụi phấn) + hình vẽ phấn ở lề | vừa, không blur |
+| `ocean-fresh` | sáng, xanh biển / ngọc / da trời, sóng mềm, thẻ kính trong | logistics, y tế, du lịch, nước & biển, SaaS | Barlow / Open Sans | waves + đường sóng mảnh | vừa, mềm |
 
-Gợi ý theo khán giả: lãnh đạo cấp cao → `clean-minimal` / `editorial`; nhân viên nội bộ → `misa-glass` / `playful-edu`; nhà đầu tư → `bold-pitch` / `clean-minimal`; dev/kỹ sư → `midnight-tech`; khách mời sự kiện → `luxury-gold` / `vivid-gradient`.
+Gợi ý theo khán giả: lãnh đạo cấp cao → `clean-minimal` / `editorial` / `corporate-navy`; ngân hàng, tài chính, cơ quan nhà nước → `corporate-navy`; nhân viên nội bộ → `misa-glass` / `playful-edu` / `sunset-warm`; học viên, lớp học, workshop → `chalkboard` / `playful-edu`; nhà đầu tư → `bold-pitch` / `clean-minimal`; dev/kỹ sư → `midnight-tech`; khán giả sân khấu lớn → `mono-keynote`; người trẻ, sản phẩm AI → `ava-lavender` / `vivid-gradient`; khách hàng y tế, logistics, du lịch → `ocean-fresh`; khách mời sự kiện → `luxury-gold` / `vivid-gradient`.
 
-Theme tối (`midnight-tech`, `luxury-gold`, `vivid-gradient`) tự đặt logo trên nền sáng bo góc (`logo_plate`). Logo đã có bản trắng thì đặt `"logo_plate": false`.
+Theme tối (`midnight-tech`, `luxury-gold`, `vivid-gradient`, `mono-keynote`, `chalkboard`) tự đặt logo trên nền sáng bo góc (`logo_plate`). Logo đã có bản trắng thì đặt `"logo_plate": false`.
 
 ## Màu phần (palette)
 
@@ -39,6 +45,12 @@ Mỗi theme có 6 màu cho `data-p` 1..6, dùng qua `c-p1..c-p6` (thẻ, chip, i
 | luxury-gold | #D4AF37 | #E2B8A0 | #8FCFB2 | #B9A4E8 | #F0C987 | #9EC5F0 |
 | nature-green | #2F7D4F | #C2643A | #3A7CA5 | #7D8F2E | #B5884B | #6B5B95 |
 | vivid-gradient | #8B6CFF | #FF4D9D | #22D3EE | #FFB547 | #3DDC97 | #5B8CFF |
+| ava-lavender | #7B3FF2 | #E0367F | #4B5CFF | #0A9BB0 | #D9720F | #11996C |
+| corporate-navy | #1B4B8F | #A8741A | #1F7A55 | #8C2A3C | #4E5D7E | #13707E |
+| mono-keynote | #4C9BFF | #FF6B3D | #3FD68F | #B78CFF | #FFC23D | #FF5A8A |
+| sunset-warm | #E8572F | #D93A6E | #1E8C86 | #8E4DB0 | #C96F0E | #3E6FB0 |
+| chalkboard | #F7DC6F | #F5A3C0 | #9FD3F5 | #A8E6B8 | #F8B878 | #C9B3F2 |
+| ocean-fresh | #0A78BE | #0E9A9A | #3B5FD9 | #E5594B | #C98307 | #0F9A6A |
 
 Thương hiệu khách có màu riêng: giữ theme, ghi đè `"palette": ["#...", ...]` trong `deck.json`.
 
@@ -57,6 +69,12 @@ Ghép `<chủ thể cụ thể, ẩn dụ nội dung trang>. ` + đuôi prompt d
 | luxury-gold | Luxurious 3D render of polished gold and black onyx, soft caustic reflections, elegant minimal composition, single centered object, isolated on a pure flat white background (#FFFFFF), studio product lighting | ảnh sân khấu, đèn vàng ấm, bokeh, tối và sang |
 | nature-green | Soft watercolor and gouache botanical illustration, sage green, terracotta and warm beige, organic shapes, gentle texture, single subject, isolated on a pure flat white background (#FFFFFF) | ảnh thiên nhiên, cánh đồng, lá cây, ánh nắng sớm |
 | vivid-gradient | Glossy 3D abstract render, iridescent chrome and glass with vivid violet, hot pink and cyan gradients, dreamy lighting, single centered object, isolated on a pure flat white background (#FFFFFF) | ảnh concert/đám đông, ánh đèn màu, chuyển động |
+| ava-lavender | Soft glossy 3D render, rounded friendly shapes, pastel lavender, pink and periwinkle blue with white highlights, dreamy soft lighting, single centered subject with generous empty margin, isolated on a pure flat white background (#FFFFFF), soft contact shadow | ảnh người trẻ dùng điện thoại/laptop, ánh sáng tím-hồng dịu |
+| corporate-navy | Clean corporate 3D render, matte navy blue and white materials with small brushed-gold accents, precise geometric forms, single centered subject, isolated on a pure flat white background (#FFFFFF), soft studio lighting | ảnh toà nhà văn phòng, phòng họp, bắt tay, tông navy-xám, trang trọng |
+| mono-keynote | Minimal dramatic product render, matte black and graphite with one glowing accent light, high contrast studio lighting, single centered object, isolated on a pure flat white background (#FFFFFF) | ảnh sân khấu tối, một luồng đèn, diễn giả bóng đen, nhiều khoảng tối |
+| sunset-warm | Warm friendly 3D illustration, soft rounded shapes, coral, peach, orange and rose palette, cozy golden-hour lighting, single centered subject, isolated on a pure flat white background (#FFFFFF), soft shadow | ảnh con người, đồng nghiệp cười, cộng đồng, nắng chiều ấm |
+| chalkboard | Hand-drawn chalk illustration look, simple outlined doodle with soft pastel chalk fills (yellow, pink, light blue), playful classroom style, single subject, isolated on a pure flat white background (#FFFFFF) | ảnh lớp học, bàn học, sách vở, người học tập trung |
+| ocean-fresh | Clean glossy 3D render, translucent glass and water-like materials in aqua, teal and sky blue with white, fresh airy lighting, single centered subject, isolated on a pure flat white background (#FFFFFF), soft shadow | ảnh biển, cảng, tàu hàng, bệnh viện sáng sủa, bầu trời trong |
 
 Ảnh minh hoạ luôn đặt nguyên nền trắng trên thẻ bo góc (`.im`), KHÔNG tách nền.
 
@@ -75,9 +93,14 @@ Ghép `<chủ thể cụ thể, ẩn dụ nội dung trang>. ` + đuôi prompt d
 }
 ```
 
-- `fonts`: khoá trong `fonts/fonts.json`: `google-sans inter be-vietnam-pro montserrat playfair lora cormorant nunito baloo space-grotesk oswald lexend jetbrains-mono dancing-script`. Có `mono` (khối code) và `script` (chữ viết tay, class `.script`).
+- `fonts`: khoá trong `fonts/fonts.json`: `google-sans inter be-vietnam-pro montserrat playfair lora cormorant nunito baloo space-grotesk oswald lexend barlow roboto open-sans jetbrains-mono dancing-script`. Có `mono` (khối code) và `script` (chữ viết tay, class `.script`).
 - `bg`: `circuit blobs dots grid paper mesh waves stars confetti none`.
-- `motion`: `"calm"` (chậm 1.3×), `"normal"`, `"lively"` (nhanh 0.8×), `"none"` (gần như không hiệu ứng, cho máy yếu/in) hoặc object `{speed, blur, enter, big}`; `enter`: `slide fade zoom rise cut`; `big` (bìa, trang phần, statement, cảm ơn): `circle wipe fade zoom`.
+- `motion`: `"calm"` (chậm 1.3×), `"normal"`, `"lively"` (nhanh 0.8×), `"none"` (gần như không hiệu ứng, cho máy yếu/in) hoặc object `{speed, blur, enter, big}`; `enter` (trang thường) và `big` (bìa, trang phần, statement, cảm ơn) nhận mọi kiểu dưới đây.
+  - Một lớp (chỉ trang mới chuyển động): `slide fade zoom rise cut`, `circle wipe` (hợp trang lớn).
+  - Hai lớp (trang cũ và mới cùng chuyển động): `prezi` (lùi xa, lướt sang trang mới, zoom vào; hướng đổi theo số trang), `cube` (khối lập phương xoay), `flip` (lật thẻ), `zoomin` (bay xuyên vào trang), `stack` (rút thẻ trên cùng ra), `parallax` (đẩy có chiều sâu), `swirl` (xoáy).
+  - `mix`: luân phiên các kiểu hai lớp theo số trang.
+  - Riêng một trang: `<section class="slide" data-tr="cube">` (ghi đè `enter`/`big`).
+  - Gợi ý: bài sự kiện, ra mắt sản phẩm dùng `{"enter":"prezi","big":"zoomin"}`; báo cáo, đào tạo giữ `slide`/`fade` và chỉ đặt `data-tr` cho vài trang chuyển phần.
 - `title_case`: `"upper"` hoặc `"none"` (tiêu đề `.t` có viết HOA hay không).
 - `colors`: ghi đè token bất kỳ (bỏ dấu `--`).
 - `logo`: đường dẫn ảnh, hoặc `null` để bỏ logo hoàn toàn.
